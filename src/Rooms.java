@@ -7,7 +7,7 @@ class Rooms {
         // Initialize rooms (a 2D array)
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                room[i][j] = new Room(i, "", "", null);
+                room[i][j] = new Room(i, "", "", null, null);
             }
         }
 
@@ -17,6 +17,9 @@ class Rooms {
         room[0][0].setItems("wallet");
         room[0][0].setItems("remote");
         room[0][0].setItems("book");
+        room[0][0].setItems("socks");
+        room[0][0].setItems("pants");
+        room[0][0].setCreatures("mouse");
 
         room[0][1].setNumber(2);
         room[0][1].setName("Bedroom");
@@ -24,6 +27,8 @@ class Rooms {
                 "living room, north.");
         room[0][1].setItems("keys");
         room[0][1].setItems("flashlight");
+        room[0][1].setCreatures("spider");
+        room[0][0].setItems("shirt");
 
         room[1][1].setNumber(4);
         room[1][1].setName("Bathroom");
@@ -31,6 +36,8 @@ class Rooms {
                 "toothpaste. Gross. Exits: kitchen, north; bedroom, west.");
         room[1][1].setItems("toilet paper");
         room[1][1].setItems("magazine");
+        room[0][0].setItems("shoes");
+        room[1][1].setCreatures("fly");
 
         room[1][0].setNumber(3);
         room[1][0].setName("Kitchen");
@@ -38,13 +45,14 @@ class Rooms {
                 "living room, west.");
         room[1][0].setItems("pop tarts");
         room[1][0].setItems("soda");
-
+        room[1][0].setCreatures("bird");
     }
 
     public static void print(Room[][] room, int x, int y) {
 
         System.out.println(room[x][y].getDescription());
         System.out.println("You see: " + room[x][y].getItems());
+        System.out.println("There are creatures here: " + room[x][y].getCreatures());
         System.out.println();
     }
 
@@ -66,9 +74,10 @@ class Room {
     private String name;
     private String description;
     public ArrayList<String> items = new ArrayList<>();
+    public ArrayList<String> creatures = new ArrayList<>();
 
     public Room(int number, String name, String description,
-                ArrayList<String> items) {
+                ArrayList<String> items, ArrayList<String> creatures) {
     }
 
     public void setNumber(int number) {
@@ -99,6 +108,10 @@ class Room {
         this.items.add(item);
     }
 
+    public void setCreatures(String item) {
+        this.creatures.add(item);
+    }
+
     public void deleteItem(String item) {
         this.items.remove(item);
     }
@@ -109,5 +122,9 @@ class Room {
 
     public ArrayList<String> getItems() {
         return this.items;
+    }
+
+    public ArrayList<String> getCreatures() {
+        return this.creatures;
     }
 }

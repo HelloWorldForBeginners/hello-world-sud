@@ -16,6 +16,9 @@ public class Main {
         // Load inventory
         ArrayList<String> inventory = new ArrayList<>();
 
+        // Load equipment
+        ArrayList<String> equipment = new ArrayList<>();
+
         // Start game
         boolean playing = true;
         while (playing) {
@@ -63,7 +66,7 @@ public class Main {
                 if (input.substring(0, input.indexOf(' ')).equals("get")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String item = input.substring(input.indexOf(' ') + 1);
-                        Inventory.checkItem(x, y, item, inventory, room);
+                        Inventory.getItem(x, y, item, inventory, room);
                     }
                 }
             }
@@ -72,7 +75,25 @@ public class Main {
                 if (input.substring(0, input.indexOf(' ')).equals("put")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String item = input.substring(input.indexOf(' ') + 1);
-                        Inventory.checkInventory(x, y, item, inventory, room);
+                        Inventory.putItem(x, y, item, inventory, room);
+                    }
+                }
+            }
+
+            else if (input.length() > 6 && input.substring(0, 6).equals("equip ")) {
+                if (input.substring(0, input.indexOf(' ')).equals("equip")) {
+                    if (input.substring(input.indexOf(' ')).length() > 1) {
+                        String item = input.substring(input.indexOf(' ') + 1);
+                        Equipment.equipItem(x, y, item, inventory, equipment);
+                    }
+                }
+            }
+
+            else if (input.length() > 8 && input.substring(0, 8).equals("unequip ")) {
+                if (input.substring(0, input.indexOf(' ')).equals("unequip")) {
+                    if (input.substring(input.indexOf(' ')).length() > 1) {
+                        String item = input.substring(input.indexOf(' ') + 1);
+                        Equipment.unequipItem(x, y, item, inventory, equipment);
                     }
                 }
             }
@@ -81,6 +102,10 @@ public class Main {
             else if (input.equals("i") || input.equals("inv")
                     || input.equals("inventory")) {
                 Inventory.print(inventory);
+            }
+
+            else if (input.equals("equip") || input.equals("equipment")) {
+                Equipment.print(equipment);
             }
 
             // Quit commands

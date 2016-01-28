@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 class Inventory {
 
-    public static void checkItem(int x, int y, String item,
+    public static void getItem(int x, int y, String item,
                                  ArrayList<String> inventory, Room[][] room) {
 
         // Check if item is a valid room item
@@ -40,7 +40,7 @@ class Inventory {
         }
     }
 
-    public static void checkInventory(int x, int y, String item,
+    public static void putItem(int x, int y, String item,
                                  ArrayList<String> inventory, Room[][] room) {
 
 
@@ -86,4 +86,6 @@ class Inventory {
             System.out.println(item);
         }
     }
+
+
 }
