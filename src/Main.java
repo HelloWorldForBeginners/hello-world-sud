@@ -14,10 +14,10 @@ public class Main {
         Rooms.print(room, x, y);
 
         // Load inventory
-        ArrayList<String> inventory = new ArrayList<>();
+        ArrayList<Item> inventory = new ArrayList<>();
 
         // Load equipment
-        ArrayList<String> equipment = new ArrayList<>();
+        ArrayList<Item> equipment = new ArrayList<>();
 
         // Start game
         boolean playing = true;

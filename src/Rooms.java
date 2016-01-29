@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class Rooms {
 
@@ -14,55 +15,54 @@ class Rooms {
         room[0][0].setNumber(1);
         room[0][0].setName("Living Room");
         room[0][0].setDescription("You are in your living room. Exits: bedroom, south; kitchen, east.");
-        room[0][0].setItems("wallet");
-        room[0][0].setItems("remote");
-        room[0][0].setItems("book");
-        room[0][0].setItems("socks");
-        room[0][0].setItems("pants");
-        room[0][0].setCreatures("mouse");
+        //this doesn't appear to be setting the item
+        room[0][0].setItems( new Item("pants","equipment",1));
+
 
         room[0][1].setNumber(2);
         room[0][1].setName("Bedroom");
         room[0][1].setDescription("You are in your bedroom. Your closet is slightly ajar. Exits: bathroom, east; " +
                 "living room, north.");
-        room[0][1].setItems("keys");
-        room[0][1].setItems("flashlight");
-        room[0][1].setCreatures("spider");
-        room[0][0].setItems("shirt");
+        room[0][1].setItems( new Item("shirt","equipment",1));
+
 
         room[1][1].setNumber(4);
         room[1][1].setName("Bathroom");
         room[1][1].setDescription("You are in your bathroom. Someone has drawn abstract art on the wall with " +
                 "toothpaste. Gross. Exits: kitchen, north; bedroom, west.");
-        room[1][1].setItems("toilet paper");
-        room[1][1].setItems("magazine");
-        room[0][0].setItems("shoes");
-        room[1][1].setCreatures("fly");
+        room[1][1].setItems( new Item("shoes","equipment",1));
+
 
         room[1][0].setNumber(3);
         room[1][0].setName("Kitchen");
         room[1][0].setDescription("You are in your kitchen. Looks like someone had a party. Exits: bathroom, south; " +
                 "living room, west.");
-        room[1][0].setItems("pop tarts");
-        room[1][0].setItems("soda");
-        room[1][0].setCreatures("bird");
+        room[1][0].setItems( new Item("socks","equipment",1));
+
     }
 
     public static void print(Room[][] room, int x, int y) {
 
         System.out.println(room[x][y].getDescription());
-        System.out.println("You see: " + room[x][y].getItems());
-        System.out.println("There are creatures here: " + room[x][y].getCreatures());
+
+        //this is returning nulls for names
+        if (room[x][y].getItems().size() > 0) {
+            System.out.println("You see: " + room[x][y].getItems());
+        }
+
+        if (room[x][y].getCreatures().size() > 0) {
+            System.out.println("There are creatures here: " + room[x][y].getCreatures());
+        }
         System.out.println();
     }
 
     // Remove item from room when added to inventory
-    public static void removeItem(Room[][] room, int x, int y, String item) {
+    public static void removeItem(Room[][] room, int x, int y, Item item) {
 
         room[x][y].deleteItem(item);
     }
 
-    public static void addItem(Room[][] room, int x, int y, String item) {
+    public static void addItem(Room[][] room, int x, int y, Item item) {
 
         room[x][y].addItem(item);
     }
@@ -73,11 +73,12 @@ class Room {
     private int number;
     private String name;
     private String description;
-    public ArrayList<String> items = new ArrayList<>();
-    public ArrayList<String> creatures = new ArrayList<>();
+    public ArrayList<Item> items = new ArrayList<>();
+    public ArrayList<Item> creatures = new ArrayList<>();
 
-    public Room(int number, String name, String description,
-                ArrayList<String> items, ArrayList<String> creatures) {
+
+    public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<Item> creatures) {
+
     }
 
     public void setNumber(int number) {
@@ -104,27 +105,38 @@ class Room {
         return this.description;
     }
 
-    public void setItems(String item) {
+    public void setItems(Item item) {
         this.items.add(item);
+        System.out.println("setting item");
+        System.out.println(item.getName());
     }
 
-    public void setCreatures(String item) {
+    public void setCreatures(Item item) {
         this.creatures.add(item);
     }
 
-    public void deleteItem(String item) {
+    public void deleteItem(Item item) {
         this.items.remove(item);
     }
 
-    public void addItem(String item) {
+    public void addItem(Item item) {
         this.items.add(item);
     }
 
     public ArrayList<String> getItems() {
-        return this.items;
+        ArrayList<String> itemArray = new ArrayList<>();
+        for (Item i: this.items) {
+            itemArray.add(i.getName());
+            System.out.println(i);
+            System.out.println(i.getName());
+            System.out.println(i.getDescription());
+            System.out.println(i.getAmount());
+        }
+        return itemArray;
     }
 
-    public ArrayList<String> getCreatures() {
+
+    public ArrayList<Item> getCreatures() {
         return this.creatures;
     }
 }

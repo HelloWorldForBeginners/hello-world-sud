@@ -2,29 +2,31 @@ import java.util.ArrayList;
 
 class Inventory {
 
-    public static void getItem(int x, int y, String item,
-                                 ArrayList<String> inventory, Room[][] room) {
+    public static void getItem(int x, int y, String itemName,
+                                 ArrayList<Item> inventory, Room[][] room) {
 
         // Check if item is a valid room item
-        boolean validRoomItem = false;
-        for (String roomItems : room[x][y].items ) {
-            if (roomItems.equals(item)) {
-                validRoomItem = true;
+        boolean inRoom = false;
+        Item item = null;
+        for (Item roomItems : room[x][y].items ) {
+            if (roomItems.getName().equals(itemName)) {
+                inRoom = true;
+                item = roomItems;
                 break;
             }
         }
 
         // Check if item is already in inventory
         boolean inInventory = false;
-        for (String itemInInv: inventory) {
-            if (itemInInv.equals(item)) {
+        for (Item itemInInv: inventory) {
+            if (itemInInv.getName().equals(itemName)) {
                 inInventory = true;
                 break;
             }
         }
 
         // Text output
-        if (!inInventory && validRoomItem) {
+        if (!inInventory && inRoom) {
             System.out.println("You pick up the " + item + ".");
             inventory.add(item);
             Rooms.removeItem(room, x, y, item);
@@ -32,7 +34,7 @@ class Inventory {
         else if (inInventory) {
             System.out.println("You already have the " + item + ".");
         }
-        else if (!validRoomItem) {
+        else if (!inRoom) {
             System.out.println("You don't see that here.");
         }
         else {
@@ -40,23 +42,25 @@ class Inventory {
         }
     }
 
-    public static void putItem(int x, int y, String item,
-                                 ArrayList<String> inventory, Room[][] room) {
+    public static void putItem(int x, int y, String itemName,
+                                 ArrayList<Item> inventory, Room[][] room) {
 
 
         // Check if item is a valid inventory item
         boolean inInventory = false;
-        for (String itemInInv: inventory) {
-            if (itemInInv.equals(item)) {
+        Item item = null;
+        for (Item itemInInv: inventory) {
+            if (itemInInv.getName().equals(itemName)) {
                 inInventory = true;
+                item = itemInInv;
                 break;
             }
         }
 
         // Check if item is already in room
         boolean inRoom = false;
-        for (String roomItems : room[x][y].items ) {
-            if (roomItems.equals(item)) {
+        for (Item roomItems : room[x][y].items ) {
+            if (roomItems.getName().equals(itemName)) {
                 inRoom = true;
                 break;
             }
@@ -79,13 +83,12 @@ class Inventory {
         }
     }
 
-    public static void print(ArrayList<String> inventory) {
+    public static void print(ArrayList<Item> inventory) {
 
         System.out.println("Inventory:");
-        for (String item : inventory) {
-            System.out.println(item);
+        for (Item item : inventory) {
+            System.out.println(item.getName());
         }
     }
-
 
 }

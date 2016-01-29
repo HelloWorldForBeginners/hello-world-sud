@@ -2,23 +2,24 @@ import java.util.ArrayList;
 
 class Equipment {
 
-    public static void equipItem(int x, int y, String item,
-                                 ArrayList<String> inventory, ArrayList<String> equipment) {
-
+    public static void equipItem(int x, int y, String itemName,
+                                 ArrayList<Item> inventory, ArrayList<Item> equipment) {
 
         // Check if item is a valid inventory item
         boolean inInventory = false;
-        for (String inventoryItem : inventory ) {
-            if (inventoryItem.equals(item)) {
+        Item item = null;
+        for (Item i : inventory ) {
+            if (i.getName().equals(itemName)) {
                 inInventory = true;
+                item = i;
                 break;
             }
         }
 
         // Check if item is already equipped
         boolean equipped = false;
-        for (String itemEquipped: equipment) {
-            if (itemEquipped.equals(item)) {
+        for (Item e: equipment) {
+            if (e.getName().equals(itemName)) {
                 equipped = true;
                 break;
             }
@@ -27,12 +28,12 @@ class Equipment {
 
         // Text output
         if (!equipped && inInventory) {
-            System.out.println("You equip the " + item + ".");
+            System.out.println("You equip the " + itemName + ".");
             equipment.add(item);
             inventory.remove(item);
         }
         else if (equipped) {
-            System.out.println("You already have a " + item + " equipped.");
+            System.out.println("You already have a " + itemName + " equipped.");
         }
         else if (!inInventory) {
             System.out.println("You don't have that in your inventory.");
@@ -42,23 +43,17 @@ class Equipment {
         }
     }
 
-    public static void unequipItem(int x, int y, String item,
-                                 ArrayList<String> inventory, ArrayList<String> equipment) {
+    public static void unequipItem(int x, int y, String itemName,
+                                 ArrayList<Item> inventory, ArrayList<Item> equipment) {
 
 
         // Check if item is valid equipment
         boolean equipped = false;
-        for (String itemEquipped: equipment) {
-            if (itemEquipped.equals(item)) {
+        Item item = null;
+        for (Item e: equipment) {
+            if (e.getName().equals(itemName)) {
                 equipped = true;
-                break;
-            }
-        }
-
-        boolean inInventory = false;
-        for (String inventoryItem : inventory ) {
-            if (inventoryItem.equals(item)) {
-                inInventory = true;
+                item = e;
                 break;
             }
         }
@@ -66,28 +61,24 @@ class Equipment {
 
         // Text output
         if (equipped) {
-            System.out.println("You unequip the " + item + ".");
+            System.out.println("You unequip the " + itemName + ".");
             equipment.add(item);
             inventory.remove(item);
         }
         else if (equipped) {
-            System.out.println("The " + item + " is already equipped.");
+            System.out.println("The " + itemName + " is already equipped.");
         }
-        else if (!inInventory) {
-            System.out.println("You don't have one of those.");
-        }
+
         else {
             System.out.println("I don't understand.");
         }
     }
 
-
-
-    public static void print(ArrayList<String> equipment) {
+    public static void print(ArrayList<Item> equipment) {
 
         System.out.println("Equipment:");
-        for (String equip : equipment) {
-            System.out.println(equip);
+        for (Item equip : equipment) {
+            System.out.println(equip.getName());
         }
     }
 }
