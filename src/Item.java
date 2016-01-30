@@ -2,9 +2,14 @@ public class Item {
     private String name;
     private String description;
     private int amount;
+    private String type;
+    private String slot;
 
-    public Item(String name, String description, int amount) {
-
+    public Item(String name, String description, int amount, String type, String slot) {
+        this.name = name;
+        this.description = description;
+        this.amount = amount;
+        this.type = type;
     }
 
 
@@ -13,8 +18,7 @@ public class Item {
     }
 
     public String getName() {
-//        return this.name;
-        return "Derp";
+        return this.name;
     }
 
     public void setDescription(String description) {
@@ -33,4 +37,19 @@ public class Item {
         return this.amount;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setSlot(String slot) {
+        this.slot = slot;
+    }
+
+    public String getSlot() {
+        return this.slot;
+    }
 }

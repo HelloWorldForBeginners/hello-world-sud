@@ -104,8 +104,18 @@ public class Main {
                 Inventory.print(inventory);
             }
 
-            else if (input.equals("equip") || input.equals("equipment")) {
+            else if (input.equals("equip") || input.equals("equipment") || input.equals("eq")) {
                 Equipment.print(equipment);
+            }
+
+            // Misc commands
+            else if (input.equals("poop") || input.equals("pee") || input.equals("poo")) {
+                if (Rooms.getRoomName(room, x, y).equals("Bathroom")) {
+                    System.out.println("Hurray! You made it!");
+                }
+                else {
+                    System.out.println("Gross. What a mess.");
+                }
             }
 
             // Quit commands

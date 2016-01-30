@@ -14,46 +14,53 @@ class Rooms {
 
         room[0][0].setNumber(1);
         room[0][0].setName("Living Room");
-        room[0][0].setDescription("You are in your living room. Exits: bedroom, south; kitchen, east.");
-        //this doesn't appear to be setting the item
-        room[0][0].setItems( new Item("pants","equipment",1));
+        room[0][0].setDescription("You are in your living room.");
+        room[0][0].setExits("Exits: bedroom, south; kitchen, east.");
+        room[0][0].setItems( new Item("shirt","smelly",1,"equipment","body"));
+        room[0][0].setItems( new Item("jacket","cool",1,"equipment","body"));
 
 
         room[0][1].setNumber(2);
         room[0][1].setName("Bedroom");
-        room[0][1].setDescription("You are in your bedroom. Your closet is slightly ajar. Exits: bathroom, east; " +
-                "living room, north.");
-        room[0][1].setItems( new Item("shirt","equipment",1));
+        room[0][1].setDescription("You are in your bedroom. Your closet is slightly ajar.");
+        room[0][1].setExits("Exits: bathroom, east; living room, north.");
+        room[0][1].setItems( new Item("pants","wet",1,"equipment","legs"));
 
 
         room[1][1].setNumber(4);
         room[1][1].setName("Bathroom");
         room[1][1].setDescription("You are in your bathroom. Someone has drawn abstract art on the wall with " +
-                "toothpaste. Gross. Exits: kitchen, north; bedroom, west.");
-        room[1][1].setItems( new Item("shoes","equipment",1));
+                "toothpaste. Gross.");
+        room[1][1].setExits("Exits: kitchen, north; bedroom, west.");
+        room[1][1].setItems( new Item("shoes","smelly",1,"equipment","feet"));
+        room[1][1].setItems( new Item("toilet paper","cool",1,"item","none"));
 
 
         room[1][0].setNumber(3);
         room[1][0].setName("Kitchen");
-        room[1][0].setDescription("You are in your kitchen. Looks like someone had a party. Exits: bathroom, south; " +
-                "living room, west.");
-        room[1][0].setItems( new Item("socks","equipment",1));
-
+        room[1][0].setDescription("You are in your kitchen. Looks like someone had a party.");
+        room[1][0].setExits("Exits: bathroom, south; living room, west.");
+        room[1][0].setItems( new Item("gloves","stained",1,"equipment","hands"));
     }
 
     public static void print(Room[][] room, int x, int y) {
 
         System.out.println(room[x][y].getDescription());
-
-        //this is returning nulls for names
+        System.out.println(room[x][y].getExits());
+        System.out.println();
         if (room[x][y].getItems().size() > 0) {
             System.out.println("You see: " + room[x][y].getItems());
         }
-
+        System.out.println();
         if (room[x][y].getCreatures().size() > 0) {
             System.out.println("There are creatures here: " + room[x][y].getCreatures());
         }
         System.out.println();
+    }
+
+    public static String getRoomName(Room[][] room, int x, int y) {
+
+        return room[x][y].getName();
     }
 
     // Remove item from room when added to inventory
@@ -73,6 +80,7 @@ class Room {
     private int number;
     private String name;
     private String description;
+    private String exits;
     public ArrayList<Item> items = new ArrayList<>();
     public ArrayList<Item> creatures = new ArrayList<>();
 
@@ -105,10 +113,16 @@ class Room {
         return this.description;
     }
 
+    public void setExits(String exits) {
+        this.exits = exits;
+    }
+
+    public String getExits() {
+        return this.exits;
+    }
+
     public void setItems(Item item) {
         this.items.add(item);
-        System.out.println("setting item");
-        System.out.println(item.getName());
     }
 
     public void setCreatures(Item item) {
@@ -127,10 +141,6 @@ class Room {
         ArrayList<String> itemArray = new ArrayList<>();
         for (Item i: this.items) {
             itemArray.add(i.getName());
-            System.out.println(i);
-            System.out.println(i.getName());
-            System.out.println(i.getDescription());
-            System.out.println(i.getAmount());
         }
         return itemArray;
     }

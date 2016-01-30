@@ -7,8 +7,12 @@ class Equipment {
 
         // Check if item is a valid inventory item
         boolean inInventory = false;
+        boolean isEquipment = false;
         Item item = null;
         for (Item i : inventory ) {
+            if (i.getType().equals("equipment")) {
+                isEquipment = true;
+            }
             if (i.getName().equals(itemName)) {
                 inInventory = true;
                 item = i;
@@ -21,13 +25,19 @@ class Equipment {
         for (Item e: equipment) {
             if (e.getName().equals(itemName)) {
                 equipped = true;
+                item = e;
                 break;
             }
         }
 
+        // check if target slot of item to be equipped is already filled; swap if so
+//        String slot = "none";
+//                slot = e.getSlot();
+
+
 
         // Text output
-        if (!equipped && inInventory) {
+        if (!equipped && inInventory && isEquipment) {
             System.out.println("You equip the " + itemName + ".");
             equipment.add(item);
             inventory.remove(item);
@@ -37,6 +47,9 @@ class Equipment {
         }
         else if (!inInventory) {
             System.out.println("You don't have that in your inventory.");
+        }
+        else if (!isEquipment) {
+            System.out.println("You can't equip that, even though it would probably be hilarious.");
         }
         else {
             System.out.println("I don't understand.");
@@ -62,11 +75,11 @@ class Equipment {
         // Text output
         if (equipped) {
             System.out.println("You unequip the " + itemName + ".");
-            equipment.add(item);
-            inventory.remove(item);
+            equipment.remove(item);
+            inventory.add(item);
         }
-        else if (equipped) {
-            System.out.println("The " + itemName + " is already equipped.");
+        else if (!equipped) {
+            System.out.println("You don't have one of those equipped.");
         }
 
         else {

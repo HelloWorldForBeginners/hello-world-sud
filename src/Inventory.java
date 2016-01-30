@@ -27,12 +27,12 @@ class Inventory {
 
         // Text output
         if (!inInventory && inRoom) {
-            System.out.println("You pick up the " + item + ".");
+            System.out.println("You pick up the " + itemName + ".");
             inventory.add(item);
             Rooms.removeItem(room, x, y, item);
         }
         else if (inInventory) {
-            System.out.println("You already have the " + item + ".");
+            System.out.println("You already have the " + itemName + ".");
         }
         else if (!inRoom) {
             System.out.println("You don't see that here.");
@@ -68,15 +68,15 @@ class Inventory {
 
         // Text output
         if (inInventory && !inRoom) {
-            System.out.println("You put down the " + item + ".");
+            System.out.println("You put down the " + itemName + ".");
             inventory.remove(item);
             Rooms.addItem(room, x, y, item);
         }
         else if (inRoom) {
-            System.out.println("There is already a " + item + " here.");
+            System.out.println("There is already a " + itemName + " here.");
         }
         else if (!inInventory) {
-            System.out.println("You don't have one of those.");
+            System.out.println("You don't have one of those in your inventory.");
         }
         else {
             System.out.println("There's a problem here.");
