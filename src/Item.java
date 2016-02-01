@@ -1,35 +1,16 @@
-public class Item {
-    private String name;
-    private String description;
+public class Item extends GameObject {
     private int amount;
     private String type;
     private String slot;
 
     public Item(String name, String description, int amount, String type, String slot) {
-        this.name = name;
-        this.description = description;
+        super(name, description);
         this.amount = amount;
         this.type = type;
+        this.slot = slot;
     }
 
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setAMount(int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

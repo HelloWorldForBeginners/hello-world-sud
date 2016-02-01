@@ -8,16 +8,18 @@ public class Main {
         final int WIDTH = 2;
         final int HEIGHT = 2;
         Room[][] room = new Room[WIDTH][HEIGHT];
-        Rooms.build(room, WIDTH, HEIGHT);
+        World.build(room, WIDTH, HEIGHT);
         int x = 0;
         int y = 0;
-        Rooms.print(room, x, y);
+        World.print(room, x, y);
 
         // Load inventory
         ArrayList<Item> inventory = new ArrayList<>();
 
         // Load equipment
         ArrayList<Item> equipment = new ArrayList<>();
+
+        Player player = new Player("Matt","Awesome",inventory,equipment,"healthy");
 
         // Start game
         boolean playing = true;
@@ -29,28 +31,28 @@ public class Main {
             if (input.equals("n") || input.equals("north")) {
                 if (y > 0) {
                     y--;
-                    Rooms.print(room, x, y);
+                    World.print(room, x, y);
                 } else {
                     System.out.println("You can't go that way.");
                 }
             } else if (input.equals("s") || input.equals("south")) {
                 if (y < HEIGHT - 1) {
                     y++;
-                    Rooms.print(room, x, y);
+                    World.print(room, x, y);
                 } else {
                     System.out.println("You can't go that way.");
                 }
             } else if (input.equals("e") || input.equals("east")) {
                 if (x < WIDTH -1) {
                     x++;
-                    Rooms.print(room, x, y);
+                    World.print(room, x, y);
                 } else {
                     System.out.println("You can't go that way.");
                 }
             } else if (input.equals("w") || input.equals("west")) {
                 if (x > 0) {
                     x--;
-                    Rooms.print(room, x, y);
+                    World.print(room, x, y);
                 } else {
                     System.out.println("You can't go that way.");
                 }
@@ -58,7 +60,7 @@ public class Main {
 
             // Look commands
             else if (input.equals("look")) {
-                Rooms.print(room, x, y);
+                World.print(room, x, y);
             }
 
             // Get commands
@@ -99,9 +101,16 @@ public class Main {
             }
 
             // Inventory commands
-            else if (input.equals("i") || input.equals("inv")
-                    || input.equals("inventory")) {
+            else if (input.equals("i") || input.equals("inv") || input.equals("inventory")) {
                 Inventory.print(inventory);
+            }
+
+            else if (input.equals("equip") || input.equals("equipment") || input.equals("eq")) {
+                Equipment.print(equipment);
+            }
+
+            else if (input.equals("player")) {
+                Player.printPlayerInfo(player);
             }
 
             else if (input.equals("equip") || input.equals("equipment") || input.equals("eq")) {
@@ -110,7 +119,7 @@ public class Main {
 
             // Misc commands
             else if (input.equals("poop") || input.equals("pee") || input.equals("poo")) {
-                if (Rooms.getRoomName(room, x, y).equals("Bathroom")) {
+                if (World.getRoomName(room, x, y).equals("Bathroom")) {
                     System.out.println("Hurray! You made it!");
                 }
                 else {

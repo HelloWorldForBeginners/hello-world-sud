@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Equipment {
-
+// does it make sense to use a class here, vs a Map?
     public static void equipItem(int x, int y, String itemName,
                                  ArrayList<Item> inventory, ArrayList<Item> equipment) {
 

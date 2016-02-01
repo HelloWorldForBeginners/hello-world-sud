@@ -29,7 +29,7 @@ class Inventory {
         if (!inInventory && inRoom) {
             System.out.println("You pick up the " + itemName + ".");
             inventory.add(item);
-            Rooms.removeItem(room, x, y, item);
+            World.removeItem(room, x, y, item);
         }
         else if (inInventory) {
             System.out.println("You already have the " + itemName + ".");
@@ -70,7 +70,7 @@ class Inventory {
         if (inInventory && !inRoom) {
             System.out.println("You put down the " + itemName + ".");
             inventory.remove(item);
-            Rooms.addItem(room, x, y, item);
+            World.addItem(room, x, y, item);
         }
         else if (inRoom) {
             System.out.println("There is already a " + itemName + " here.");
