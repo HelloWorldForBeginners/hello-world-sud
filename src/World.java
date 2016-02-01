@@ -23,26 +23,32 @@ class World {
         room[0][0].setExits("Exits: cell, south; mess hall, east.");
         room[0][0].setItems( new Item("shirt","smelly",1,"equipment","body"));
         room[0][0].setItems( new Item("jacket","cool",1,"equipment","body"));
-        room[0][0].setCreatures( new Item("bugbear","scary",1,"monster",""));
+        room[0][0].setItems( new Item("shoes","smelly",1,"equipment","feet"));
+        room[0][0].setItems( new Item("boots","smelly",1,"equipment","feet"));
+        room[0][0].setCreatures( new Creature("bugbear","scary","monster"));
 
         room[0][1].setNumber(2);
         room[0][1].setName("Cell");
         room[0][1].setDescription("You are in a cell.");
         room[0][1].setExits("Exits: privy, east; dungeon, north.");
         room[0][1].setItems( new Item("pants","wet",1,"equipment","legs"));
+        room[0][1].setCreatures( new Creature("bunny","fluffy","critter"));
 
         room[1][1].setNumber(4);
         room[1][1].setName("Privy");
         room[1][1].setDescription("You are in the privy.");
         room[1][1].setExits("Exits: mess hall, north; cell, west.");
         room[1][1].setItems( new Item("shoes","smelly",1,"equipment","feet"));
+        room[1][1].setItems( new Item("boots","smelly",1,"equipment","feet"));
         room[1][1].setItems( new Item("toilet paper","cool",1,"item","none"));
+        room[1][1].setCreatures( new Creature("goblin","weak","monster"));
 
         room[1][0].setNumber(3);
         room[1][0].setName("Mess Hall");
         room[1][0].setDescription("You are in the mess hall.");
         room[1][0].setExits("Exits: privy, south; dungeon, west.");
         room[1][0].setItems( new Item("gloves","stained",1,"equipment","hands"));
+        room[1][0].setCreatures( new Creature("warg","fast","monster"));
     }
 
     public static void print(Room[][] room, int x, int y) {

@@ -25,10 +25,13 @@ __unequip x__
 unequips an item (x) and places it in your inventory
 
 __equip, eq__
-shows your equipment
+shows player equipment
 
 __inventory, inv, i__
-shows your inventory
+shows player inventory
+
+__player, p__
+shows player info, including name, status, inventory, equipment
 
 __quit__
 closes the game
@@ -40,11 +43,11 @@ closes the game
 ### Fixes
 
 * Fix the input class/command recognition
-* Genericize the Item/Creatures class
+* ~~Genericize the Item/Creatures class~~ DONE
 
 ### Enhancements - Features
 
-* Player class
+* ~~Player class~~ DONE
 * Combat
 * Equipment stats
 * Loot
@@ -52,6 +55,7 @@ closes the game
 
 ### Enhancements - Code
 
+* ~~Equipment as a map; unequip from slot if the slot exists in the map~~ DONE
 * Separate class? to generate all creatures, loot, items at runtime
 
 ### Stretch goal

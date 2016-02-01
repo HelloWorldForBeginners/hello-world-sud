@@ -7,10 +7,10 @@ class Room {
     private String description;
     private String exits;
     public ArrayList<Item> items = new ArrayList<>();
-    public ArrayList<Item> creatures = new ArrayList<>();
+    public ArrayList<Creature> creatures = new ArrayList<>();
 
 
-    public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<Item> creatures) {
+    public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<Creature> creatures) {
 
     }
 
@@ -58,14 +58,14 @@ class Room {
         return itemArray;
     }
 
-    public void setCreatures(Item item) {
-        this.creatures.add(item);
+    public void setCreatures(Creature creature) {
+        this.creatures.add(creature);
     }
 
     public ArrayList<String> getCreatures() {
         ArrayList<String> itemArray = new ArrayList<>();
-        for (Item i: this.creatures) {
-            itemArray.add(i.getName());
+        for (Creature c: this.creatures) {
+            itemArray.add(c.getName());
         }
         return itemArray;
     }

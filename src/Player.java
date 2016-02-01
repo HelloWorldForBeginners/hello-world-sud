@@ -1,11 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Player extends GameObject {
     private ArrayList<Item> inventory = new ArrayList<>();
-    private ArrayList<Item> equipment = new ArrayList<>();
+    private HashMap equipment = new HashMap<String, Item>();
     private String status;
 
-    public Player(String name, String description, ArrayList<Item> inventory, ArrayList<Item> equipment, String status) {
+    public Player(String name, String description, ArrayList<Item> inventory, HashMap<String, Item> equipment, String status) {
         super(name, description);
         this.inventory = inventory;
         this.equipment = equipment;
@@ -20,11 +22,11 @@ public class Player extends GameObject {
         }
     }
 
-    public void printEquipment(ArrayList<Item> equipment) {
-
+    public void printEquipment(HashMap<String, Item> equipment) {
+//fix this to read from map
         System.out.println("Equipment:");
-        for (Item item : equipment) {
-            System.out.println(item.getName());
+        for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getName());
         }
     }
 
@@ -36,7 +38,9 @@ public class Player extends GameObject {
     public static void printPlayerInfo(Player player) {
         System.out.println("Name: " + player.getName());
         System.out.println("Status: " + player.status);
+        System.out.println();
         player.printInventory(player.inventory);
+        System.out.println();
         player.printEquipment(player.equipment);
     }
 }

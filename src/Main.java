@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -17,9 +19,9 @@ public class Main {
         ArrayList<Item> inventory = new ArrayList<>();
 
         // Load equipment
-        ArrayList<Item> equipment = new ArrayList<>();
+        HashMap equipment = new HashMap<String, Item>();
 
-        Player player = new Player("Matt","Awesome",inventory,equipment,"healthy");
+        Player player = new Player("Matt","Awesome", inventory, equipment, "healthy");
 
         // Start game
         boolean playing = true;
