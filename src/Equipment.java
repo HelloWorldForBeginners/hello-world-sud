@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 class Equipment {
-// does it make sense to use a class here, vs a Map?
-    public static void equipItem(int x, int y, String itemName,
-                                 ArrayList<Item> inventory, HashMap<String, Item> equipment) {
+
+    public static void equipItem(int x, int y, String itemName, Player player) {
+//            ,
+//                                 ArrayList<Item> inventory, HashMap<String, Item> equipment) {
 
         // Check if item is a valid inventory item
         boolean inInventory = false;
@@ -14,7 +15,7 @@ class Equipment {
         //get item from master item list to prevent null pointer exception
         //this also would remove the need to set the item object when matching the inventory by string input
 
-        for (Item i : inventory ) {
+        for (Item i : player.getInventory() ) {
             if (i.getType().equals("equipment")) {
                 isEquipment = true;
             }
@@ -27,7 +28,7 @@ class Equipment {
 
         // Check if item is already equipped
         boolean equipped = false;
-        for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
+        for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
             if (entry.getValue().getName().equals(itemName)) {
                 equipped = true;
                 item = entry.getValue();
@@ -36,10 +37,10 @@ class Equipment {
         }
 
         // checks if target slot of item to be equipped is already filled; unequip if so
-        for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
+        for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
             if (entry.getKey().equals(item.getSlot())) {
                 unequipThisItem = entry.getValue().getName();
-                Equipment.unequipItem(x, y, unequipThisItem, inventory, equipment);
+                Equipment.unequipItem(x, y, unequipThisItem, player);
             }
         }
 
@@ -47,8 +48,8 @@ class Equipment {
         if (!equipped && inInventory && isEquipment) {
             System.out.println("You equip the " + itemName + ".");
             //check if slot exists in map
-            equipment.put(item.getSlot(),item);
-            inventory.remove(item);
+            player.getEquipment().put(item.getSlot(),item);
+            player.getInventory().remove(item);
         }
         else if (equipped) {
             System.out.println("You already have a " + itemName + " equipped.");
@@ -64,15 +65,14 @@ class Equipment {
         }
     }
 
-    public static void unequipItem(int x, int y, String itemName,
-                                 ArrayList<Item> inventory, HashMap<String, Item> equipment) {
+    public static void unequipItem(int x, int y, String itemName, Player player) {
 
 
         // Check if item is valid equipment
         boolean equipped = false;
         Item item = null;
 
-        for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
+        for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
             if (entry.getValue().getName().equals(itemName)) {
                 equipped = true;
                 item = entry.getValue();
@@ -82,8 +82,8 @@ class Equipment {
         // Text output
         if (equipped) {
             System.out.println("You unequip the " + itemName + ".");
-            equipment.remove(item);
-            inventory.add(item);
+            player.getEquipment().remove(item);
+            player.getInventory().add(item);
         }
         else if (!equipped) {
             System.out.println("You don't have one of those equipped.");

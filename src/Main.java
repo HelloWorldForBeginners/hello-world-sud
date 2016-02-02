@@ -21,7 +21,7 @@ public class Main {
         // Load equipment
         HashMap equipment = new HashMap<String, Item>();
 
-        Player player = new Player("Matt","Awesome", inventory, equipment, "healthy");
+        Player player = new Player("Matt", "Awesome", 1, 0, 10, 10, 10, 1, 1, inventory, equipment);
 
         // Start game
         boolean playing = true;
@@ -66,11 +66,22 @@ public class Main {
             }
 
             // Get commands
+            else if (input.length() > 5  && input.substring(0, 5).equals("look ")) {
+                if (input.substring(0, input.indexOf(' ')).equals("look")) {
+                    if (input.substring(input.indexOf(' ')).length() > 1) {
+                        String target = input.substring(input.indexOf(' ') + 1);
+                        Inventory.getItem(x, y, target, player, room);
+
+                    }
+                }
+            }
+
+            // Get commands
             else if (input.length() > 4  && input.substring(0, 4).equals("get ")) {
                 if (input.substring(0, input.indexOf(' ')).equals("get")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String item = input.substring(input.indexOf(' ') + 1);
-                        Inventory.getItem(x, y, item, inventory, room);
+                        Inventory.getItem(x, y, item, player, room);
                     }
                 }
             }
@@ -79,7 +90,7 @@ public class Main {
                 if (input.substring(0, input.indexOf(' ')).equals("put")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String item = input.substring(input.indexOf(' ') + 1);
-                        Inventory.putItem(x, y, item, inventory, room);
+                        Inventory.putItem(x, y, item, player, room);
                     }
                 }
             }
@@ -88,7 +99,7 @@ public class Main {
                 if (input.substring(0, input.indexOf(' ')).equals("equip")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String item = input.substring(input.indexOf(' ') + 1);
-                        Equipment.equipItem(x, y, item, inventory, equipment);
+                        Equipment.equipItem(x, y, item, player);
                     }
                 }
             }
@@ -97,7 +108,7 @@ public class Main {
                 if (input.substring(0, input.indexOf(' ')).equals("unequip")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String item = input.substring(input.indexOf(' ') + 1);
-                        Equipment.unequipItem(x, y, item, inventory, equipment);
+                        Equipment.unequipItem(x, y, item, player);
                     }
                 }
             }
