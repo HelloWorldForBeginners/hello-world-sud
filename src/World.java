@@ -1,3 +1,6 @@
+import java.io.File;
+import java.util.Scanner;
+
 /**
 * Created by matt on 1/31/16.
 */
@@ -12,6 +15,8 @@ class World {
                 room[i][j] = new Room(i, "", "", null, null);
             }
         }
+
+
 
         room[0][0].setNumber(1);
         room[0][0].setName("Dungeon");
@@ -46,6 +51,7 @@ class World {
         room[1][0].setItems( new Item("gloves","stained",1,"equipment","hands",1));
         room[1][0].setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
     }
+
 
     public static void print(Room[][] room, int x, int y) {
 

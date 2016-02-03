@@ -28,6 +28,9 @@ public class Main {
 
             // Movement commands
             if (input.equals("n") || input.equals("north")) {
+
+                // use try catch here to account for missing entries in the room 2d array
+                // i.e. the shape of the world may not be square
                 if (y > 0) {
                     y--;
                     World.print(room, x, y);
