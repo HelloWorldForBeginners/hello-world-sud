@@ -4,8 +4,6 @@ import java.util.HashMap;
 class Equipment {
 
     public static void equipItem(int x, int y, String itemName, Player player) {
-//            ,
-//                                 ArrayList<Item> inventory, HashMap<String, Item> equipment) {
 
         // Check if item is a valid inventory item
         boolean inInventory = false;
@@ -37,10 +35,12 @@ class Equipment {
         }
 
         // checks if target slot of item to be equipped is already filled; unequip if so
-        for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
-            if (entry.getKey().equals(item.getSlot())) {
-                unequipThisItem = entry.getValue().getName();
-                Equipment.unequipItem(x, y, unequipThisItem, player);
+        if (item != null) {
+            for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
+                if (entry.getKey().equals(item.getSlot())) {
+                    unequipThisItem = entry.getValue().getName();
+                    Equipment.unequipItem(x, y, unequipThisItem, player);
+                }
             }
         }
 

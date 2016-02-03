@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
 
@@ -21,7 +20,7 @@ public class Main {
         // Load equipment
         HashMap equipment = new HashMap<String, Item>();
 
-        Player player = new Player("Matt", "Awesome", 1, 0, 10, 10, 10, 1, 1, inventory, equipment);
+        Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1, inventory, equipment);
 
         // Start game
         boolean playing = true;
@@ -66,11 +65,28 @@ public class Main {
             }
 
             // Get commands
-            else if (input.length() > 5  && input.substring(0, 5).equals("look ")) {
-                if (input.substring(0, input.indexOf(' ')).equals("look")) {
+            else if (input.length() > 6  && input.substring(0, 6).equals("check ")) {
+                if (input.substring(0, input.indexOf(' ')).equals("check")) {
                     if (input.substring(input.indexOf(' ')).length() > 1) {
                         String target = input.substring(input.indexOf(' ') + 1);
-                        Inventory.getItem(x, y, target, player, room);
+
+                        // this could probably be improved; want to use the same command to
+                        // check items and creatures in the room
+                        if (NonPlayer.printNonPlayerInfo(target, room, x, y).equals("")) {
+                            Item.printItemInfo(target, room, x, y);
+                        }
+                    }
+                }
+
+            }
+
+            else if (input.length() > 7  && input.substring(0, 7).equals("attack ")) {
+                if (input.substring(0, input.indexOf(' ')).equals("attack")) {
+                    if (input.substring(input.indexOf(' ')).length() > 1) {
+                        String target = input.substring(input.indexOf(' ') + 1);
+
+                        // processAttackRound
+                        NonPlayer.attackNonPlayer(target, room, x, y, player);
 
                     }
                 }

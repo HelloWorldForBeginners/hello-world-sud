@@ -18,19 +18,43 @@ public class Item extends GameObject {
         return this.amount;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getType() {
         return this.type;
+    }
+
+    public String getSlot() {
+        return this.slot;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setSlot(String slot) {
         this.slot = slot;
     }
 
-    public String getSlot() {
-        return this.slot;
+    public static String printItemInfo(String target, Room[][] room, int x, int y) {
+
+        Item item = null;
+        String result = "";
+
+        for (Item checkItem: room[x][y].items ) {
+            if (checkItem.getName().equals(target)) {
+                item = checkItem;
+                break;
+            }
+        }
+
+        if (item != null) {
+            System.out.println("Name: " + item.getName() + "(" + item.getAmount() + ")");
+            System.out.println(item.getDescription());
+            System.out.println(item.getType());
+            System.out.println(item.getSlot());
+            System.out.println();
+            result = "item";
+        }
+
+        return result;
     }
 }

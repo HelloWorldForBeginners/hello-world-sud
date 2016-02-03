@@ -1,11 +1,10 @@
-import com.sun.javafx.collections.ArrayListenerHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Character extends GameObject {
 
     private int level;
+    private int money;
     private int exp;
     private int hitPoints;
     private int maxHitPoints;
@@ -14,10 +13,11 @@ public class Character extends GameObject {
     private ArrayList<Item> inventory = new ArrayList<>();
     private HashMap equipment = new HashMap<String, Item>();
 
-    public Character(String name, String description, int level, int exp, int hitPoints, int maxHitPoints,
+    public Character(String name, String description, int level, int money, int exp, int hitPoints, int maxHitPoints,
                      int attack, int defense, ArrayList<Item> inventory, HashMap<String, Item> equipment) {
         super(name, description);
         this.level = level;
+        this.money = money;
         this.exp = exp;
         this.hitPoints = hitPoints;
         this.maxHitPoints = maxHitPoints;
@@ -67,15 +67,35 @@ public class Character extends GameObject {
 
     public int getAttack() { return this.attack; }
 
-    public int getDefense() { return this.attack; }
+    public int getDefense() { return this.defense; }
 
-    public int getExp() { return this.attack; }
+    public int getExp() { return this.exp; }
 
-    public static void printNonPlayerInfo(Character nonPlayer) {
-        System.out.println("Name: " + nonPlayer.getName() + "(" + nonPlayer.level + ")");
-        System.out.println("HP: " + nonPlayer.hitPoints + "/" + nonPlayer.maxHitPoints);
-        System.out.println("Attack: " + nonPlayer.attack);
-        System.out.println("Defense: " + nonPlayer.defense);
-        System.out.println();
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = inventory;
+    }
+
+    public void setEquipment(HashMap equipment) {
+        this.equipment = equipment;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

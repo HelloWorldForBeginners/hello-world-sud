@@ -7,7 +7,7 @@ class Room {
     private String description;
     private String exits;
     public ArrayList<Item> items = new ArrayList<>();
-    public ArrayList<Character> creatures = new ArrayList<>();
+    public ArrayList<NonPlayer> creatures = new ArrayList<>();
 
 
     public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<Character> creatures) {
@@ -16,6 +16,14 @@ class Room {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    public void setCreatures(ArrayList<NonPlayer> creatures) {
+        this.creatures = creatures;
     }
 
     public int getNumber() {
@@ -58,7 +66,7 @@ class Room {
         return itemArray;
     }
 
-    public void setCreatures(Character creature) {
+    public void setCreatures(NonPlayer creature) {
         this.creatures.add(creature);
     }
 
