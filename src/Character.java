@@ -30,7 +30,7 @@ public class Character extends GameObject {
     public static void printEquipment(HashMap<String, Item> equipment) {
 
         System.out.println("Equipment:");
-        for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
+        for (HashMap.Entry<String, Item> entry : equipment.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().getName());
         }
     }
@@ -43,52 +43,68 @@ public class Character extends GameObject {
         }
     }
 
-    public ArrayList<Item> getInventory() { return this.inventory; }
-
-    public HashMap<String, Item> getEquipment() { return this.equipment; }
-
-    public void setLevel(int level) { this.level = level; }
-
-    public int getLevel() {
-        return this.level;
-    }
-
-    public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
-
-    public int getHitPoints() {
-        return this.hitPoints;
-    }
-
-    public void setMaxHitPoints(int maxHitPoints) { this.maxHitPoints = maxHitPoints; }
-
-    public int getMaxHitPoints() {
-        return this.maxHitPoints;
-    }
-
-    public int getAttack() { return this.attack; }
-
-    public int getDefense() { return this.defense; }
-
-    public int getExp() { return this.exp; }
-
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public ArrayList<Item> getInventory() {
+        return this.inventory;
     }
 
     public void setInventory(ArrayList<Item> inventory) {
         this.inventory = inventory;
     }
 
+    public HashMap<String, Item> getEquipment() {
+        return this.equipment;
+    }
+
     public void setEquipment(HashMap equipment) {
         this.equipment = equipment;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getHitPoints() {
+        return this.hitPoints;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public int getMaxHitPoints() {
+        return this.maxHitPoints;
+    }
+
+    public void setMaxHitPoints(int maxHitPoints) {
+        this.maxHitPoints = maxHitPoints;
+    }
+
+    public int getAttack() {
+        return this.attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDefense() {
+        return this.defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getExp() {
+        return this.exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 
     public int getMoney() {

@@ -9,7 +9,6 @@ class Room {
     public ArrayList<Item> items = new ArrayList<>();
     public ArrayList<NonPlayer> creatures = new ArrayList<>();
 
-
     public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<Character> creatures) {
 
     }

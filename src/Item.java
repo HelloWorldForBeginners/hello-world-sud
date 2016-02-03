@@ -2,12 +2,14 @@ public class Item extends GameObject {
     private int amount;
     private String type;
     private String slot;
+    private int defense;
 
-    public Item(String name, String description, int amount, String type, String slot) {
+    public Item(String name, String description, int amount, String type, String slot, int defense) {
         super(name, description);
         this.amount = amount;
         this.type = type;
         this.slot = slot;
+        this.defense = defense;
     }
 
     public void setAmount(int amount) {
@@ -34,6 +36,14 @@ public class Item extends GameObject {
         this.slot = slot;
     }
 
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
     public static String printItemInfo(String target, Room[][] room, int x, int y) {
 
         Item item = null;
@@ -51,6 +61,7 @@ public class Item extends GameObject {
             System.out.println(item.getDescription());
             System.out.println(item.getType());
             System.out.println(item.getSlot());
+            System.out.println(item.getDefense());
             System.out.println();
             result = "item";
         }

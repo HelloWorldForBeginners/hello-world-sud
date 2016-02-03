@@ -16,10 +16,8 @@ public class Main {
 
         // Load inventory
         ArrayList<Item> inventory = new ArrayList<>();
-
         // Load equipment
         HashMap equipment = new HashMap<String, Item>();
-
         Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1, inventory, equipment);
 
         // Start game

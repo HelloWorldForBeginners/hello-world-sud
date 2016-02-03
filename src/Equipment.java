@@ -50,6 +50,7 @@ class Equipment {
             //check if slot exists in map
             player.getEquipment().put(item.getSlot(),item);
             player.getInventory().remove(item);
+            player.setDefense(player.getDefense() + item.getDefense());
         }
         else if (equipped) {
             System.out.println("You already have a " + itemName + " equipped.");
@@ -84,6 +85,7 @@ class Equipment {
             System.out.println("You unequip the " + itemName + ".");
             player.getEquipment().remove(item);
             player.getInventory().add(item);
+            player.setDefense(player.getDefense() - item.getDefense());
         }
         else if (!equipped) {
             System.out.println("You don't have one of those equipped.");

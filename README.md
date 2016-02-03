@@ -1,4 +1,4 @@
-# TextAdventure, and Adventure Game
+# TextAdventure, an Adventure Game
 
 ## Commands
 ### Navigation
@@ -48,8 +48,8 @@ closes the game
 ### Enhancements - Features
 
 * ~~Player class~~ DONE
-* Combat
-* Equipment stats
+* ~~Basic Combat~~
+* ~~Equipment stats (defense)~~
 * Loot
 * Game saves
 
