@@ -1,3 +1,4 @@
+package com.knightsofsomethingnotable;
 import java.util.ArrayList;
 
 class Room {

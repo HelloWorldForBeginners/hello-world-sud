@@ -1,3 +1,4 @@
+package com.knightsofsomethingnotable;
 public class Item extends GameObject {
     private int amount;
     private String type;
