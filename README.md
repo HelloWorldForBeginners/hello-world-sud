@@ -10,31 +10,37 @@ s, south
 ### Other
 
 __look__
-Return information about the room, including exits, items present, creatures present
+* returns information about the room, including exits, items present, creatures present
+
+__check__
+* returns information about an item or creature in the room
+
+__attack x__
+* initiates combat with creature (x) in the room
 
 __get x__
-moves an item (x) from the room into your inventory
+* moves an item (x) from the room into your inventory
 
 __put x__
-moves an item (x) from your inventory to the room
+* moves an item (x) from your inventory to the room
 
 __equip x__
-equips an item (x) from your inventory
+* equips an item (x) from your inventory
 
 __unequip x__
-unequips an item (x) and places it in your inventory
+* unequips an item (x) and places it in your inventory
 
-__equip, eq__
-shows player equipment
+__equipment, equip, eq__
+* shows player equipment
 
 __inventory, inv, i__
-shows player inventory
+* shows player inventory
 
 __player, p__
-shows player info, including name, status, inventory, equipment
+* shows player info, including name, status, inventory, equipment
 
 __quit__
-closes the game
+* closes the game
 
 
 

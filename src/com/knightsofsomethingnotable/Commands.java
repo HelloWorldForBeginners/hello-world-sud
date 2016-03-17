@@ -10,11 +10,13 @@ public class Commands {
         // System commands
         INVENTORY,
         INV,
-        EQ,
-        EQUIP,
+        I,
         EQUIPMENT,
+        EQUIP,
+        EQ,
         UNEQUIP,
         PLAYER,
+        P,
         RESTORE,
         SAVE,
         RESTART,
@@ -59,6 +61,7 @@ public class Commands {
 			switch (command) {
 			case INVENTORY:
 			case INV:
+			case I:
 				Inventory.print(inventory);
 				break;
 			case EQUIP:
@@ -75,6 +78,7 @@ public class Commands {
 			case UNEQUIP:
 				Equipment.unequipItem(x, y, target, player);
 				break;
+			case P:
 			case PLAYER:
 				Player.printPlayerInfo(player);
 				break;
