@@ -121,7 +121,9 @@ public class NonPlayer extends Character {
             nonPlayer.setHitPoints(targetMaxHitPoints);
             System.out.println(player.getName() + " has defeated the " + nonPlayer.getName() + "!");
             // remove creature from room list
-
+            
+            Main.combat = false;
+            
             if (playerNewExp >= playerExpToNextLevel) {
                 player.setLevel(playerLevel + 1);
                 player.setExpToNextLevel((int) Math.round(playerExpToNextLevel * 1.5));

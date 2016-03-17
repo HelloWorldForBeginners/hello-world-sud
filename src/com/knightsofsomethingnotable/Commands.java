@@ -49,18 +49,17 @@ public class Commands {
     	Command command;
     	String target;
     	
-//    	private int HEIGHT = World.HEIGHT;
-    	
     	public CommandTest(Command command, String target) {
     		this.command = command;
     		this.target = target;
     	}
 
+    	//TODO: reduce redundant logic in the directional cases
 		public void TakeAction(int WIDTH, int HEIGHT, int x, int y, Room[][] room, ArrayList<Item> inventory, HashMap<String, Item> equipment, Player player, boolean playing) {
 			switch (command) {
 			case INVENTORY:
 			case INV:
-                Inventory.print(inventory);
+				Inventory.print(inventory);
 				break;
 			case EQUIP:
 				if (target != "") {
@@ -81,39 +80,56 @@ public class Commands {
 				break;
 			case WEST:
 			case W:
-				if (x > 0) {
+				//TODO: work on this logic. Indicate that exit doesn't exist AND/OR in combat.
+				if (x > 0 && Main.combat == false) {
 					Main.x--;
 					World.print(room, Main.x, Main.y);
 				} else {
 					System.out.println(noGo);
+					if (Main.combat == true) {
+						System.out.println("Also, you're in combat!");
+						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					}
 				}
 				break;
 			case EAST:
 			case E:
-				if (x < WIDTH - 1) {
+				if (x < WIDTH - 1 && Main.combat == false) {
 					Main.x++;
 					World.print(room, Main.x, Main.y);
 				} else {
 					System.out.println(noGo);
+					if (Main.combat == true) {
+						System.out.println("Also, you're in combat!");
+						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					}
 				}
 				
 				break;
 			case NORTH:
 			case N:
-				if (y > 0) {
+				if (y > 0 && Main.combat == false) {
 					Main.y--;
 					World.print(room, Main.x, Main.y);
 				} else {
 					System.out.println(noGo);
+					if (Main.combat == true) {
+						System.out.println("Also, you're in combat!");
+						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					}
 				}
 				break;
 			case SOUTH:
 			case S:
-				if (y < HEIGHT - 1) {
+				if (y < HEIGHT - 1 && Main.combat == false) {
 					Main.y++;
 					World.print(room, Main.x, Main.y);
 				} else {
 					System.out.println(noGo);
+					if (Main.combat == true) {
+						System.out.println("Also, you're in combat!");
+						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					}
 				}
 				break;
 			case CALL:
@@ -130,7 +146,7 @@ public class Commands {
 				break;
 			case ATTACK:
 				NonPlayer.attackNonPlayer(target, room, x, y, player);
-				
+				Main.combat = true;
 				break;
 			case KILL:
 				break;

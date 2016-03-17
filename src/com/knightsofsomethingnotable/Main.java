@@ -8,7 +8,7 @@ public class Main {
     static int y = 0;
     // start game
     static boolean playing = true;
-    static boolean combat = true;
+    static boolean combat = false;
     // define room array sizes
     static final int WIDTH = 2;
     static final int HEIGHT = 2;
@@ -18,7 +18,7 @@ public class Main {
     static ArrayList<Item> inventory = new ArrayList<>();
     static HashMap<String, Item> equipment = new HashMap<String, Item>();
     
-    //this seems messy. Change to default values in constructor
+    //TODO: this seems messy. Change to default values in constructor
     static Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1, inventory, equipment);
 
     
