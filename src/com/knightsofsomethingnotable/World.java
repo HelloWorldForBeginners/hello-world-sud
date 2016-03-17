@@ -1,6 +1,5 @@
 package com.knightsofsomethingnotable;
-import java.io.File;
-import java.util.Scanner;
+
 
 /**
 * Created by matt on 1/31/16.
@@ -16,8 +15,6 @@ class World {
                 room[i][j] = new Room(i, "", "", null, null);
             }
         }
-
-
 
         room[0][0].setNumber(1);
         room[0][0].setName("Dungeon");
@@ -84,4 +81,8 @@ class World {
 
         room[x][y].addItem(item);
     }
+    
+//    public int getHeight() {
+//    	return world.HEIGHT;
+//    }
 }

@@ -20,8 +20,9 @@ public class Player extends Character {
         System.out.println("Exp: " + player.getExp() + "/" + player.expToNextLevel);
         System.out.println("Money: " + player.getMoney());
         System.out.println();
-        player.printInventory(player.getInventory());
-        player.printEquipment(player.getEquipment());
+        Character.printInventory(player.getInventory());
+        System.out.println();
+        Character.printEquipment(player.getEquipment());
     }
 
     public int getExpToNextLevel() {

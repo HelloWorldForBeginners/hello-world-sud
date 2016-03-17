@@ -51,7 +51,6 @@ public class NonPlayer extends Character {
         int playerNewExp;
 
         int targetAttack;
-        int targetDefense;
         int targetHitPoints;
         int targetMaxHitPoints;
         int targetExp;
@@ -84,7 +83,6 @@ public class NonPlayer extends Character {
 
         // get target attack, defense, hp, exp
         targetAttack = nonPlayer.getAttack();
-        targetDefense = nonPlayer.getDefense();
         targetHitPoints = nonPlayer.getHitPoints();
         targetMaxHitPoints = nonPlayer.getMaxHitPoints();
         targetExp = nonPlayer.getExp();

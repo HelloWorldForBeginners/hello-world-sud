@@ -60,9 +60,9 @@ public class Item extends GameObject {
         if (item != null) {
             System.out.println("Name: " + item.getName() + "(" + item.getAmount() + ")");
             System.out.println(item.getDescription());
-            System.out.println(item.getType());
-            System.out.println(item.getSlot());
-            System.out.println(item.getDefense());
+            System.out.println("Type: " + item.getType());
+            System.out.println("Slot: " + item.getSlot());
+            System.out.println("Def: " + item.getDefense());
             System.out.println();
             result = "item";
         }

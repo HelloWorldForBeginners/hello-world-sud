@@ -1,5 +1,4 @@
 package com.knightsofsomethingnotable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 class Equipment {
