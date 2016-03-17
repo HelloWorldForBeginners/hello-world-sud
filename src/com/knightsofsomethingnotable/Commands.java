@@ -83,12 +83,15 @@ public class Commands {
 				//TODO: work on this logic. Indicate that exit doesn't exist AND/OR in combat.
 				if (x > 0 && Main.combat == false) {
 					Main.x--;
+					System.out.println("You move to the west");
+					System.out.println();
 					World.print(room, Main.x, Main.y);
 				} else {
-					System.out.println(noGo);
 					if (Main.combat == true) {
-						System.out.println("Also, you're in combat!");
+						System.out.println("You're in combat!");
 						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					} else {
+						System.out.println(noGo);
 					}
 				}
 				break;
@@ -96,26 +99,31 @@ public class Commands {
 			case E:
 				if (x < WIDTH - 1 && Main.combat == false) {
 					Main.x++;
+					System.out.println("You move to the east");
+					System.out.println();
 					World.print(room, Main.x, Main.y);
 				} else {
-					System.out.println(noGo);
 					if (Main.combat == true) {
-						System.out.println("Also, you're in combat!");
+						System.out.println("You're in combat!");
 						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					} else {
+						System.out.println(noGo);
 					}
 				}
-				
 				break;
 			case NORTH:
 			case N:
 				if (y > 0 && Main.combat == false) {
 					Main.y--;
+					System.out.println("You move to the north");
+					System.out.println();
 					World.print(room, Main.x, Main.y);
 				} else {
-					System.out.println(noGo);
 					if (Main.combat == true) {
-						System.out.println("Also, you're in combat!");
+						System.out.println("You're in combat!");
 						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					} else {
+						System.out.println(noGo);
 					}
 				}
 				break;
@@ -123,18 +131,17 @@ public class Commands {
 			case S:
 				if (y < HEIGHT - 1 && Main.combat == false) {
 					Main.y++;
+					System.out.println("You move to the south");
+					System.out.println();
 					World.print(room, Main.x, Main.y);
 				} else {
-					System.out.println(noGo);
 					if (Main.combat == true) {
-						System.out.println("Also, you're in combat!");
+						System.out.println("You're in combat!");
 						//TODO: process an attack round? Additional command FLEE, pick random available direction?
+					} else {
+						System.out.println(noGo);
 					}
 				}
-				break;
-			case CALL:
-				break;
-			case CLOSE:
 				break;
 			case GET:
 				Inventory.getItem(x, y, target, player, room);
@@ -142,15 +149,12 @@ public class Commands {
 			case PUT:
 				Inventory.putItem(x, y, target, player, room);
 				break;
-			case GO:
-				break;
 			case ATTACK:
-				NonPlayer.attackNonPlayer(target, room, x, y, player);
+				System.out.println("Combat started...");
+				System.out.println();
 				Main.combat = true;
-				break;
-			case KILL:
-				break;
-			case LEAVE:
+
+				NonPlayer.attackNonPlayer(target, room, x, y, player);
 				break;
 			case LOOK:
 				World.print(room, Main.x, Main.y);
@@ -161,6 +165,19 @@ public class Commands {
 					Item.printItemInfo(target, room, x, y);
 				}
 				break;
+			case QUIT:
+				System.out.println("Goodbye!");
+				Main.playing = false;
+				break;
+				
+				
+			//Inactive commands
+			case GO:
+				break;
+			case KILL:
+				break;
+			case LEAVE:
+				break;
 			case NE:
 			case NORTHEAST:
 				break;
@@ -168,10 +185,6 @@ public class Commands {
 			case NORTHWEST:
 				break;
 			case OPEN:
-				break;
-			case QUIT:
-				System.out.println("Goodbye!");
-				Main.playing = false;
 				break;
 			case READ:
 				break;
@@ -191,6 +204,11 @@ public class Commands {
 				break;
 			case TURN:
 				break;
+			case CALL:
+				break;
+			case CLOSE:
+				break;
+				
 			default:
 				System.out.println("You can't do that.");
 				break;

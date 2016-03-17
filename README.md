@@ -1,4 +1,4 @@
-# TextAdventure, an Adventure Game
+# The Knights of Something Notable, a Text Adventure
 
 ## Commands
 ### Navigation
@@ -42,14 +42,14 @@ closes the game
 
 ### Fixes
 
-* Fix the input class/command recognition
+* ~~Fix the input class/command recognition~~ DONE 1f42c375a987850e50b02c908710d58aacb71ef0
 * ~~Genericize the Item/Creatures class~~ DONE
 
 ### Enhancements - Features
 
 * ~~Player class~~ DONE
-* ~~Basic Combat~~
-* ~~Equipment stats (defense)~~
+* ~~Basic Combat~~ DONE
+* ~~Equipment stats (defense)~~ DONE
 * Loot
 * Game saves
 

@@ -120,9 +120,13 @@ public class NonPlayer extends Character {
             player.setHitPoints(playerMaxHitPoints);
             nonPlayer.setHitPoints(targetMaxHitPoints);
             System.out.println(player.getName() + " has defeated the " + nonPlayer.getName() + "!");
-            // remove creature from room list
+            System.out.println(player.getName() + "'s health has fully recovered!");
+            // remove creature from room list? Right now just resets health.
             
             Main.combat = false;
+            System.out.println();
+            System.out.println("Combat ended");
+            System.out.println();
             
             if (playerNewExp >= playerExpToNextLevel) {
                 player.setLevel(playerLevel + 1);

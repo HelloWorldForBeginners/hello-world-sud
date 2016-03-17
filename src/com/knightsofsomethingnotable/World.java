@@ -15,7 +15,7 @@ class World {
                 room[i][j] = new Room(i, "", "", null, null);
             }
         }
-
+        
         room[0][0].setNumber(1);
         room[0][0].setName("Dungeon");
         room[0][0].setDescription("You are in a dungeon.");
@@ -33,6 +33,13 @@ class World {
         room[0][1].setItems( new Item("pants","wet",1,"equipment","legs",2));
         room[0][1].setCreatures( new NonPlayer("bugbear","fluffy",3,13,20,10,10,3,3,null,null));
 
+        room[1][0].setNumber(3);
+        room[1][0].setName("Mess Hall");
+        room[1][0].setDescription("You are in the mess hall.");
+        room[1][0].setExits("Exits: privy, south; dungeon, west.");
+        room[1][0].setItems( new Item("gloves","stained",1,"equipment","hands",1));
+        room[1][0].setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
+
         room[1][1].setNumber(4);
         room[1][1].setName("Privy");
         room[1][1].setDescription("You are in the privy.");
@@ -42,12 +49,6 @@ class World {
         room[1][1].setItems( new Item("toilet paper","cool",1,"item","none",0));
         room[1][1].setCreatures( new NonPlayer("goblin","weak",6,22,41,15,15,6,6,null,null));
 
-        room[1][0].setNumber(3);
-        room[1][0].setName("Mess Hall");
-        room[1][0].setDescription("You are in the mess hall.");
-        room[1][0].setExits("Exits: privy, south; dungeon, west.");
-        room[1][0].setItems( new Item("gloves","stained",1,"equipment","hands",1));
-        room[1][0].setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
     }
 
 
