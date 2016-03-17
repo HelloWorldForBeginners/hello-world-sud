@@ -12,8 +12,8 @@ s, south
 __look__
 * returns information about the room, including exits, items present, creatures present
 
-__check__
-* returns information about an item or creature in the room
+__check x__
+* returns information about an item or creature (x) in the room
 
 __attack x__
 * initiates combat with creature (x) in the room
