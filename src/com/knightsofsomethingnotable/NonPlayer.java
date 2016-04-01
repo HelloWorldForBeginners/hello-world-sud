@@ -103,7 +103,8 @@ public class NonPlayer extends Character {
             return;
         } else {
             player.setHitPoints(playerCurrentHitPoints);
-            System.out.println(player.getName() + ": " + playerCurrentHitPoints + "/" + playerMaxHitPoints);
+            System.out.println("The " + nonPlayer.getName() + " hits " + player.getName() + " for " + targetAttack + " point(s) of damage!");
+            System.out.println(player.getName() + " HP: " + playerCurrentHitPoints + "/" + playerMaxHitPoints + "\n");
         }
 
         // math target hp
@@ -120,7 +121,7 @@ public class NonPlayer extends Character {
             player.setHitPoints(playerMaxHitPoints);
             nonPlayer.setHitPoints(targetMaxHitPoints);
             System.out.println(player.getName() + " has defeated the " + nonPlayer.getName() + "!");
-            System.out.println(player.getName() + "'s health has fully recovered!");
+            System.out.println(player.getName() + "'s health has fully recovered!\n");
             // remove creature from room list? Right now just resets health.
             
             Main.combat = false;
@@ -142,7 +143,8 @@ public class NonPlayer extends Character {
 
         } else {
             nonPlayer.setHitPoints(targetCurrentHitPoints);
-            System.out.println(nonPlayer.getName() + ": " + targetCurrentHitPoints + "/" + targetMaxHitPoints);
+            System.out.println(player.getName() + " hits " + nonPlayer.getName() + " for " + playerAttack + " point(s) of damage!");
+            System.out.println(nonPlayer.getName() + " HP: " + targetCurrentHitPoints + "/" + targetMaxHitPoints);
         }
     }
 }

@@ -25,12 +25,13 @@ public class Main {
     public static void main(String args[]) {
 
         // Build rooms
+    	System.out.println("Welcome to The Knights of Something Notable!\n");
         World.build(room, WIDTH, HEIGHT);
         World.print(room, x, y);
         
         // Start game
         while (playing) {
-
+        	System.out.println("---------------------------------------------------");
         	ArrayList<String> parsedInput = Input.getCommand();
         	
         	try {
