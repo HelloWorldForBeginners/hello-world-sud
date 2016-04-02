@@ -1,9 +1,55 @@
 package com.knightsofsomethingnotable;
 
+import java.util.HashMap;
+
 public class Commands {
 	final static String noGo = "You can't go that way.";
 	
+	static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
+		put("north", () -> Commands.goNorth());
+    	put("n", () -> Commands.goNorth());
+    	put("south", () -> Commands.goSouth());
+    	put("s", () -> Commands.goSouth());
+    	put("east", () -> Commands.goEast());
+    	put("e", () -> Commands.goEast());
+    	put("west", () -> Commands.goWest());
+    	put("w", () -> Commands.goWest());
+    	
+    	put("northwdest", () -> Commands.goNorthWest());
 
+    	put("i", () -> Commands.showInventory());
+    	put("inv", () -> Commands.showInventory());
+    	put("inventory", () -> Commands.showInventory());
+    	
+    	put("equip", () -> Commands.equipment(Input.target));
+    	put("equipment", () -> Commands.equipment(Input.target));
+    	
+    	put("unequip", () -> Commands.removeEquipment(Input.target));
+    	
+    	put("player", () -> Commands.playerStatus());
+    	put("p", () -> Commands.playerStatus());
+    	put("get", () -> Commands.addToInventory(Input.target));
+    	put("put", () -> Commands.removeFromInventory(Input.target));
+    	put("attack", () -> Commands.attack(Input.target));
+    	put("look", () -> Commands.roomStatus());
+    	put("check", () -> Commands.checkThing(Input.target));
+    	put("quit", () -> Commands.quitGame());
+	}};
+	
+	
+	public static void processCommand(String command) {
+		Runnable thingToRun = commands.get(command);
+    	
+    	if (thingToRun != null) {
+    		new Thread(thingToRun).start();
+    	}
+    	else {
+    		System.out.println("You can't do that.");
+    	}
+    	System.out.println("---------------------------------------------------");
+	}
+	
+	
 	public static Runnable goNorth() {
 //		System.out.println("Entered goNorth");
 		if (Main.y > 0 && Main.combat == false) {
@@ -22,6 +68,13 @@ public class Commands {
 		return null;
 	}
 
+	
+	public static Runnable goNorthWest() {
+		System.out.println("Entered goNorthWest");
+		return null;
+	}
+
+	
 	public static Runnable goSouth() {
 //		System.out.println("Entered goSouth");
 		if (Main.y < Main.HEIGHT - 1 && Main.combat == false) {

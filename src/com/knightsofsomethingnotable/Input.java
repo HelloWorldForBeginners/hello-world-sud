@@ -6,7 +6,6 @@ public class Input {
 	static String target = "";
     
 	public static String getCommand() {
-        System.out.print("> ");
         Scanner in = new Scanner(System.in);
         String input = in.nextLine().toLowerCase();
         String command = "";

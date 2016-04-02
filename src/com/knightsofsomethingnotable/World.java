@@ -83,7 +83,4 @@ class World {
         room[x][y].addItem(item);
     }
     
-//    public int getHeight() {
-//    	return world.HEIGHT;
-//    }
 }
