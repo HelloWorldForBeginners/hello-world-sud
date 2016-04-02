@@ -71,6 +71,10 @@ public class NonPlayer extends Character {
             return;
         }
 
+		System.out.println("Combat started...");
+		System.out.println();
+		Main.combat = true;
+        
         // get player attack, defense, hp, exp, exptonextlevel
         playerAttack = player.getAttack();
         playerDefense = player.getDefense();
