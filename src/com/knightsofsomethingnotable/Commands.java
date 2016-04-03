@@ -44,7 +44,7 @@ public class Commands {
     	else {
     		System.out.println("You can't do that.");
     	}
-    	System.out.println("---------------------------------------------------");
+
 	}
 	
 	
