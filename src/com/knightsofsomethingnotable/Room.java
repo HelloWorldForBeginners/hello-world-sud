@@ -4,23 +4,15 @@ import java.util.HashMap;
 
 class Room extends GameObject {
 
-    private int number;
-//    private String name;
-//    private String description;
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<NonPlayer> creatures = new ArrayList<>();
-    private HashMap<String, String> exits = new HashMap<String, String>();
+    private HashMap<String, Room> exits = new HashMap<String, Room>();
 
-    public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures, HashMap<String, String> exits) {
+    public Room(String name, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures) { //, HashMap<String, String> exits) {
     	super(name, description);
     	this.items = items;
     	this.creatures = creatures;
-    	this.exits = exits;
-    	this.number = number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    	// this.exits = exits;
     }
 
     public void setItems(ArrayList<Item> items) {
@@ -31,15 +23,11 @@ class Room extends GameObject {
         this.creatures = creatures;
     }
 
-    public int getNumber() {
-        return this.number;
+    public void setExits(String direction, Room room) {
+        this.exits.put(direction, room);
     }
 
-    public void setExits(String key, String value) {
-        this.exits.put(key, value);
-    }
-
-    public HashMap<String, String> getExits() {
+    public HashMap<String, Room> getExits() {
         return this.exits;
     }
 
@@ -66,4 +54,9 @@ class Room extends GameObject {
     public void addItem(Item item) {
         this.items.add(item);
     }
+    
+	public String toString() {
+		String toString = getName();
+		return toString;
+	}
 }

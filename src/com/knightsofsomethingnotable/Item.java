@@ -46,12 +46,12 @@ public class Item extends GameObject {
         this.defense = defense;
     }
 
-    public static String printItemInfo(String target, Room[][] room, int x, int y) {
+    public static String printItemInfo(String target, Room room) {
 
         Item item = null;
         String result = "";
 
-        for (Item checkItem: room[x][y].getItems() ) {
+        for (Item checkItem: room.getItems() ) {
             if (checkItem.getName().equals(target)) {
                 item = checkItem;
                 break;

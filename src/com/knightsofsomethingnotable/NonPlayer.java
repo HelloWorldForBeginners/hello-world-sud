@@ -9,12 +9,12 @@ public class NonPlayer extends Character {
         super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense, inventory, equipment);
     }
 
-    public static String printNonPlayerInfo(String target, Room[][] room, int x, int y) {
+    public static String printNonPlayerInfo(String target, Room room) {
 
         NonPlayer nonPlayer = null;
         String result = "";
 
-        for (NonPlayer creature : room[x][y].getCreatures() ) {
+        for (NonPlayer creature : room.getCreatures() ) {
             if (creature.getName().equals(target)) {
                 nonPlayer = creature;
                 break;
@@ -35,7 +35,7 @@ public class NonPlayer extends Character {
     }
 
 
-    public static void attackNonPlayer(String target, Room[][] room, int x, int y, Player player) {
+    public static void attackNonPlayer(String target, Room room, Player player) {
 
         NonPlayer nonPlayer = null;
 
@@ -58,7 +58,7 @@ public class NonPlayer extends Character {
         int targetCurrentHitPoints;
 
         // find target
-        for (NonPlayer creature : room[x][y].getCreatures() ) {
+        for (NonPlayer creature : room.getCreatures() ) {
             if (creature.getName().equals(target)) {
                 nonPlayer = creature;
                 break;
@@ -71,9 +71,11 @@ public class NonPlayer extends Character {
             return;
         }
 
-		System.out.println("Combat started...");
-		System.out.println();
-		Main.combat = true;
+        if (!Main.combat) {
+    		System.out.println("Combat started...");
+    		System.out.println();
+    		Main.combat = true;
+        }
         
         // get player attack, defense, hp, exp, exptonextlevel
         playerAttack = player.getAttack();
