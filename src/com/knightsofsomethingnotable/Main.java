@@ -21,30 +21,20 @@ public class Main {
     //TODO: this seems messy. Change to default values in constructor
     static Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1, inventory, equipment);
 
-    
+
     public static void main(String args[]) {
 
-        // Build rooms
+    	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
         World.build(room, WIDTH, HEIGHT);
         World.print(room, x, y);
         
         // Start game
         while (playing) {
-        	System.out.println("---------------------------------------------------");
-        	ArrayList<String> parsedInput = Input.getCommand();
+//        	Runnable thingToRun = Commands.commands.get(Input.getCommand());
         	
-        	try {
-            	// test the string and return an enum with Commands.Command.valueOf(input)
-            	// create a new object Commands.CommandTest and pass in the returned enum
-            	// call the TakeAction() method of the Commands.CommandTest object value
-            	Commands.CommandTest value = new Commands.CommandTest(Commands.Command.valueOf(parsedInput.get(0)), parsedInput.get(1));
-            	value.TakeAction(HEIGHT, WIDTH, x, y, room, inventory, equipment, player, playing);
-            	
-        	} catch (IllegalArgumentException e) {
-        		System.out.println("You can't do that.");
-        	}
-
+        	Commands.processCommand(Input.getCommand());
+        	
         }
         System.exit(0);
     }

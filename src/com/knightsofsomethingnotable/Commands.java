@@ -1,222 +1,201 @@
 package com.knightsofsomethingnotable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Commands {
 	final static String noGo = "You can't go that way.";
-
-    public enum Command {
-        // System commands
-        INVENTORY,
-        INV,
-        I,
-        EQUIPMENT,
-        EQUIP,
-        EQ,
-        UNEQUIP,
-        PLAYER,
-        P,
-        RESTORE,
-        SAVE,
-        RESTART,
-        QUIT,
-        // Action commands
-        OPEN,
-        CLOSE,
-        GET,
-        PUT,
-        TALK,
-        LOOK,
-        CHECK,
-        READ,
-        CALL,
-        ATTACK,
-        KILL,
-        LEAVE,
-        GO,
-        TURN,
-        // Direction commands
-        NORTH,SOUTH,EAST,WEST,
-        N,S,E,W,
-        NW,NE,SE,SW,
-        NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST
-	}
-    
-
-    // if CommandTest is not static, following error occurs: 
-    //    No enclosing instance of type Commands is accessible. Must qualify the allocation with an 
-    //	  enclosing instance of type Commands (e.g. x.new A() where x is an instance of Commands).
-    public static class CommandTest {
-    	Command command;
-    	String target;
+	
+	static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
+		put("north", () -> Commands.goNorth());
+    	put("n", () -> Commands.goNorth());
+    	put("south", () -> Commands.goSouth());
+    	put("s", () -> Commands.goSouth());
+    	put("east", () -> Commands.goEast());
+    	put("e", () -> Commands.goEast());
+    	put("west", () -> Commands.goWest());
+    	put("w", () -> Commands.goWest());
     	
-    	public CommandTest(Command command, String target) {
-    		this.command = command;
-    		this.target = target;
+    	put("northwdest", () -> Commands.goNorthWest());
+
+    	put("i", () -> Commands.showInventory());
+    	put("inv", () -> Commands.showInventory());
+    	put("inventory", () -> Commands.showInventory());
+    	
+    	put("equip", () -> Commands.equipment(Input.target));
+    	put("equipment", () -> Commands.equipment(Input.target));
+    	
+    	put("unequip", () -> Commands.removeEquipment(Input.target));
+    	
+    	put("player", () -> Commands.playerStatus());
+    	put("p", () -> Commands.playerStatus());
+    	put("get", () -> Commands.addToInventory(Input.target));
+    	put("put", () -> Commands.removeFromInventory(Input.target));
+    	put("attack", () -> Commands.attack(Input.target));
+    	put("look", () -> Commands.roomStatus());
+    	put("check", () -> Commands.checkThing(Input.target));
+    	put("quit", () -> Commands.quitGame());
+	}};
+	
+	
+	public static void processCommand(String command) {
+		Runnable thingToRun = commands.get(command);
+    	
+    	if (thingToRun != null) {
+    		new Thread(thingToRun).start();
     	}
-
-    	//TODO: reduce redundant logic in the directional cases
-		public void TakeAction(int WIDTH, int HEIGHT, int x, int y, Room[][] room, ArrayList<Item> inventory, HashMap<String, Item> equipment, Player player, boolean playing) {
-			switch (command) {
-			case INVENTORY:
-			case INV:
-			case I:
-				Inventory.print(inventory);
-				break;
-			case EQUIP:
-				if (target != "") {
-					Equipment.equipItem(x, y, target, player);
-					break;
-				}
-				/* FALLTHROUGH if target == "" */
-			case EQ:
-			case EQUIPMENT:
-				Equipment.print(equipment);
-				System.out.println(target);
-				break;
-			case UNEQUIP:
-				Equipment.unequipItem(x, y, target, player);
-				break;
-			case P:
-			case PLAYER:
-				Player.printPlayerInfo(player);
-				break;
-			case WEST:
-			case W:
-				//TODO: work on this logic. Indicate that exit doesn't exist AND/OR in combat.
-				if (x > 0 && Main.combat == false) {
-					Main.x--;
-					System.out.println("You move to the west");
-					System.out.println();
-					World.print(room, Main.x, Main.y);
-				} else {
-					if (Main.combat == true) {
-						System.out.println("You're in combat!");
-						//TODO: process an attack round? Additional command FLEE, pick random available direction?
-					} else {
-						System.out.println(noGo);
-					}
-				}
-				break;
-			case EAST:
-			case E:
-				if (x < WIDTH - 1 && Main.combat == false) {
-					Main.x++;
-					System.out.println("You move to the east");
-					System.out.println();
-					World.print(room, Main.x, Main.y);
-				} else {
-					if (Main.combat == true) {
-						System.out.println("You're in combat!");
-						//TODO: process an attack round? Additional command FLEE, pick random available direction?
-					} else {
-						System.out.println(noGo);
-					}
-				}
-				break;
-			case NORTH:
-			case N:
-				if (y > 0 && Main.combat == false) {
-					Main.y--;
-					System.out.println("You move to the north");
-					System.out.println();
-					World.print(room, Main.x, Main.y);
-				} else {
-					if (Main.combat == true) {
-						System.out.println("You're in combat!");
-						//TODO: process an attack round? Additional command FLEE, pick random available direction?
-					} else {
-						System.out.println(noGo);
-					}
-				}
-				break;
-			case SOUTH:
-			case S:
-				if (y < HEIGHT - 1 && Main.combat == false) {
-					Main.y++;
-					System.out.println("You move to the south");
-					System.out.println();
-					World.print(room, Main.x, Main.y);
-				} else {
-					if (Main.combat == true) {
-						System.out.println("You're in combat!");
-						//TODO: process an attack round? Additional command FLEE, pick random available direction?
-					} else {
-						System.out.println(noGo);
-					}
-				}
-				break;
-			case GET:
-				Inventory.getItem(x, y, target, player, room);
-				break;
-			case PUT:
-				Inventory.putItem(x, y, target, player, room);
-				break;
-			case ATTACK:
-				System.out.println("Combat started...");
-				System.out.println();
-				Main.combat = true;
-
-				NonPlayer.attackNonPlayer(target, room, x, y, player);
-				break;
-			case LOOK:
-				World.print(room, Main.x, Main.y);
-				break;
-			case CHECK:
-				//tries to look at the NonPlayer first, then looks at the items in the room
-				if (NonPlayer.printNonPlayerInfo(target, room, x, y).equals("")) {
-					Item.printItemInfo(target, room, x, y);
-				}
-				break;
-			case QUIT:
-				System.out.println("Goodbye!");
-				Main.playing = false;
-				break;
-				
-				
-			//Inactive commands
-			case GO:
-				break;
-			case KILL:
-				break;
-			case LEAVE:
-				break;
-			case NE:
-			case NORTHEAST:
-				break;
-			case NW:
-			case NORTHWEST:
-				break;
-			case OPEN:
-				break;
-			case READ:
-				break;
-			case RESTART:
-				break;
-			case RESTORE:
-				break;
-			case SAVE:
-				break;
-			case SE:
-			case SOUTHEAST:
-				break;
-			case SW:
-			case SOUTHWEST:
-				break;
-			case TALK:
-				break;
-			case TURN:
-				break;
-			case CALL:
-				break;
-			case CLOSE:
-				break;
-				
-			default:
-				System.out.println("You can't do that.");
-				break;
+    	else {
+    		System.out.println("You can't do that.");
+    	}
+    	System.out.println("---------------------------------------------------");
+	}
+	
+	
+	public static Runnable goNorth() {
+//		System.out.println("Entered goNorth");
+		if (Main.y > 0 && Main.combat == false) {
+			Main.y--;
+			System.out.println("You move to the north");
+			System.out.println();
+			World.print(Main.room, Main.x, Main.y);
+		} else {
+			if (Main.combat == true) {
+				System.out.println("You're in combat!");
+				//TODO: process an attack round? Additional command FLEE, pick random available direction?
+			} else {
+				System.out.println(noGo);
 			}
 		}
+		return null;
 	}
+
+	
+	public static Runnable goNorthWest() {
+		System.out.println("Entered goNorthWest");
+		return null;
+	}
+
+	
+	public static Runnable goSouth() {
+//		System.out.println("Entered goSouth");
+		if (Main.y < Main.HEIGHT - 1 && Main.combat == false) {
+			Main.y++;
+			System.out.println("You move to the south");
+			System.out.println();
+			World.print(Main.room, Main.x, Main.y);
+		} else {
+			if (Main.combat == true) {
+				System.out.println("You're in combat!");
+				//TODO: process an attack round? Additional command FLEE, pick random available direction?
+			} else {
+				System.out.println(noGo);
+			}
+		}
+		return null;
+	}
+		
+	public static Runnable goEast() {
+//		System.out.println("Entered goEast");
+		if (Main.x < Main.WIDTH - 1 && Main.combat == false) {
+			Main.x++;
+			System.out.println("You move to the east");
+			System.out.println();
+			World.print(Main.room, Main.x, Main.y);
+		} else {
+			if (Main.combat == true) {
+				System.out.println("You're in combat!");
+				//TODO: process an attack round? Additional command FLEE, pick random available direction?
+			} else {
+				System.out.println(noGo);
+			}
+		}
+		return null;
+	}
+
+	public static Runnable goWest() {
+//		System.out.println("Entered goWest");		
+		if (Main.x > 0 && Main.combat == false) {
+			Main.x--;
+			System.out.println("You move to the west");
+			System.out.println();
+			World.print(Main.room, Main.x, Main.y);
+		} else {
+			if (Main.combat == true) {
+				System.out.println("You're in combat!");
+				//TODO: process an attack round? Additional command FLEE, pick random available direction?
+			} else {
+				System.out.println(noGo);
+			}
+		}
+		return null;
+	}
+	
+	public static Runnable showInventory() {
+//		System.out.println("Entered showInventory");
+		Inventory.print(Main.inventory);
+		return null;
+	}
+	
+	public static Runnable equipment(String target) {
+//		System.out.println("Entered equipment");
+		if (target != "") {
+			Equipment.equipItem(Main.x, Main.y, target, Main.player);
+		} else {
+			Equipment.print(Main.equipment);
+		}
+		return null;
+	}
+	
+	public static Runnable removeEquipment(String target) {
+//		System.out.println("Entered removeEquipment");
+		Equipment.unequipItem(Main.x, Main.y, target, Main.player);
+		return null;
+	}
+	
+	public static Runnable playerStatus() {
+//		System.out.println("Entered playerStatus");
+		Player.printPlayerInfo(Main.player);
+		return null;
+	}
+	
+	public static Runnable addToInventory(String target) {
+//		System.out.println("Entered addToInventory");
+		Inventory.getItem(Main.x, Main.y, target, Main.player, Main.room);
+		return null;
+	}
+	
+	public static Runnable removeFromInventory(String target) {
+//		System.out.println("Entered removeFromInventory");
+		Inventory.putItem(Main.x, Main.y, target, Main.player, Main.room);
+		return null;
+	}
+
+	public static Runnable attack(String target) {
+//		System.out.println("Entered attack");
+
+		NonPlayer.attackNonPlayer(target, Main.room, Main.x, Main.y, Main.player);
+		return null;
+	}
+	
+	public static Runnable roomStatus() {
+//		System.out.println("Entered roomStatus");
+		World.print(Main.room, Main.x, Main.y);
+		return null;
+	}
+	
+	public static Runnable checkThing(String target) {
+//		System.out.println("Entered checkThing");
+		//tries to look at the NonPlayer first, then looks at the items in the room
+		if (NonPlayer.printNonPlayerInfo(target, Main.room, Main.x, Main.y).equals("")) {
+			Item.printItemInfo(target, Main.room, Main.x, Main.y);
+		}
+		return null;
+	}
+	
+	public static Runnable quitGame() {
+//		System.out.println("Entered quitGame");
+		System.out.println("Goodbye!");
+		Main.playing = false;
+		return null;
+	}
+	
 }
