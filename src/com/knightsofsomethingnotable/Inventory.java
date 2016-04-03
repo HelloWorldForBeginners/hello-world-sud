@@ -3,13 +3,12 @@ import java.util.ArrayList;
 
 class Inventory {
 
-    public static void getItem(int x, int y, String itemName,
-                                 Player player, Room[][] room) {
+    public static void getItem(String itemName, Player player, Room room) {
 
         // Check if item is a valid room item
         boolean inRoom = false;
         Item item = null;
-        for (Item roomItems : room[x][y].items ) {
+        for (Item roomItems : room.getItems() ) {
             if (roomItems.getName().equals(itemName)) {
                 inRoom = true;
                 item = roomItems;
@@ -30,7 +29,7 @@ class Inventory {
         if (!inInventory && inRoom) {
             System.out.println("You pick up the " + itemName + ".");
             player.getInventory().add(item);
-            World.removeItem(room, x, y, item);
+            World.removeItem(room, item);
         }
         else if (inInventory) {
             System.out.println("You already have the " + itemName + ".");
@@ -43,8 +42,7 @@ class Inventory {
         }
     }
 
-    public static void putItem(int x, int y, String itemName,
-                               Player player, Room[][] room) {
+    public static void putItem(String itemName, Player player, Room room) {
 
 
         // Check if item is a valid inventory item
@@ -60,7 +58,7 @@ class Inventory {
 
         // Check if item is already in room
         boolean inRoom = false;
-        for (Item roomItems : room[x][y].items ) {
+        for (Item roomItems : room.getItems() ) {
             if (roomItems.getName().equals(itemName)) {
                 inRoom = true;
                 break;
@@ -71,7 +69,7 @@ class Inventory {
         if (inInventory && !inRoom) {
             System.out.println("You put down the " + itemName + ".");
             player.getInventory().remove(item);
-            World.addItem(room, x, y, item);
+            World.addItem(room, item);
         }
         else if (inRoom) {
             System.out.println("There is already a " + itemName + " here.");

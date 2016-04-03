@@ -9,10 +9,11 @@ public class Main {
     // start game
     static boolean playing = true;
     static boolean combat = false;
-    // define room array sizes
-    static final int WIDTH = 2;
-    static final int HEIGHT = 2;
-    static Room[][] room = new Room[WIDTH][HEIGHT];
+    
+    static Room currentRoom = null;
+    
+    static final int numRooms = 4;
+    static HashMap<String, Room> rooms = new HashMap<String, Room>();
 
     // inventory and equipment 
     static ArrayList<Item> inventory = new ArrayList<>();
@@ -26,15 +27,13 @@ public class Main {
 
     	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
-        World.build(room, WIDTH, HEIGHT);
-        World.print(room, x, y);
+        World.build(rooms);
+        currentRoom = rooms.entrySet().iterator().next().getValue();
+        World.print(currentRoom);
         
         // Start game
         while (playing) {
-//        	Runnable thingToRun = Commands.commands.get(Input.getCommand());
-        	
         	Commands.processCommand(Input.getCommand());
-        	
         }
         System.exit(0);
     }
