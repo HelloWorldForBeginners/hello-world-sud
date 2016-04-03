@@ -1,17 +1,22 @@
 package com.knightsofsomethingnotable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-class Room {
+class Room extends GameObject {
 
     private int number;
-    private String name;
-    private String description;
-    private String exits;
-    public ArrayList<Item> items = new ArrayList<>();
-    public ArrayList<NonPlayer> creatures = new ArrayList<>();
+//    private String name;
+//    private String description;
+    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<NonPlayer> creatures = new ArrayList<>();
+    private HashMap<String, String> exits = new HashMap<String, String>();
 
-    public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<Character> creatures) {
-
+    public Room(int number, String name, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures, HashMap<String, String> exits) {
+    	super(name, description);
+    	this.items = items;
+    	this.creatures = creatures;
+    	this.exits = exits;
+    	this.number = number;
     }
 
     public void setNumber(int number) {
@@ -30,27 +35,11 @@ class Room {
         return this.number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setExits(String key, String value) {
+        this.exits.put(key, value);
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setExits(String exits) {
-        this.exits = exits;
-    }
-
-    public String getExits() {
+    public HashMap<String, String> getExits() {
         return this.exits;
     }
 
@@ -58,24 +47,16 @@ class Room {
         this.items.add(item);
     }
 
-    public ArrayList<String> getItems() {
-        ArrayList<String> itemArray = new ArrayList<>();
-        for (Item i: this.items) {
-            itemArray.add(i.getName());
-        }
-        return itemArray;
+    public ArrayList<Item> getItems() {
+        return this.items;
     }
 
     public void setCreatures(NonPlayer creature) {
         this.creatures.add(creature);
     }
 
-    public ArrayList<String> getCreatures() {
-        ArrayList<String> itemArray = new ArrayList<>();
-        for (Character c: this.creatures) {
-            itemArray.add(c.getName());
-        }
-        return itemArray;
+    public ArrayList<NonPlayer> getCreatures() {
+        return this.creatures;
     }
 
     public void deleteItem(Item item) {

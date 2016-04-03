@@ -1,5 +1,7 @@
 package com.knightsofsomethingnotable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * Created by matt on 1/31/16.
@@ -12,14 +14,15 @@ class World {
         // Initialize rooms (a 2D array)
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                room[i][j] = new Room(i, "", "", null, null);
+                room[i][j] = new Room(i, "", "", new ArrayList<>(), new ArrayList<>(), new HashMap<String, String>());
             }
         }
         
         room[0][0].setNumber(1);
         room[0][0].setName("Dungeon");
         room[0][0].setDescription("You are in a dungeon.\n");
-        room[0][0].setExits("Exits: cell, south; mess hall, east.");
+        room[0][0].setExits( new String("south"), new String("cell"));
+        room[0][0].setExits( new String("east"), new String("mess hall"));
         room[0][0].setItems( new Item("shirt","smelly",1,"equipment","body",3));
         room[0][0].setItems( new Item("jacket","cool",1,"equipment","body",3));
         room[0][0].setItems( new Item("shoes","smelly",1,"equipment","feet",1));
@@ -29,21 +32,24 @@ class World {
         room[0][1].setNumber(2);
         room[0][1].setName("Cell");
         room[0][1].setDescription("You are in a cell.\n");
-        room[0][1].setExits("Exits: privy, east; dungeon, north.");
+        room[0][1].setExits( new String("east"), new String("privy"));
+        room[0][1].setExits( new String("north"), new String("dungeon"));
         room[0][1].setItems( new Item("pants","wet",1,"equipment","legs",2));
         room[0][1].setCreatures( new NonPlayer("bugbear","fluffy",3,13,20,10,10,3,3,null,null));
 
         room[1][0].setNumber(3);
         room[1][0].setName("Mess Hall");
         room[1][0].setDescription("You are in the mess hall.\n");
-        room[1][0].setExits("Exits: privy, south; dungeon, west.");
+        room[1][0].setExits( new String("west"), new String("dungeon"));
+        room[1][0].setExits( new String("south"), new String("privy"));
         room[1][0].setItems( new Item("gloves","stained",1,"equipment","hands",1));
         room[1][0].setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
 
         room[1][1].setNumber(4);
         room[1][1].setName("Privy");
         room[1][1].setDescription("You are in the privy.\n");
-        room[1][1].setExits("Exits: mess hall, north; cell, west.");
+        room[1][1].setExits( new String("north"), new String("mess hall"));
+        room[1][1].setExits( new String("west"), new String("cell"));
         room[1][1].setItems( new Item("shoes","smelly",1,"equipment","feet",1));
         room[1][1].setItems( new Item("boots","smelly",1,"equipment","feet",1));
         room[1][1].setItems( new Item("toilet paper","cool",1,"item","none",0));

@@ -15,8 +15,6 @@ public class Commands {
     	put("west", () -> Commands.goWest());
     	put("w", () -> Commands.goWest());
     	
-    	put("northwdest", () -> Commands.goNorthWest());
-
     	put("i", () -> Commands.showInventory());
     	put("inv", () -> Commands.showInventory());
     	put("inventory", () -> Commands.showInventory());

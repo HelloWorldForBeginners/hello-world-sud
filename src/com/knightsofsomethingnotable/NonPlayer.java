@@ -14,7 +14,7 @@ public class NonPlayer extends Character {
         NonPlayer nonPlayer = null;
         String result = "";
 
-        for (NonPlayer creature : room[x][y].creatures ) {
+        for (NonPlayer creature : room[x][y].getCreatures() ) {
             if (creature.getName().equals(target)) {
                 nonPlayer = creature;
                 break;
@@ -58,7 +58,7 @@ public class NonPlayer extends Character {
         int targetCurrentHitPoints;
 
         // find target
-        for (NonPlayer creature : room[x][y].creatures ) {
+        for (NonPlayer creature : room[x][y].getCreatures() ) {
             if (creature.getName().equals(target)) {
                 nonPlayer = creature;
                 break;
@@ -151,4 +151,11 @@ public class NonPlayer extends Character {
             System.out.println(nonPlayer.getName() + " HP: " + targetCurrentHitPoints + "/" + targetMaxHitPoints);
         }
     }
+    
+    public String toString() {
+		String toString = getName();
+		return toString;
+	}
+    
+    
 }

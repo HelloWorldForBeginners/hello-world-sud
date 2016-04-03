@@ -51,7 +51,7 @@ public class Item extends GameObject {
         Item item = null;
         String result = "";
 
-        for (Item checkItem: room[x][y].items ) {
+        for (Item checkItem: room[x][y].getItems() ) {
             if (checkItem.getName().equals(target)) {
                 item = checkItem;
                 break;
@@ -70,4 +70,11 @@ public class Item extends GameObject {
 
         return result;
     }
+    
+    @Override //means this method exists somewhere; it comes from the Object type
+	public String toString() {
+		String toString = getName();
+		return toString;
+	}
+    
 }

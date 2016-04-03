@@ -31,10 +31,7 @@ public class Main {
         
         // Start game
         while (playing) {
-//        	Runnable thingToRun = Commands.commands.get(Input.getCommand());
-        	
         	Commands.processCommand(Input.getCommand());
-        	
         }
         System.exit(0);
     }

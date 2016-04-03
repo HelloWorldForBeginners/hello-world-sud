@@ -9,7 +9,7 @@ class Inventory {
         // Check if item is a valid room item
         boolean inRoom = false;
         Item item = null;
-        for (Item roomItems : room[x][y].items ) {
+        for (Item roomItems : room[x][y].getItems() ) {
             if (roomItems.getName().equals(itemName)) {
                 inRoom = true;
                 item = roomItems;
@@ -60,7 +60,7 @@ class Inventory {
 
         // Check if item is already in room
         boolean inRoom = false;
-        for (Item roomItems : room[x][y].items ) {
+        for (Item roomItems : room[x][y].getItems() ) {
             if (roomItems.getName().equals(itemName)) {
                 inRoom = true;
                 break;
