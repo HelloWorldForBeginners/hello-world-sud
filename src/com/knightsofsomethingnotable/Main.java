@@ -4,13 +4,11 @@ import java.util.HashMap;
 
 public class Main {
 	
-    static int x = 0;
-    static int y = 0;
-    // start game
     static boolean playing = true;
     static boolean combat = false;
     
     static Room currentRoom = null;
+    static Room defaultRoom = null;
     
     static final int numRooms = 4;
     static HashMap<String, Room> rooms = new HashMap<String, Room>();
@@ -28,7 +26,8 @@ public class Main {
     	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
         World.build(rooms);
-        currentRoom = rooms.entrySet().iterator().next().getValue();
+        defaultRoom = rooms.entrySet().iterator().next().getValue();
+        currentRoom = defaultRoom;
         World.print(currentRoom);
         
         // Start game

@@ -34,7 +34,6 @@ public class Commands {
     	put("quit", () -> Commands.quitGame());
 	}};
 	
-	
 	public static void processCommand(String command) {
 		Runnable thingToRun = commands.get(command);
     	
@@ -46,7 +45,6 @@ public class Commands {
     	}
 
 	}
-	
 	
 	public static Runnable exitRoom(String direction) {
 		Room thisRoom = Main.currentRoom;
@@ -72,7 +70,7 @@ public class Commands {
 	
 	public static Runnable equipment(String target) {
 		if (target != "") {
-			Equipment.equipItem(Main.x, Main.y, target, Main.player);
+			Equipment.equipItem(target, Main.player);
 		} else {
 			Equipment.print(Main.equipment);
 		}
@@ -80,7 +78,7 @@ public class Commands {
 	}
 	
 	public static Runnable removeEquipment(String target) {
-		Equipment.unequipItem(Main.x, Main.y, target, Main.player);
+		Equipment.unequipItem(target, Main.player);
 		return null;
 	}
 	
@@ -122,5 +120,4 @@ public class Commands {
 		Main.playing = false;
 		return null;
 	}
-	
 }

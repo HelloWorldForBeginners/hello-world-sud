@@ -105,6 +105,9 @@ public class NonPlayer extends Character {
             player.setMoney((int) Math.round(playerMoney * 0.9));
             System.out.println(player.getName() + " has been knocked unconscious! " +
                     (playerMoney - player.getMoney()) + " money has been lost!");
+            Main.combat = false;
+            Main.currentRoom = Main.defaultRoom;
+            World.print(Main.currentRoom);
             // load cell
             return;
         } else {
