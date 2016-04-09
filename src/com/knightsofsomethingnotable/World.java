@@ -44,13 +44,20 @@ class World {
 
         dovecote.setCreatures( new NonPlayer("bloodthirsty dove","bloodthirsty",5,22,41,15,15,6,6,null,null));
         
+        larder.setItems( new Item("wine","tasty",0,"consumable","FOOD",0));
+        larder.setItems( new Item("mead","tasty",0,"consumable","FOOD",0));
+        larder.setItems( new Item("spirits","tasty",0,"consumable","FOOD",0));
+        larder.setItems( new Item("mutton","it's sheep, you're eating sheep",0,"consumable","FOOD",0));
+        
         cell.setExits( new String("east"), dungeon);
         dungeon.setExits( new String("south"), privy);
         dungeon.setExits( new String("east"), messHall);
         dungeon.setExits( new String("west"), cell);
-        messHall.setExits( new String("west"), dungeon);
-        privy.setExits( new String("north"), dungeon);
         dungeon.setExits( new String("north"), dovecote);
+        messHall.setExits( new String("west"), dungeon);
+        messHall.setExits( new String("east"), larder);
+        larder.setExits( new String("west"), messHall);
+        privy.setExits( new String("north"), dungeon);
         dovecote.setExits( new String("south"), dungeon);
         
         rooms.put("Castle", messHall);
@@ -74,9 +81,9 @@ class World {
         System.out.println();
     }
 
-    public static String getRoomName(Room[][] room, int x, int y) {
+    public static String getRoomName(Room room) {
 
-        return room[x][y].getName();
+        return room.getName();
     }
 
     // Remove item from room when added to inventory

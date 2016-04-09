@@ -70,7 +70,7 @@ public class Item extends GameObject {
 
         return result;
     }
-    
+
     @Override //means this method exists somewhere; it comes from the Object type
 	public String toString() {
 		String toString = getName();
