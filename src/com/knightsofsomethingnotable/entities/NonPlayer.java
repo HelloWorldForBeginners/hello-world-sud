@@ -40,9 +40,12 @@ public class NonPlayer extends Character {
     public static NonPlayer getNonPlayer(String target, Room room) {
 
 		for (NonPlayer creature : room.getCreatures() ) {
-            if (creature.getName().equals(target)) {
+			if (creature.getName().equals(target)) {
                 return creature;
             }
+			if (creature.getName().startsWith(target)) {
+				return creature;
+			}
         }
 		return null;
 	}

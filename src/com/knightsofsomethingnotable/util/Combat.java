@@ -10,6 +10,11 @@ public class Combat {
 	
 	public static void attackNonPlayer(String target, Room room, Player player) {
 
+		if (target.equals("")) {
+			System.out.println("Attack what?");
+            return;
+		}
+		
         NonPlayer nonPlayer = NonPlayer.getNonPlayer(target, room); 
 
         if (nonPlayer == null) {
@@ -18,11 +23,11 @@ public class Combat {
         }
 
         Main.toggleCombatOn();
-        processPlayerRound(player, nonPlayer);
-        processNonPlayerRound(player, nonPlayer);
+        processPlayerAttack(player, nonPlayer);
+        processNonPlayerAttack(player, nonPlayer);
     }
     
-    private static void processNonPlayerRound(Player _player, NonPlayer _nonPlayer) {
+    private static void processPlayerAttack(Player _player, NonPlayer _nonPlayer) {
     	
     	if (_nonPlayer.getHitPoints() - _player.getAttack() <= 0) {
     		NonPlayer.killNonPlayer(_player, _nonPlayer);
@@ -31,9 +36,7 @@ public class Combat {
             	Player.levelUpPlayer(_player);
             }
             NonPlayer.spawnAnotherNonPlayer(_nonPlayer);
-            
     	} else {
-
     		_nonPlayer.setHitPoints(_nonPlayer.getHitPoints() - _player.getAttack());
             System.out.println(_player.getName() + " hits " + _nonPlayer.getName() + " for " + _player.getAttack() + " point(s) of damage!");
             System.out.println(_nonPlayer.getName() + " HP: " + _nonPlayer.getHitPoints() + "/" + _nonPlayer.getMaxHitPoints());
@@ -41,7 +44,8 @@ public class Combat {
 		
 	}
     
-    private static void processPlayerRound(Player _player, NonPlayer _nonPlayer) {
+    private static void processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
+    	
     	if (_player.getHitPoints() - _nonPlayer.getAttack() <= 0) {
     		Player.killPlayer(_player);
         } else {
@@ -50,6 +54,4 @@ public class Combat {
             System.out.println(_player.getName() + " HP: " + _player.getHitPoints() + "/" + _player.getMaxHitPoints() + "\n");
         }
 	}
-	
-	
 }

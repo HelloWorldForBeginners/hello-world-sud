@@ -67,9 +67,12 @@ public class World {
         rooms.put("Castle", privy);
         rooms.put("Castle", cell);
         rooms.put("Castle", dungeon);
+        rooms.put("Castle", larder);
+        rooms.put("Castle", dovecote);
     }
 
     public static void print(Room room) {
+    	
     	System.out.println("<<<<<======= " + room.getName() + " =======>>>>>");
         System.out.println(room.getDescription());
         System.out.println("Exits: " + room.getExits());
@@ -89,7 +92,6 @@ public class World {
         return room.getName();
     }
 
-    // Remove item from room when added to inventory
     public static void removeItem(Room room, Item item) {
 
         room.deleteItem(item);

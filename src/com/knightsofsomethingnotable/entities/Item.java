@@ -48,29 +48,38 @@ public class Item extends GameObject {
     public void setDefense(int defense) {
         this.defense = defense;
     }
-
+    
     public static void printItemInfo(String target, Room room) {
 
-        Item item = null;
-
-        for (Item checkItem: room.getItems() ) {
-            if (checkItem.getName().equals(target)) {
-                item = checkItem;
-                break;
-            }
-        }
-
+        Item item = getitem(target, room);
         if (item != null) {
-            System.out.println("Name: " + item.getName() + "(" + item.getAmount() + ")");
-            System.out.println(item.getDescription());
-            System.out.println("Type: " + item.getType());
-            System.out.println("Slot: " + item.getSlot());
-            System.out.println("Def: " + item.getDefense());
-            System.out.println();
+        	printInfo(item);
         }
     }
 
-    @Override //means this method exists somewhere; it comes from the Object type
+    private static void printInfo(Item item) {
+
+    	System.out.println("Name: " + item.getName() + "(" + item.getAmount() + ")");
+        System.out.println(item.getDescription());
+        System.out.println("Type: " + item.getType());
+        System.out.println("Slot: " + item.getSlot());
+        System.out.println("Def: " + item.getDefense());
+        System.out.println();
+	}
+
+	private static Item getitem(String target, Room room) {
+    	for (Item checkItem: room.getItems() ) {
+            if (checkItem.getName().equals(target)) {
+                return checkItem;
+            }
+            if (checkItem.getName().startsWith(target)) {
+                return checkItem;
+            }
+        }
+		return null;
+	}
+
+	@Override //means this method exists somewhere; it comes from the Object type
 	public String toString() {
 		String toString = getName();
 		return toString;

@@ -56,7 +56,15 @@ public class Player extends Character {
 		_player.setMoney((int) Math.round(_player.getMoney() * 0.9));
         System.out.println(_player.getName() + " has been knocked unconscious! " +
                 (_player.getMoney() - _player.getMoney()) + " money has been lost!");
+
         Main.toggleCombatOff();
+        
+        try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
         Main.setCurrentRoom(Main.getDefaultRoom());
         World.print(Main.getCurrentRoom());
         // load cell
