@@ -49,10 +49,9 @@ public class Item extends GameObject {
         this.defense = defense;
     }
 
-    public static String printItemInfo(String target, Room room) {
+    public static void printItemInfo(String target, Room room) {
 
         Item item = null;
-        String result = "";
 
         for (Item checkItem: room.getItems() ) {
             if (checkItem.getName().equals(target)) {
@@ -68,10 +67,7 @@ public class Item extends GameObject {
             System.out.println("Slot: " + item.getSlot());
             System.out.println("Def: " + item.getDefense());
             System.out.println();
-            result = "item";
         }
-
-        return result;
     }
 
     @Override //means this method exists somewhere; it comes from the Object type

@@ -8,9 +8,10 @@ public class Inventory {
 
     public static void getItem(String itemName, Player player, Room room) {
 
-        // Check if item is a valid room item
         boolean inRoom = false;
         Item item = null;
+
+        // Check if item is a valid room item
         for (Item roomItems : room.getItems() ) {
             if (roomItems.getName().equals(itemName)) {
                 inRoom = true;
@@ -46,7 +47,6 @@ public class Inventory {
     }
 
     public static void putItem(String itemName, Player player, Room room) {
-
 
         // Check if item is a valid inventory item
         boolean inInventory = false;

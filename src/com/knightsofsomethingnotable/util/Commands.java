@@ -15,6 +15,7 @@ public class Commands {
 	final static String noGo = "You can't go that way.";
 	private static String previousCommand = "";
 	private static String previousTarget = "";
+	static Runnable r = null;
 	
 	static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
 		put("north", () -> Commands.exitRoom("north"));

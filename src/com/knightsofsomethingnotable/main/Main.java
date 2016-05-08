@@ -113,4 +113,22 @@ public class Main {
 	public static void setDefaultRoom(Room defaultRoom) {
 		Main.defaultRoom = defaultRoom;
 	}
+
+
+	public static void toggleCombatOn() {
+
+		if (!Main.getCombat()) {
+    		System.out.println("Combat started...");
+    		System.out.println();
+    		Main.setCombat(true);
+        }
+	}
+	
+	public static void toggleCombatOff() {
+        
+        Main.setCombat(false);
+        System.out.println();
+        System.out.println("Combat ended");
+        System.out.println();
+	}
 }

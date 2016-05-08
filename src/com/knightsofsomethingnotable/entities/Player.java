@@ -32,4 +32,14 @@ public class Player extends Character {
     public void setExpToNextLevel(int expToNextLevel) {
         this.expToNextLevel = expToNextLevel;
     }
+
+	public static void playerLeveledUp(Player _player) {
+		_player.setLevel(_player.getLevel() + 1);
+		_player.setExpToNextLevel((int) Math.round(_player.getExpToNextLevel() * 1.5));
+		_player.setMaxHitPoints((int) Math.round(_player.getMaxHitPoints() + 1.05));
+		_player.setHitPoints((int) Math.round(_player.getMaxHitPoints()));
+		_player.setAttack(_player.getAttack() + 1);
+		_player.setDefense(_player.getDefense() + 1);
+        System.out.println(_player.getName() + " has attained level " + _player.getLevel() + "!");
+	}
 }

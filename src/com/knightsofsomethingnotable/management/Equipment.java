@@ -8,14 +8,12 @@ public class Equipment {
 
     public static void equipItem(String itemName, Player player) {
 
-        // Check if item is a valid inventory item
         boolean inInventory = false;
         boolean isEquipment = false;
         Item item = null;
         String unequipThisItem;
-        //get item from master item list to prevent null pointer exception
-        //this also would remove the need to set the item object when matching the inventory by string input
 
+        // Check if item is a valid inventory item
         for (Item i : player.getInventory() ) {
             if (i.getType().equals("equipment")) {
                 isEquipment = true;
@@ -37,7 +35,7 @@ public class Equipment {
             }
         }
 
-        // checks if target slot of item to be equipped is already filled; unequip if so
+        // Check if target slot of item to be equipped is already filled; unequip if so
         if (item != null) {
             for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
                 if (entry.getKey().equals(item.getSlot()) && !item.equals(entry.getValue())) {
