@@ -54,8 +54,13 @@ public class Player extends Character {
 	public static void killPlayer(Player _player) {
 		_player.setHitPoints(_player.getMaxHitPoints());
 		_player.setMoney((int) Math.round(_player.getMoney() * 0.9));
-        System.out.println(_player.getName() + " has been knocked unconscious! " +
+        
+		if (_player.getMoney() > 0) {
+			System.out.println(_player.getName() + " has been knocked unconscious! " +
                 (_player.getMoney() - _player.getMoney()) + " money has been lost!");
+		} else {
+			System.out.println(_player.getName() + " has been knocked unconscious!");
+		}
 
         Main.toggleCombatOff();
         
@@ -70,4 +75,5 @@ public class Player extends Character {
         // load cell
         return;
 	}
+
 }

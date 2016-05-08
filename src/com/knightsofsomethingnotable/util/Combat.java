@@ -23,35 +23,47 @@ public class Combat {
         }
 
         Main.toggleCombatOn();
-        processPlayerAttack(player, nonPlayer);
-        processNonPlayerAttack(player, nonPlayer);
+        if (processPlayerAttack(player, nonPlayer).equals("continue")) {
+        	processNonPlayerAttack(player, nonPlayer);
+        }
     }
     
-    private static void processPlayerAttack(Player _player, NonPlayer _nonPlayer) {
+    private static String processPlayerAttack(Player _player, NonPlayer _nonPlayer) {
     	
-    	if (_nonPlayer.getHitPoints() - _player.getAttack() <= 0) {
-    		NonPlayer.killNonPlayer(_player, _nonPlayer);
-            Main.toggleCombatOff();
+		_nonPlayer.setHitPoints(_nonPlayer.getHitPoints() - _player.getAttack());
+        System.out.println(_player.getName() + " hits " + _nonPlayer.getName() + " for " + _player.getAttack() + " point(s) of damage!");
+        
+        _nonPlayer.printHealth();
+        
+        if (_nonPlayer.getHitPoints() <= 0) {
+    		
+        	NonPlayer.killNonPlayer(_player, _nonPlayer);
+            
+        	Main.toggleCombatOff();
+            
             if (_player.getExp() >= _player.getExpToNextLevel()) {
             	Player.levelUpPlayer(_player);
             }
+            
             NonPlayer.spawnAnotherNonPlayer(_nonPlayer);
-    	} else {
-    		_nonPlayer.setHitPoints(_nonPlayer.getHitPoints() - _player.getAttack());
-            System.out.println(_player.getName() + " hits " + _nonPlayer.getName() + " for " + _player.getAttack() + " point(s) of damage!");
-            System.out.println(_nonPlayer.getName() + " HP: " + _nonPlayer.getHitPoints() + "/" + _nonPlayer.getMaxHitPoints());
-        }
-		
+            
+            return "end round";
+    	}
+        return "continue";
 	}
     
     private static void processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
     	
-    	if (_player.getHitPoints() - _nonPlayer.getAttack() <= 0) {
+    	_player.setHitPoints(_player.getHitPoints() - _nonPlayer.getAttack());
+    	
+    	System.out.println("The " + _nonPlayer.getName() + " hits " + _player.getName() + " for " + _nonPlayer.getAttack() + " point(s) of damage!");
+    	_player.printHealth();
+    	//System.out.println(_player.getName() + " HP: " + _player.getHitPoints() + "/" + _player.getMaxHitPoints() + "\n");
+    	System.out.println();
+    	
+    	if (_player.getHitPoints() <= 0) {
     		Player.killPlayer(_player);
-        } else {
-        	_player.setHitPoints(_player.getHitPoints() - _nonPlayer.getAttack());
-            System.out.println("The " + _player.getName() + " hits " + _player.getName() + " for " + _nonPlayer.getAttack() + " point(s) of damage!");
-            System.out.println(_player.getName() + " HP: " + _player.getHitPoints() + "/" + _player.getMaxHitPoints() + "\n");
-        }
+        } 
 	}
+
 }

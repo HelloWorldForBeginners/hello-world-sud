@@ -117,4 +117,10 @@ public class Character extends GameObject {
     public void setMoney(int money) {
         this.money = money;
     }
+    
+	public void printHealth() {
+		
+    	System.out.println(this.getName() + " HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() + "\n");
+    	System.out.println();
+	}
 }
