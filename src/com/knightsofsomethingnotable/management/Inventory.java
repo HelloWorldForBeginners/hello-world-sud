@@ -1,7 +1,10 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.management;
 import java.util.ArrayList;
 
-class Inventory {
+import com.knightsofsomethingnotable.entities.Item;
+import com.knightsofsomethingnotable.entities.Player;
+
+public class Inventory {
 
     public static void getItem(String itemName, Player player, Room room) {
 

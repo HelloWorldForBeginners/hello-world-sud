@@ -1,6 +1,10 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.entities;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.knightsofsomethingnotable.main.Main;
+import com.knightsofsomethingnotable.management.Room;
+import com.knightsofsomethingnotable.management.World;
 
 public class NonPlayer extends Character {
 
@@ -71,10 +75,10 @@ public class NonPlayer extends Character {
             return;
         }
 
-        if (!Main.combat) {
+        if (!Main.getCombat()) {
     		System.out.println("Combat started...");
     		System.out.println();
-    		Main.combat = true;
+    		Main.setCombat(true);
         }
         
         // get player attack, defense, hp, exp, exptonextlevel
@@ -105,9 +109,9 @@ public class NonPlayer extends Character {
             player.setMoney((int) Math.round(playerMoney * 0.9));
             System.out.println(player.getName() + " has been knocked unconscious! " +
                     (playerMoney - player.getMoney()) + " money has been lost!");
-            Main.combat = false;
-            Main.currentRoom = Main.defaultRoom;
-            World.print(Main.currentRoom);
+            Main.setCombat(false);
+            Main.setCurrentRoom(Main.getDefaultRoom());
+            World.print(Main.getCurrentRoom());
             // load cell
             return;
         } else {
@@ -133,7 +137,7 @@ public class NonPlayer extends Character {
             System.out.println(player.getName() + "'s health has fully recovered!\n");
             // remove creature from room list? Right now just resets health.
             
-            Main.combat = false;
+            Main.setCombat(false);
             System.out.println();
             System.out.println("Combat ended");
             System.out.println();

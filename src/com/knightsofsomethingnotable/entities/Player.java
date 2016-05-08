@@ -1,4 +1,4 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.entities;
 import java.util.ArrayList;
 import java.util.HashMap;
 

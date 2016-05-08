@@ -1,7 +1,10 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.management;
 import java.util.HashMap;
 
-class Equipment {
+import com.knightsofsomethingnotable.entities.Item;
+import com.knightsofsomethingnotable.entities.Player;
+
+public class Equipment {
 
     public static void equipItem(String itemName, Player player) {
 

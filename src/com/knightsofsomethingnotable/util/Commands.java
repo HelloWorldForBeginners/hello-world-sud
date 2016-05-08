@@ -1,6 +1,15 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.util;
 
 import java.util.HashMap;
+
+import com.knightsofsomethingnotable.entities.Item;
+import com.knightsofsomethingnotable.entities.NonPlayer;
+import com.knightsofsomethingnotable.entities.Player;
+import com.knightsofsomethingnotable.main.Main;
+import com.knightsofsomethingnotable.management.Equipment;
+import com.knightsofsomethingnotable.management.Inventory;
+import com.knightsofsomethingnotable.management.Room;
+import com.knightsofsomethingnotable.management.World;
 
 public class Commands {
 	final static String noGo = "You can't go that way.";
@@ -47,12 +56,12 @@ public class Commands {
 	}
 	
 	public static Runnable exitRoom(String direction) {
-		Room thisRoom = Main.currentRoom;
+		Room thisRoom = Main.getCurrentRoom();
 		Room nextRoom = thisRoom.getExits().get(direction);
 		
 		if (nextRoom != null) {
-			if (Main.combat == false) {
-				Main.currentRoom = nextRoom;
+			if (Main.getCombat() == false) {
+				Main.setCurrentRoom(nextRoom);
 				World.print(nextRoom);
 			} else {
 				System.out.println("You're in combat!");
@@ -64,60 +73,60 @@ public class Commands {
 	}
 	
 	public static Runnable showInventory() {
-		Inventory.print(Main.inventory);
+		Inventory.print(Main.getInventory());
 		return null;
 	}
 	
 	public static Runnable equipment(String target) {
 		if (target != "") {
-			Equipment.equipItem(target, Main.player);
+			Equipment.equipItem(target, Main.getPlayer());
 		} else {
-			Equipment.print(Main.equipment);
+			Equipment.print(Main.getEquipment());
 		}
 		return null;
 	}
 	
 	public static Runnable removeEquipment(String target) {
-		Equipment.unequipItem(target, Main.player);
+		Equipment.unequipItem(target, Main.getPlayer());
 		return null;
 	}
 	
 	public static Runnable playerStatus() {
-		Player.printPlayerInfo(Main.player);
+		Player.printPlayerInfo(Main.getPlayer());
 		return null;
 	}
 	
 	public static Runnable addToInventory(String target) {
-		Inventory.getItem(target, Main.player, Main.currentRoom);
+		Inventory.getItem(target, Main.getPlayer(), Main.getCurrentRoom());
 		return null;
 	}
 	
 	public static Runnable removeFromInventory(String target) {
-		Inventory.putItem(target, Main.player, Main.currentRoom);
+		Inventory.putItem(target, Main.getPlayer(), Main.getCurrentRoom());
 		return null;
 	}
 
 	public static Runnable attack(String target) {
-		NonPlayer.attackNonPlayer(target, Main.currentRoom, Main.player);
+		NonPlayer.attackNonPlayer(target, Main.getCurrentRoom(), Main.getPlayer());
 		return null;
 	}
 	
 	public static Runnable roomStatus() {
-		World.print(Main.currentRoom);
+		World.print(Main.getCurrentRoom());
 		return null;
 	}
 	
 	public static Runnable checkThing(String target) {
 		//tries to look at the NonPlayer first, then looks at the items in the room
-		if (NonPlayer.printNonPlayerInfo(target, Main.currentRoom).equals("")) {
-			Item.printItemInfo(target, Main.currentRoom);
+		if (NonPlayer.printNonPlayerInfo(target, Main.getCurrentRoom()).equals("")) {
+			Item.printItemInfo(target, Main.getCurrentRoom());
 		}
 		return null;
 	}
 	
 	public static Runnable quitGame() {
 		System.out.println("Goodbye!");
-		Main.playing = false;
+		Main.setPlaying(false);
 		return null;
 	}
 }

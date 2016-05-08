@@ -1,9 +1,12 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.management;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class World {
+import com.knightsofsomethingnotable.entities.Item;
+import com.knightsofsomethingnotable.entities.NonPlayer;
+
+public class World {
 
     public static void build(HashMap<String, Room> rooms) {
     	

@@ -1,4 +1,7 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.entities;
+
+import com.knightsofsomethingnotable.GameObject;
+import com.knightsofsomethingnotable.management.Room;
 
 public class Item extends GameObject {
     private int amount;

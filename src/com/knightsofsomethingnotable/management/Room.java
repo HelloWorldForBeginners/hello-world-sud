@@ -1,8 +1,12 @@
-package com.knightsofsomethingnotable;
+package com.knightsofsomethingnotable.management;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class Room extends GameObject {
+import com.knightsofsomethingnotable.GameObject;
+import com.knightsofsomethingnotable.entities.Item;
+import com.knightsofsomethingnotable.entities.NonPlayer;
+
+public class Room extends GameObject {
 
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<NonPlayer> creatures = new ArrayList<>();
