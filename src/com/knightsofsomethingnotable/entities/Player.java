@@ -72,7 +72,6 @@ public class Player extends Character {
         
         Main.setCurrentRoom(Main.getDefaultRoom());
         World.print(Main.getCurrentRoom());
-        // load cell
         return;
 	}
 

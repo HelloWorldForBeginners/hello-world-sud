@@ -1,0 +1,23 @@
+Monster generation
+
+monsters will generate with a level within x levels of current player level
+modifiers by monster type (defensive = higher def/hp, aggressive = higher attack, etc)
+groups of rooms (i.e. all dungeon type rooms) will have a max monster cap
+only certain monsters will be eligible to span in an area type
+monsters may randomly move between rooms
+
+
+Escaping combat
+
+build in escape rolling
+6 = escape no damage
+4-5 = escape losing some money
+2-3 = escape after monster attacks
+0-1 = don't escape, and monster attacks
+
+
+Randomize group layout
+
+Rooms within a group will have randomized directions.
+Certain directions will be forced
+Certain rooms will not be allowed next to others

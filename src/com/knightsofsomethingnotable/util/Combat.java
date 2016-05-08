@@ -58,8 +58,6 @@ public class Combat {
     	
     	System.out.println("The " + _nonPlayer.getName() + " hits " + _player.getName() + " for " + _nonPlayer.getAttack() + " point(s) of damage!");
     	_player.printHealth();
-    	//System.out.println(_player.getName() + " HP: " + _player.getHitPoints() + "/" + _player.getMaxHitPoints() + "\n");
-    	System.out.println();
     	
     	if (_player.getHitPoints() <= 0) {
     		Player.killPlayer(_player);
