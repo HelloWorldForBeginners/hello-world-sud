@@ -23,7 +23,7 @@ public class World {
     	Room greatHall = new Room("Great Hall", "You are in the great hall.\n", new ArrayList<>(), new ArrayList<>());
     	Room courtyard = new Room("Courtyard", "You are in the courtyard.\n", new ArrayList<>(), new ArrayList<>());
     	Room iceHouse = new Room("Ice House", "You are in the ice house.\n", new ArrayList<>(), new ArrayList<>());
-    	Room dovecote = new Room("Dovecote", "You are in the dovecote. There are doves here.\n", new ArrayList<>(), new ArrayList<>());
+    	Room dovecote = new Room("Dovecote", "You are in the dovecote. Because doves like basements.\n", new ArrayList<>(), new ArrayList<>());
     	Room guardroom = new Room("Guardroom", "You are in the guardroom.\n", new ArrayList<>(), new ArrayList<>());
     	Room study = new Room("Study", "You are in the study.\n", new ArrayList<>(), new ArrayList<>());
     	Room undercroft = new Room("Undercroft", "You are in the Undercroft.\n", new ArrayList<>(), new ArrayList<>());
