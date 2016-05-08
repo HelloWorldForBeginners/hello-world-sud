@@ -13,6 +13,8 @@ import com.knightsofsomethingnotable.management.World;
 
 public class Commands {
 	final static String noGo = "You can't go that way.";
+	private static String previousCommand = "";
+	private static String previousTarget = "";
 	
 	static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
 		put("north", () -> Commands.exitRoom("north"));
@@ -44,15 +46,24 @@ public class Commands {
 	}};
 	
 	public static void processCommand(String command) {
-		Runnable thingToRun = commands.get(command);
-    	
-    	if (thingToRun != null) {
-    		new Thread(thingToRun).start();
-    	}
-    	else {
+
+		Runnable thingToRun = null;
+
+		if (command.equals("prev") && !previousCommand.equals("")) {
+			thingToRun = commands.get(previousCommand);
+			Input.target = previousTarget;
+		} else {
+			thingToRun = commands.get(command);
+			previousCommand = command;
+			previousTarget = Input.target;
+
+		}
+
+		if (thingToRun != null) {
+			new Thread(thingToRun).start();
+		} else {
     		System.out.println("You can't do that.");
     	}
-
 	}
 	
 	public static Runnable exitRoom(String direction) {

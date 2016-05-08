@@ -2,6 +2,7 @@ package com.knightsofsomethingnotable.util;
 import java.util.Scanner;
 
 public class Input {
+	Input() {}
 	
 	static String target = "";
     

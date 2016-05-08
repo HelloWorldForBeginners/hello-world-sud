@@ -40,7 +40,7 @@ public class Equipment {
         // checks if target slot of item to be equipped is already filled; unequip if so
         if (item != null) {
             for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
-                if (entry.getKey().equals(item.getSlot())) {
+                if (entry.getKey().equals(item.getSlot()) && !item.equals(entry.getValue())) {
                     unequipThisItem = entry.getValue().getName();
                     Equipment.unequipItem(unequipThisItem, player);
                 }
@@ -48,14 +48,7 @@ public class Equipment {
         }
 
         // Text output
-        if (!equipped && inInventory && isEquipment) {
-            System.out.println("You equip the " + itemName + ".");
-            //check if slot exists in map
-            player.getEquipment().put(item.getSlot(),item);
-            player.getInventory().remove(item);
-            player.setDefense(player.getDefense() + item.getDefense());
-        }
-        else if (equipped) {
+        if (equipped) {
             System.out.println("You already have a " + itemName + " equipped.");
         }
         else if (!inInventory) {
@@ -63,6 +56,13 @@ public class Equipment {
         }
         else if (!isEquipment) {
             System.out.println("You can't equip that, even though it would probably be hilarious.");
+        }
+        else if (!equipped && inInventory && isEquipment) {
+            System.out.println("You equip the " + itemName + ".");
+            //check if slot exists in map
+            player.getEquipment().put(item.getSlot(),item);
+            player.getInventory().remove(item);
+            player.setDefense(player.getDefense() + item.getDefense());
         }
         else {
             System.out.println("I don't understand.");
