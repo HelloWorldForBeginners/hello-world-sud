@@ -1,80 +1,99 @@
 package com.knightsofsomethingnotable.management;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import com.knightsofsomethingnotable.entities.Item;
 import com.knightsofsomethingnotable.entities.NonPlayer;
+import com.knightsofsomethingnotable.main.Main;
 
 public class World {
+//	private static HashMap<String, Room> rooms = null;
 
-    public static void build(HashMap<String, Room> rooms) {
+    public static void build() {
     	
-    	Room dungeon = new Room("Dungeon", "You are in a dungeon.\n", new ArrayList<>(), new ArrayList<>());
-    	Room messHall = new Room("Mess Hall", "You are in the mess hall.\n", new ArrayList<>(), new ArrayList<>());
-    	Room larder = new Room("Larder", "You are in the larder. There's food here.\n", new ArrayList<>(), new ArrayList<>());
-    	Room cell = new Room("Cell", "You are in a cell.\n", new ArrayList<>(), new ArrayList<>());
-    	Room privy = new Room("Privy", "You are in the privy.\n", new ArrayList<>(), new ArrayList<>());
-    	Room solar = new Room("Solar", "You are in the solar.\n", new ArrayList<>(), new ArrayList<>());
-    	Room library = new Room("Library", "You are in the library.\n", new ArrayList<>(), new ArrayList<>());
-    	Room servantsQuarters = new Room("Servants Quarters", "You are in the servant's quarters.\n", new ArrayList<>(), new ArrayList<>());
-    	Room chapel = new Room("Chapel", "You are in the chapel.\n", new ArrayList<>(), new ArrayList<>());
-    	Room gatehouse = new Room("Gatehouse", "You are in the gatehouse.\n", new ArrayList<>(), new ArrayList<>());
-    	Room greatHall = new Room("Great Hall", "You are in the great hall.\n", new ArrayList<>(), new ArrayList<>());
-    	Room courtyard = new Room("Courtyard", "You are in the courtyard.\n", new ArrayList<>(), new ArrayList<>());
-    	Room iceHouse = new Room("Ice House", "You are in the ice house.\n", new ArrayList<>(), new ArrayList<>());
-    	Room dovecote = new Room("Dovecote", "You are in the dovecote. Because doves like basements.\n", new ArrayList<>(), new ArrayList<>());
-    	Room guardroom = new Room("Guardroom", "You are in the guardroom.\n", new ArrayList<>(), new ArrayList<>());
-    	Room study = new Room("Study", "You are in the study.\n", new ArrayList<>(), new ArrayList<>());
-    	Room undercroft = new Room("Undercroft", "You are in the Undercroft.\n", new ArrayList<>(), new ArrayList<>());
-    	
-        dungeon.setItems( new Item("shirt","smelly",1,"equipment","body",3));
-        dungeon.setItems( new Item("jacket","cool",1,"equipment","body",3));
-        dungeon.setItems( new Item("shoes","smelly",1,"equipment","feet",1));
-        dungeon.setItems( new Item("boots","smelly",1,"equipment","feet",1));
-        dungeon.setCreatures( new NonPlayer("platypus","semi-aquatic, egg-laying mammal of action",1,5,5,2,2,1,1,null,null));
-
-        cell.setItems( new Item("pants","wet",1,"equipment","legs",2));
-        cell.setCreatures( new NonPlayer("bugbear","fluffy",3,13,20,10,10,3,3,null,null));
-        
-        messHall.setItems( new Item("gloves","stained",1,"equipment","hands",1));
-        messHall.setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
-        
-        privy.setItems( new Item("shoes","smelly",1,"equipment","feet",1));
-        privy.setItems( new Item("boots","smelly",1,"equipment","feet",1));
-        privy.setItems( new Item("toilet paper","cool",1,"item","none",0));
-        privy.setCreatures( new NonPlayer("goblin","weak",6,22,41,15,15,6,6,null,null));
-
-        dovecote.setCreatures( new NonPlayer("bloodthirsty dove","bloodthirsty",5,22,41,15,15,6,6,null,null));
-        
-        larder.setItems( new Item("wine","tasty",0,"consumable","FOOD",0));
-        larder.setItems( new Item("mead","tasty",0,"consumable","FOOD",0));
-        larder.setItems( new Item("spirits","tasty",0,"consumable","FOOD",0));
-        larder.setItems( new Item("mutton","it's sheep, you're eating sheep",0,"consumable","FOOD",0));
-        
-        cell.setExits( new String("east"), dungeon);
-        dungeon.setExits( new String("south"), privy);
-        dungeon.setExits( new String("east"), messHall);
-        dungeon.setExits( new String("west"), cell);
-        dungeon.setExits( new String("north"), dovecote);
-        messHall.setExits( new String("west"), dungeon);
-        messHall.setExits( new String("east"), larder);
-        larder.setExits( new String("west"), messHall);
-        privy.setExits( new String("north"), dungeon);
-        dovecote.setExits( new String("south"), dungeon);
-        
-        rooms.put("Castle", messHall);
-        rooms.put("Castle", privy);
-        rooms.put("Castle", cell);
-        rooms.put("Castle", dungeon);
-        rooms.put("Castle", larder);
-        rooms.put("Castle", dovecote);
+		buildRoomsFromFile();
+		addItemsToRooms();
+		addCreaturesToRooms();
+		addExitsToRooms();
     }
 
-    public static void print(Room room) {
+    private static void buildRoomsFromFile() {
+		File currDir = new File(".");
+		String path = currDir.getAbsolutePath();
+		path = path.substring(0, path.length()-1);
+		
+		File file = new File(path + "/src/Resources/roomList.txt");
+		
+		Scanner scan = null; 
+	
+	    try {
+	    	scan = new Scanner(file);
+	
+	    	while (scan.hasNextLine()) {
+	    		String line = scan.nextLine();
+	            String[] lineArray = line.split(",");
+	            if (lineArray.length < 3) { 
+	            	continue;
+	            }
+	            Main.rooms.put(lineArray[1], new Room(lineArray[0], lineArray[1], lineArray[2], new ArrayList<>(), new ArrayList<>()));
+	    	}
+	    	
+	    } catch (FileNotFoundException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	scan.close();
+	    }
+		
+	}
+
+	private static void addItemsToRooms() {
+		Main.rooms.get("dungeon").setItems( new Item("shirt","smelly",1,"equipment","body",3));
+	    Main.rooms.get("dungeon").setItems( new Item("jacket","cool",1,"equipment","body",3));
+	    Main.rooms.get("dungeon").setItems( new Item("shoes","smelly",1,"equipment","feet",1));
+	    Main.rooms.get("dungeon").setItems( new Item("boots","smelly",1,"equipment","feet",1));
+	    Main.rooms.get("cell").setItems( new Item("pants","wet",1,"equipment","legs",2));
+	    Main.rooms.get("messHall").setItems( new Item("gloves","stained",1,"equipment","hands",1));
+	    Main.rooms.get("privy").setItems( new Item("shoes","smelly",1,"equipment","feet",1));
+	    Main.rooms.get("privy").setItems( new Item("boots","smelly",1,"equipment","feet",1));
+	    Main.rooms.get("privy").setItems( new Item("toilet paper","cool",1,"item","none",0));
+	    Main.rooms.get("larder").setItems( new Item("wine","tasty",0,"consumable","FOOD",0));
+	    Main.rooms.get("larder").setItems( new Item("mead","tasty",0,"consumable","FOOD",0));
+	    Main.rooms.get("larder").setItems( new Item("spirits","tasty",0,"consumable","FOOD",0));
+	    Main.rooms.get("larder").setItems( new Item("mutton","it's sheep, you're eating sheep",0,"consumable","FOOD",0));
+	}
+
+	private static void addCreaturesToRooms() {
+        Main.rooms.get("dungeon").setCreatures( new NonPlayer("platypus","semi-aquatic, egg-laying mammal of action",1,5,5,2,2,1,1,null,null));
+        Main.rooms.get("cell").setCreatures( new NonPlayer("bugbear","fluffy",3,13,20,10,10,3,3,null,null));
+        Main.rooms.get("messHall").setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
+        Main.rooms.get("privy").setCreatures( new NonPlayer("goblin","weak",6,22,41,15,15,6,6,null,null));
+        Main.rooms.get("dovecote").setCreatures( new NonPlayer("bloodthirsty dove","bloodthirsty",5,22,41,15,15,6,6,null,null));
+
+	}
+
+	private static void addExitsToRooms() {
+	    Main.rooms.get("cell").setExits( new String("east"), Main.rooms.get("dungeon"));
+	    Main.rooms.get("dungeon").setExits( new String("south"), Main.rooms.get("privy"));
+	    Main.rooms.get("dungeon").setExits( new String("east"), Main.rooms.get("messHall"));
+	    Main.rooms.get("dungeon").setExits( new String("west"), Main.rooms.get("cell"));
+	    Main.rooms.get("dungeon").setExits( new String("north"), Main.rooms.get("dovecote"));
+	    Main.rooms.get("messHall").setExits( new String("west"), Main.rooms.get("dungeon"));
+	    Main.rooms.get("messHall").setExits( new String("east"), Main.rooms.get("larder"));
+	    Main.rooms.get("larder").setExits( new String("west"), Main.rooms.get("messHall"));
+	    Main.rooms.get("privy").setExits( new String("north"), Main.rooms.get("dungeon"));
+	    Main.rooms.get("dovecote").setExits( new String("south"), Main.rooms.get("dungeon"));
+		
+	}
+
+	public static void print(Room room) {
     	
-    	System.out.println("<<<<<======= " + room.getName() + " =======>>>>>");
+    	System.out.println("<<<<<======= " + room.getName() + " =======>>>>>\n");
         System.out.println(room.getDescription());
+        System.out.println();
         System.out.println("Exits: " + room.getExits());
         System.out.println();
         if (room.getItems().size() > 0) {

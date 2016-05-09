@@ -12,7 +12,7 @@ public class Room extends GameObject {
     private ArrayList<NonPlayer> creatures = new ArrayList<>();
     private HashMap<String, Room> exits = new HashMap<String, Room>();
 
-    public Room(String name, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures) { //, HashMap<String, String> exits) {
+    public Room(String name, String paramName, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures) { //, HashMap<String, String> exits) {
     	super(name, description);
     	this.items = items;
     	this.creatures = creatures;

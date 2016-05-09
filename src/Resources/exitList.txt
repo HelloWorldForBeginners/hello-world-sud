@@ -1,0 +1,10 @@
+cell,east,dungeon
+dungeon,south,privy
+dungeon,east,messHall
+dungeon,west,cell
+dungeon,north,dovecote
+messHall,west,dungeon
+messHall,east,larder
+larder,west,messHall
+privy,north,dungeon
+dovecote,south,dungeon

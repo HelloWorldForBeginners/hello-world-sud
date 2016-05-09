@@ -1,4 +1,0 @@
-shirt,smelly,1,equipment,body,3
-jacket,cool,1,equipment,body,3
-shoes,smelly,1,equipment,feet,1
-boots,smelly,1,equipment,feet,1

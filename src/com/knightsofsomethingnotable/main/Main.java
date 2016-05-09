@@ -21,7 +21,7 @@ public class Main {
     private static NonPlayer currentCombatTarget = null;
     
     static final int numRooms = 4;
-    static HashMap<String, Room> rooms = new HashMap<String, Room>();
+    public static HashMap<String, Room> rooms = new HashMap<String, Room>();
 
     // inventory and equipment 
     private static ArrayList<Item> inventory = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Main {
 
     	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
-        World.build(rooms);
+        World.build();
         setDefaultRoom(rooms.entrySet().iterator().next().getValue());
         setCurrentRoom(getDefaultRoom());
         World.print(getCurrentRoom());

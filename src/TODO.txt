@@ -8,6 +8,7 @@ monsters may randomly move between rooms
 
 
 Escaping combat
+DONE
 
 build in escape rolling
 5 = escape no damage
@@ -16,7 +17,7 @@ build in escape rolling
 0 = don't escape, and monster attacks
 
 
-Randomize group layout
+Randomize room layout within group
 
 Rooms within a group will have randomized directions.
 Certain directions will be forced
