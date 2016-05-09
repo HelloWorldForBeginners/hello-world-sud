@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 import com.knightsofsomethingnotable.GameObject;
 
-public class Character extends GameObject {
+public abstract class Character extends GameObject {
 
     private int level;
-    private int money;
-    private int exp;
-    private int hitPoints;
+    protected int money;
+    protected int exp;
+    protected int hitPoints;
     private int maxHitPoints;
     private int attack;
     private int defense;
@@ -120,7 +120,7 @@ public class Character extends GameObject {
     
 	public void printHealth() {
 		
-    	System.out.println(this.getName() + " HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() + "\n");
+    	System.out.println(this.getName() + " HP: " + this.hitPoints + "/" + this.maxHitPoints + "\n");
     	System.out.println();
 	}
 }

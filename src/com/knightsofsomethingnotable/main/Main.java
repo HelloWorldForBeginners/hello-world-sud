@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.knightsofsomethingnotable.entities.Item;
+import com.knightsofsomethingnotable.entities.NonPlayer;
 import com.knightsofsomethingnotable.entities.Player;
 import com.knightsofsomethingnotable.management.Room;
 import com.knightsofsomethingnotable.management.World;
@@ -16,6 +17,8 @@ public class Main {
     
     private static Room currentRoom = null;
     private static Room defaultRoom = null;
+    
+    private static NonPlayer currentCombatTarget = null;
     
     static final int numRooms = 4;
     static HashMap<String, Room> rooms = new HashMap<String, Room>();
@@ -114,16 +117,29 @@ public class Main {
 		Main.defaultRoom = defaultRoom;
 	}
 
+	
+	public static NonPlayer getCurrentCombatTarget() {
+		return currentCombatTarget;
+	}
 
-	public static void toggleCombatOn() {
+	
+	public static void setCurrentCombatTarget(NonPlayer nonPlayer) {
+		Main.currentCombatTarget = nonPlayer;
+	}
+
+
+	public static void toggleCombatOn(NonPlayer nonPlayer) {
 
 		if (!Main.getCombat()) {
     		System.out.println("Combat started...");
     		System.out.println();
     		Main.setCombat(true);
+    		Main.setCurrentCombatTarget(nonPlayer);
         }
 	}
 	
+	
+
 	public static void toggleCombatOff() {
         
         Main.setCombat(false);
@@ -131,4 +147,6 @@ public class Main {
         System.out.println("Combat ended");
         System.out.println();
 	}
+
+
 }

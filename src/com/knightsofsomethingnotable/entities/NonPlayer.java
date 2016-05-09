@@ -60,16 +60,21 @@ public class NonPlayer extends Character {
 	
 	public static void killNonPlayer(Player _player, NonPlayer _nonPlayer) {
 
-		_player.setExp(_player.getExp() + _nonPlayer.getExp());
-		_player.setMoney(_player.getMoney() + _nonPlayer.getMoney());
+		_player.addToExp(_nonPlayer.getExp());
+		_player.adjustMoney(_nonPlayer.getMoney());
 		_player.setHitPoints(_player.getMaxHitPoints());
-        System.out.println(_player.getName() + " has defeated the " + _nonPlayer.getName() + "!");
-        System.out.println(_player.getName() + "'s health has fully recovered!\n");
+        System.out.println("You have defeated the " + _nonPlayer.getName() + "!");
+        System.out.println("Your health has fully recovered!\n");
 	}
 
 	
 	public String toString() {
 		String toString = getName();
 		return toString;
+	}
+
+
+	public void lowerHitPoints(int _hitPoints) {
+		this.hitPoints -= _hitPoints;
 	}
 }

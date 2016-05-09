@@ -1,8 +1,6 @@
 package com.knightsofsomethingnotable;
-/**
- * Created by matt on 1/31/16.
- */
-public class GameObject {
+
+public abstract class GameObject {
 
         private String name;
         private String description;

@@ -10,10 +10,10 @@ monsters may randomly move between rooms
 Escaping combat
 
 build in escape rolling
-6 = escape no damage
-4-5 = escape losing some money
-2-3 = escape after monster attacks
-0-1 = don't escape, and monster attacks
+5 = escape no damage
+3-4 = escape losing some money
+1-2 = escape after monster attacks
+0 = don't escape, and monster attacks
 
 
 Randomize group layout

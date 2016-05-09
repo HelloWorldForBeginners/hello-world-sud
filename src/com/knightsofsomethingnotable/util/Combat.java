@@ -22,7 +22,7 @@ public class Combat {
             return;
         }
 
-        Main.toggleCombatOn();
+        Main.toggleCombatOn(nonPlayer);
         if (processPlayerAttack(player, nonPlayer).equals("continue")) {
         	processNonPlayerAttack(player, nonPlayer);
         }
@@ -30,7 +30,7 @@ public class Combat {
     
     private static String processPlayerAttack(Player _player, NonPlayer _nonPlayer) {
     	
-		_nonPlayer.setHitPoints(_nonPlayer.getHitPoints() - _player.getAttack());
+		_nonPlayer.lowerHitPoints(_player.getAttack());
         System.out.println(_player.getName() + " hits " + _nonPlayer.getName() + " for " + _player.getAttack() + " point(s) of damage!");
         
         _nonPlayer.printHealth();
@@ -52,16 +52,18 @@ public class Combat {
         return "continue";
 	}
     
-    private static void processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
+    public static String processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
     	
     	_player.setHitPoints(_player.getHitPoints() - _nonPlayer.getAttack());
     	
-    	System.out.println("The " + _nonPlayer.getName() + " hits " + _player.getName() + " for " + _nonPlayer.getAttack() + " point(s) of damage!");
+    	System.out.println("The " + _nonPlayer.getName() + " hits you for " + _nonPlayer.getAttack() + " point(s) of damage!");
     	_player.printHealth();
     	
     	if (_player.getHitPoints() <= 0) {
     		Player.killPlayer(_player);
-        } 
+    		return "respawned";
+        }
+		return ""; 
 	}
 
 }
