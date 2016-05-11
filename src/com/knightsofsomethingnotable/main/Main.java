@@ -38,7 +38,7 @@ public class Main {
         World.build();
         setDefaultRoom(rooms.entrySet().iterator().next().getValue());
         setCurrentRoom(getDefaultRoom());
-        World.print(getCurrentRoom());
+        Room.print(getCurrentRoom());
         
         // Start game
         while (playing) {
@@ -137,7 +137,6 @@ public class Main {
     		Main.setCurrentCombatTarget(nonPlayer);
         }
 	}
-	
 	
 
 	public static void toggleCombatOff() {

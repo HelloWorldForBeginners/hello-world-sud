@@ -157,7 +157,7 @@ public class Commands {
 	private static void changeRooms() {
 		Main.setCurrentCombatTarget(null);
 		Main.setCurrentRoom(nextRoom);
-		World.print(nextRoom);
+		Room.print(nextRoom);
 	}
 
 	public static Runnable showInventory() {
@@ -200,7 +200,7 @@ public class Commands {
 	}
 	
 	public static Runnable roomStatus() {
-		World.print(Main.getCurrentRoom());
+		Room.print(Main.getCurrentRoom());
 		return null;
 	}
 	

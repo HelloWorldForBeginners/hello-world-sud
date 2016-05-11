@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.knightsofsomethingnotable.main.Main;
+import com.knightsofsomethingnotable.management.Room;
 import com.knightsofsomethingnotable.management.World;
 
 public class Player extends Character {
@@ -71,7 +72,7 @@ public class Player extends Character {
 		}
         
         Main.setCurrentRoom(Main.getDefaultRoom());
-        World.print(Main.getCurrentRoom());
+        Room.print(Main.getCurrentRoom());
         return "respawn";
 	}
 

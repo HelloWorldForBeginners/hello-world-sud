@@ -63,4 +63,37 @@ public class Room extends GameObject {
 		String toString = getName();
 		return toString;
 	}
+	
+	public static void print(Room room) {
+    	
+    	System.out.println("<<<<<======= " + room.getName() + " =======>>>>>\n");
+        System.out.println(room.getDescription());
+        System.out.println();
+        System.out.println("Exits: " + room.getExits());
+        System.out.println();
+        if (room.getItems().size() > 0) {
+            System.out.println("You see: " + room.getItems());
+        }
+        System.out.println();
+        if (room.getCreatures().size() > 0) {
+            System.out.println("There are creatures here: " + room.getCreatures());
+        }
+        System.out.println();
+    }
+
+    public static String getRoomName(Room room) {
+
+        return room.getName();
+    }
+
+    public static void removeItem(Room room, Item item) {
+
+        room.deleteItem(item);
+    }
+
+    public static void addItem(Room room, Item item) {
+
+        room.addItem(item);
+    }
+	
 }

@@ -33,7 +33,7 @@ public class Inventory {
         if (!inInventory && inRoom) {
             System.out.println("You pick up the " + itemName + ".");
             player.getInventory().add(item);
-            World.removeItem(room, item);
+            Room.removeItem(room, item);
         }
         else if (inInventory) {
             System.out.println("You already have the " + itemName + ".");
@@ -72,7 +72,7 @@ public class Inventory {
         if (inInventory && !inRoom) {
             System.out.println("You put down the " + itemName + ".");
             player.getInventory().remove(item);
-            World.addItem(room, item);
+            Room.addItem(room, item);
         }
         else if (inRoom) {
             System.out.println("There is already a " + itemName + " here.");
