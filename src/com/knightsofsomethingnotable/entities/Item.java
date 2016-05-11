@@ -9,16 +9,16 @@ public class Item extends GameObject {
     private String slot;
     private int defense;
 
-    public Item(String name, String description, int amount, String type, String slot, int defense) {
-        super(name, description);
-        this.amount = amount;
-        this.type = type;
-        this.slot = slot;
-        this.defense = defense;
+    public Item(String _name, String _description, int _amount, String _type, String _slot, int _defense) {
+        super(_name, _description);
+        this.amount = _amount;
+        this.type = _type;
+        this.slot = _slot;
+        this.defense = _defense;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setAmount(int _amount) {
+        this.amount = _amount;
     }
 
     public int getAmount() {
@@ -33,46 +33,46 @@ public class Item extends GameObject {
         return this.slot;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String _type) {
+        this.type = _type;
     }
 
-    public void setSlot(String slot) {
-        this.slot = slot;
+    public void setSlot(String _slot) {
+        this.slot = _slot;
     }
 
     public int getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public void setDefense(int _defense) {
+        this.defense = _defense;
     }
     
-    public static void printItemInfo(String target, Room room) {
+    public static void printItemInfo(String _target, Room _room) {
 
-        Item item = getitem(target, room);
+        Item item = getitem(_target, _room);
         if (item != null) {
         	printInfo(item);
         }
     }
 
-    private static void printInfo(Item item) {
+    private static void printInfo(Item _item) {
 
-    	System.out.println("Name: " + item.getName() + "(" + item.getAmount() + ")");
-        System.out.println(item.getDescription());
-        System.out.println("Type: " + item.getType());
-        System.out.println("Slot: " + item.getSlot());
-        System.out.println("Def: " + item.getDefense());
+    	System.out.println("Name: " + _item.getName() + "(" + _item.getAmount() + ")");
+        System.out.println(_item.getDescription());
+        System.out.println("Type: " + _item.getType());
+        System.out.println("Slot: " + _item.getSlot());
+        System.out.println("Def: " + _item.getDefense());
         System.out.println();
 	}
 
-	private static Item getitem(String target, Room room) {
-    	for (Item checkItem: room.getItems() ) {
-            if (checkItem.getName().equals(target)) {
+	private static Item getitem(String _target, Room _room) {
+    	for (Item checkItem: _room.getItems() ) {
+            if (checkItem.getName().equals(_target)) {
                 return checkItem;
             }
-            if (checkItem.getName().startsWith(target)) {
+            if (checkItem.getName().startsWith(_target)) {
                 return checkItem;
             }
         }

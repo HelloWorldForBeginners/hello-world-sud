@@ -10,4 +10,4 @@ privy,toilet paper,cool,1,item,none,0
 larder,wine,tasty,0,consumable,FOOD,0
 larder,mead,tasty,0,consumable,FOOD,0
 larder,spirits,tasty,0,consumable,FOOD,0
-larder,mutton,it's sheep, you're eating sheep,0,consumable,FOOD,0
+larder,mutton,it's sheep; you're eating sheep,0,consumable,FOOD,0

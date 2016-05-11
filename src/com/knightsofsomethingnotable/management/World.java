@@ -11,7 +11,6 @@ import com.knightsofsomethingnotable.entities.NonPlayer;
 import com.knightsofsomethingnotable.main.Main;
 
 public class World {
-//	private static HashMap<String, Room> rooms = null;
 
     public static void build() {
     	
@@ -21,6 +20,7 @@ public class World {
 		addExitsToRooms();
     }
 
+    
     private static void buildRoomsFromFile() {
 		File currDir = new File(".");
 		String path = currDir.getAbsolutePath();
@@ -28,8 +28,8 @@ public class World {
 		
 		File file = new File(path + "/src/Resources/roomList.txt");
 		
-		Scanner scan = null; 
-	
+		Scanner scan = null;
+		
 	    try {
 	    	scan = new Scanner(file);
 	
@@ -39,7 +39,15 @@ public class World {
 	            if (lineArray.length < 3) { 
 	            	continue;
 	            }
-	            Main.rooms.put(lineArray[1], new Room(lineArray[0], lineArray[1], lineArray[2], new ArrayList<>(), new ArrayList<>()));
+	            Main.rooms.put(
+	            		lineArray[1], 
+	            		new Room(
+	            				lineArray[0], 
+	            				lineArray[1], 
+	            				lineArray[2], 
+	            				new ArrayList<>(), 
+	            				new ArrayList<>())
+	            		);
 	    	}
 	    	
 	    } catch (FileNotFoundException e) {
@@ -47,47 +55,116 @@ public class World {
 	    } finally {
 	    	scan.close();
 	    }
+	}
+
+    
+    private static void addItemsToRooms() {
+		File currDir = new File(".");
+		String path = currDir.getAbsolutePath();
+		path = path.substring(0, path.length()-1);
 		
-	}
-
-	private static void addItemsToRooms() {
-		Main.rooms.get("dungeon").setItems( new Item("shirt","smelly",1,"equipment","body",3));
-	    Main.rooms.get("dungeon").setItems( new Item("jacket","cool",1,"equipment","body",3));
-	    Main.rooms.get("dungeon").setItems( new Item("shoes","smelly",1,"equipment","feet",1));
-	    Main.rooms.get("dungeon").setItems( new Item("boots","smelly",1,"equipment","feet",1));
-	    Main.rooms.get("cell").setItems( new Item("pants","wet",1,"equipment","legs",2));
-	    Main.rooms.get("messHall").setItems( new Item("gloves","stained",1,"equipment","hands",1));
-	    Main.rooms.get("privy").setItems( new Item("shoes","smelly",1,"equipment","feet",1));
-	    Main.rooms.get("privy").setItems( new Item("boots","smelly",1,"equipment","feet",1));
-	    Main.rooms.get("privy").setItems( new Item("toilet paper","cool",1,"item","none",0));
-	    Main.rooms.get("larder").setItems( new Item("wine","tasty",0,"consumable","FOOD",0));
-	    Main.rooms.get("larder").setItems( new Item("mead","tasty",0,"consumable","FOOD",0));
-	    Main.rooms.get("larder").setItems( new Item("spirits","tasty",0,"consumable","FOOD",0));
-	    Main.rooms.get("larder").setItems( new Item("mutton","it's sheep, you're eating sheep",0,"consumable","FOOD",0));
-	}
-
-	private static void addCreaturesToRooms() {
-        Main.rooms.get("dungeon").setCreatures( new NonPlayer("platypus","semi-aquatic, egg-laying mammal of action",1,5,5,2,2,1,1,null,null));
-        Main.rooms.get("cell").setCreatures( new NonPlayer("bugbear","fluffy",3,13,20,10,10,3,3,null,null));
-        Main.rooms.get("messHall").setCreatures( new NonPlayer("warg","fast",10,35,80,20,20,10,10,null,null));
-        Main.rooms.get("privy").setCreatures( new NonPlayer("goblin","weak",6,22,41,15,15,6,6,null,null));
-        Main.rooms.get("dovecote").setCreatures( new NonPlayer("bloodthirsty dove","bloodthirsty",5,22,41,15,15,6,6,null,null));
-
-	}
-
-	private static void addExitsToRooms() {
-	    Main.rooms.get("cell").setExits( new String("east"), Main.rooms.get("dungeon"));
-	    Main.rooms.get("dungeon").setExits( new String("south"), Main.rooms.get("privy"));
-	    Main.rooms.get("dungeon").setExits( new String("east"), Main.rooms.get("messHall"));
-	    Main.rooms.get("dungeon").setExits( new String("west"), Main.rooms.get("cell"));
-	    Main.rooms.get("dungeon").setExits( new String("north"), Main.rooms.get("dovecote"));
-	    Main.rooms.get("messHall").setExits( new String("west"), Main.rooms.get("dungeon"));
-	    Main.rooms.get("messHall").setExits( new String("east"), Main.rooms.get("larder"));
-	    Main.rooms.get("larder").setExits( new String("west"), Main.rooms.get("messHall"));
-	    Main.rooms.get("privy").setExits( new String("north"), Main.rooms.get("dungeon"));
-	    Main.rooms.get("dovecote").setExits( new String("south"), Main.rooms.get("dungeon"));
+		File file = new File(path + "/src/Resources/itemList.txt");
 		
+		Scanner scan = null;
+		
+	    try {
+	    	scan = new Scanner(file);
+	
+	    	while (scan.hasNextLine()) {
+	    		String line = scan.nextLine();
+	            String[] lineArray = line.split(",");
+	            if (lineArray.length < 7) {
+	            	continue;
+	            }
+	            Main.rooms.get(lineArray[0]).setItems( 
+	            		new Item(
+	            				lineArray[1], 
+	            				lineArray[2], 
+	            				Integer.parseInt(lineArray[3]), 
+	            				lineArray[4], 
+	            				lineArray[5], 
+	            				Integer.parseInt(lineArray[6]))
+	            		);
+	    	}
+	    	
+	    } catch (FileNotFoundException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	scan.close();
+	    }
 	}
+    
+    
+    private static void addCreaturesToRooms() {
+		File currDir = new File(".");
+		String path = currDir.getAbsolutePath();
+		path = path.substring(0, path.length()-1);
+		
+		File file = new File(path + "/src/Resources/creatureList.txt");
+		
+		Scanner scan = null;
+		
+	    try {
+	    	scan = new Scanner(file);
+	
+	    	while (scan.hasNextLine()) {
+	    		String line = scan.nextLine();
+	            String[] lineArray = line.split(",");
+	            if (lineArray.length < 10) {
+	            	continue;
+	            }
+	            Main.rooms.get(lineArray[0]).setCreatures( 
+	            		new NonPlayer(
+	            				lineArray[1], 
+	            				lineArray[2], 
+	            				Integer.parseInt(lineArray[3]), 
+	            				Integer.parseInt(lineArray[4]), 
+	            				Integer.parseInt(lineArray[5]), 
+	            				Integer.parseInt(lineArray[6]), 
+	            				Integer.parseInt(lineArray[7]), 
+	            				Integer.parseInt(lineArray[8]), 
+	            				Integer.parseInt(lineArray[9]), 
+	            				new ArrayList<>(), new HashMap<>())
+	            		);
+	    	}
+	    	
+	    } catch (FileNotFoundException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	scan.close();
+	    }
+	}
+    
+
+    private static void addExitsToRooms() {
+		File currDir = new File(".");
+		String path = currDir.getAbsolutePath();
+		path = path.substring(0, path.length()-1);
+		
+		File file = new File(path + "/src/Resources/exitList.txt");
+		
+		Scanner scan = null;
+		
+	    try {
+	    	scan = new Scanner(file);
+	
+	    	while (scan.hasNextLine()) {
+	    		String line = scan.nextLine();
+	            String[] lineArray = line.split(",");
+	            if (lineArray.length < 3) {
+	            	continue;
+	            }
+	            Main.rooms.get(lineArray[0]).
+	            	setExits(new String(lineArray[1]), Main.rooms.get(lineArray[2]));
+	    	}
+	    	
+	    } catch (FileNotFoundException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	scan.close();
+	    }
+	}
+
 
 	public static void print(Room room) {
     	
