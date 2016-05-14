@@ -1,9 +1,9 @@
-Dungeon,dungeon,You are in a dungeon.
-Mess Hall,messHall,You are in the mess hall.
-Larder,larder,You are in the larder. There's food here.
-Cell,cell,You are in a cell.
-Privy,privy,You are in the privy.
-Dovecote,dovecote,You are in the dovecote. Because doves like basements.
+dungeon,Dungeon,You are in a dungeon.
+messHall,Mess Hall,You are in the mess hall.
+larder,Larder,You are in the larder. There's food here.
+cell,Cell,You are in a cell.
+privy,Privy,You are in the privy.
+dovecote,Dovecote,You are in the dovecote. Because doves like basements.
 
 
 

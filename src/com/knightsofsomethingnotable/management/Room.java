@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.knightsofsomethingnotable.GameObject;
 import com.knightsofsomethingnotable.entities.Item;
 import com.knightsofsomethingnotable.entities.NonPlayer;
+import com.knightsofsomethingnotable.main.Main;
 
 public class Room extends GameObject {
 
@@ -12,11 +13,12 @@ public class Room extends GameObject {
     private ArrayList<NonPlayer> creatures = new ArrayList<>();
     private HashMap<String, Room> exits = new HashMap<String, Room>();
 
-    public Room(String name, String paramName, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures) { //, HashMap<String, String> exits) {
+    public Room(String name, String description) {
     	super(name, description);
-    	this.items = items;
-    	this.creatures = creatures;
-    	// this.exits = exits;
+    }
+    
+    public Room(String[] params) {
+    	super(params[0], params[1]);
     }
 
     public void setItems(ArrayList<Item> items) {
@@ -95,5 +97,10 @@ public class Room extends GameObject {
 
         room.addItem(item);
     }
-	
+
+	public void setExits(String[] params) {
+
+		this.exits.put(params[0], Main.rooms.get(params[1]));
+	}
+
 }

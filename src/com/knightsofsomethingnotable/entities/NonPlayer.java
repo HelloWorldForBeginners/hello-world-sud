@@ -17,13 +17,23 @@ public class NonPlayer extends Character {
     		int hitPoints, 
     		int maxHitPoints,
     		int attack,
-    		int defense, 
-    		ArrayList<Item> inventory, 
-    		HashMap<String, Item> equipment) {
-        super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense, inventory, equipment);
+    		int defense) {
+        super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense);
     }
 
     
+	public NonPlayer(String[] params) {
+		super(params[0], params[1], 
+				Integer.parseInt(params[2]), 
+				Integer.parseInt(params[3]), 
+				Integer.parseInt(params[4]), 
+				Integer.parseInt(params[5]), 
+				Integer.parseInt(params[6]), 
+				Integer.parseInt(params[7]), 
+				Integer.parseInt(params[8]));
+	}
+
+
 	public static String printNonPlayerInfo(String target, Room room) {
 
     	NonPlayer nonPlayer = getNonPlayer(target, room);

@@ -28,7 +28,7 @@ public class Main {
     private static HashMap<String, Item> equipment = new HashMap<String, Item>();
     
     //TODO: this seems messy. Change to default values in constructor
-    private static Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1, getInventory(), getEquipment());
+    private static Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1);
 
 
     public static void main(String args[]) {

@@ -17,6 +17,14 @@ public class Item extends GameObject {
         this.defense = _defense;
     }
 
+    public Item(String[] params) {
+        super(params[0], params[1]);
+        this.amount = Integer.parseInt(params[2]);
+        this.type = params[3];
+        this.slot = params[4];
+        this.defense = Integer.parseInt(params[5]);
+    }
+    
     public void setAmount(int _amount) {
         this.amount = _amount;
     }

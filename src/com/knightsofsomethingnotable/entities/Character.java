@@ -17,15 +17,13 @@ public abstract class Character extends GameObject {
     private HashMap<String, Item> equipment = new HashMap<String, Item>();
 
     public Character(String name, String description, int level, int money, int exp, int hitPoints, int maxHitPoints,
-                     int attack, int defense, ArrayList<Item> inventory, HashMap<String, Item> equipment) {
+                     int attack, int defense) {
         super(name, description);
         this.level = level;
         this.money = money;
         this.exp = exp;
         this.hitPoints = hitPoints;
         this.maxHitPoints = maxHitPoints;
-        this.inventory = inventory;
-        this.equipment = equipment;
         this.attack = attack;
         this.defense = defense;
     }

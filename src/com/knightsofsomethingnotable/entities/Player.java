@@ -11,8 +11,8 @@ public class Player extends Character {
     private int expToNextLevel;
 
     public Player(String name, String description, int level, int money, int exp, int expToNextLevel, int hitPoints, int maxHitPoints,
-                  int attack, int defense, ArrayList<Item> inventory, HashMap<String, Item> equipment) {
-        super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense, inventory, equipment);
+                  int attack, int defense) {
+        super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense);
         this.expToNextLevel = expToNextLevel;
     }
 
