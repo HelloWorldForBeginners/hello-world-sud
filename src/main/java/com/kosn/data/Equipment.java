@@ -1,8 +1,8 @@
-package com.knightsofsomethingnotable.management;
+package com.kosn.data;
 import java.util.HashMap;
 
-import com.knightsofsomethingnotable.entities.Item;
-import com.knightsofsomethingnotable.entities.Player;
+import com.kosn.entity.Item;
+import com.kosn.entity.Player;
 
 public class Equipment {
 

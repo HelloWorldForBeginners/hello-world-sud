@@ -1,8 +1,6 @@
-package com.knightsofsomethingnotable.entities;
+package com.kosn.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.knightsofsomethingnotable.GameObject;
 
 public abstract class Character extends GameObject {
 

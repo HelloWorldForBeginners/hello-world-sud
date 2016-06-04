@@ -1,10 +1,6 @@
-package com.knightsofsomethingnotable.entities;
-import java.util.ArrayList;
-import java.util.HashMap;
+package com.kosn.entity;
 
-import com.knightsofsomethingnotable.main.Main;
-import com.knightsofsomethingnotable.management.Room;
-import com.knightsofsomethingnotable.management.World;
+import com.kosn.application.Application;
 
 public class Player extends Character {
 
@@ -45,7 +41,7 @@ public class Player extends Character {
 		_player.setLevel(_player.getLevel() + 1);
 		_player.setExpToNextLevel((int) Math.round(_player.getExpToNextLevel() * 1.5));
 		_player.setMaxHitPoints((int) Math.round(_player.getMaxHitPoints() + 1.05));
-		_player.setHitPoints((int) Math.round(_player.getMaxHitPoints()));
+		_player.setHitPoints(Math.round(_player.getMaxHitPoints()));
 		_player.setAttack(_player.getAttack() + 1);
 		_player.setDefense(_player.getDefense() + 1);
         System.out.println(_player.getName() + " has attained level " + _player.getLevel() + "!");
@@ -63,7 +59,7 @@ public class Player extends Character {
 			System.out.println("You have been knocked unconscious!");
 		}
 
-        Main.toggleCombatOff();
+        Application.toggleCombatOff();
         
         try {
 			Thread.sleep(2000);
@@ -71,8 +67,8 @@ public class Player extends Character {
 			e.printStackTrace();
 		}
         
-        Main.setCurrentRoom(Main.getDefaultRoom());
-        Room.print(Main.getCurrentRoom());
+        Application.setCurrentRoom(Application.getDefaultRoom());
+        Room.print(Application.getCurrentRoom());
         return "respawn";
 	}
 
@@ -88,7 +84,7 @@ public class Player extends Character {
 
 
 	public static int calculateMoneyLost(double _moneyLost) {
-		return (int)Math.round(Main.getPlayer().getMoney() * _moneyLost);
+		return (int)Math.round(Application.getPlayer().getMoney() * _moneyLost);
 	}
 
 }

@@ -1,4 +1,6 @@
-package com.knightsofsomethingnotable.management;
+package com.kosn.data;
+
+import com.kosn.data.db.BuildRoomDAO;
 
 public class World {
 	

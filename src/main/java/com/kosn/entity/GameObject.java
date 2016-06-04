@@ -1,4 +1,4 @@
-package com.knightsofsomethingnotable;
+package com.kosn.entity;
 
 public abstract class GameObject {
 

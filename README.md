@@ -1,5 +1,23 @@
 # The Knights of Something Notable, a Text Adventure
 
+## How to Run
+
+# Linux
+
+To compile the application, run the following command from the project root:
+
+```
+./gradlew clean build
+```
+
+
+Once the application is built, run it with the following command:
+
+```
+java -jar build/libs/KnightsOfSomethingNotable.jar
+```
+
+
 ## Commands
 ### Navigation
 e, east

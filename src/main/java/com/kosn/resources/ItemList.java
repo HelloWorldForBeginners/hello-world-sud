@@ -1,11 +1,11 @@
-package com.knightsofsomethingnotable;
+package com.kosn.resources;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // put this in main to call
-// ItemList itemList = new ItemList("src/itemList.txt");
+// ItemList itemList = new ItemList("src/resources/itemList.txt");
 // itemList.printArray();
 
 public class ItemList {

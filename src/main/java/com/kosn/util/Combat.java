@@ -1,9 +1,9 @@
-package com.knightsofsomethingnotable.util;
+package com.kosn.util;
 
-import com.knightsofsomethingnotable.entities.NonPlayer;
-import com.knightsofsomethingnotable.entities.Player;
-import com.knightsofsomethingnotable.main.Main;
-import com.knightsofsomethingnotable.management.Room;
+import com.kosn.application.Application;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Player;
+import com.kosn.entity.Room;
 
 public class Combat {
 
@@ -22,7 +22,7 @@ public class Combat {
             return;
         }
 
-        Main.toggleCombatOn(nonPlayer);
+        Application.toggleCombatOn(nonPlayer);
         if (processPlayerAttack(player, nonPlayer).equals("continue")) {
         	processNonPlayerAttack(player, nonPlayer);
         }
@@ -39,7 +39,7 @@ public class Combat {
     		
         	NonPlayer.killNonPlayer(_player, _nonPlayer);
             
-        	Main.toggleCombatOff();
+        	Application.toggleCombatOff();
             
             if (_player.getExp() >= _player.getExpToNextLevel()) {
             	Player.levelUpPlayer(_player);

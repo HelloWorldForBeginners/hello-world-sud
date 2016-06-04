@@ -1,4 +1,4 @@
-package com.knightsofsomethingnotable.util;
+package com.kosn.util;
 import java.util.Scanner;
 
 public class Input {

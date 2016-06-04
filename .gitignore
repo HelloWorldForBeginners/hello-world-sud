@@ -3,3 +3,15 @@
 out*
 
 /bin/
+
+/build/
+
+/gradle/
+
+*.swp
+
+*.swo
+
+/.gradle/
+
+/.settings/

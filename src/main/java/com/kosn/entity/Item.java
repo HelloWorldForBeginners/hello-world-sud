@@ -1,7 +1,4 @@
-package com.knightsofsomethingnotable.entities;
-
-import com.knightsofsomethingnotable.GameObject;
-import com.knightsofsomethingnotable.management.Room;
+package com.kosn.entity;
 
 public class Item extends GameObject {
     private int amount;

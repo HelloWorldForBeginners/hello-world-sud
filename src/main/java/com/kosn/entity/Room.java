@@ -1,11 +1,8 @@
-package com.knightsofsomethingnotable.management;
+package com.kosn.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.knightsofsomethingnotable.GameObject;
-import com.knightsofsomethingnotable.entities.Item;
-import com.knightsofsomethingnotable.entities.NonPlayer;
-import com.knightsofsomethingnotable.main.Main;
+import com.kosn.application.Application;
 
 public class Room extends GameObject {
 
@@ -61,6 +58,7 @@ public class Room extends GameObject {
         this.items.add(item);
     }
     
+	@Override
 	public String toString() {
 		String toString = getName();
 		return toString;
@@ -100,7 +98,7 @@ public class Room extends GameObject {
 
 	public void setExits(String[] params) {
 
-		this.exits.put(params[0], Main.rooms.get(params[1]));
+		this.exits.put(params[0], Application.rooms.get(params[1]));
 	}
 
 }

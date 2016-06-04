@@ -1,8 +1,9 @@
-package com.knightsofsomethingnotable.management;
+package com.kosn.data;
 import java.util.ArrayList;
 
-import com.knightsofsomethingnotable.entities.Item;
-import com.knightsofsomethingnotable.entities.Player;
+import com.kosn.entity.Item;
+import com.kosn.entity.Player;
+import com.kosn.entity.Room;
 
 public class Inventory {
 

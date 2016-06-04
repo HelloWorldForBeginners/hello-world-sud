@@ -4,6 +4,3 @@ larder,Larder,You are in the larder. There's food here.
 cell,Cell,You are in a cell.
 privy,Privy,You are in the privy.
 dovecote,Dovecote,You are in the dovecote. Because doves like basements.
-
-
-

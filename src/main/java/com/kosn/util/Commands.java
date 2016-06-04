@@ -1,16 +1,15 @@
-package com.knightsofsomethingnotable.util;
+package com.kosn.util;
 
 import java.util.HashMap;
 import java.util.Random;
 
-import com.knightsofsomethingnotable.entities.Item;
-import com.knightsofsomethingnotable.entities.NonPlayer;
-import com.knightsofsomethingnotable.entities.Player;
-import com.knightsofsomethingnotable.main.Main;
-import com.knightsofsomethingnotable.management.Equipment;
-import com.knightsofsomethingnotable.management.Inventory;
-import com.knightsofsomethingnotable.management.Room;
-import com.knightsofsomethingnotable.management.World;
+import com.kosn.application.Application;
+import com.kosn.data.Equipment;
+import com.kosn.data.Inventory;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Player;
+import com.kosn.entity.Room;
 
 public class Commands {
 	final static String noGo = "You can't go that way.";
@@ -71,16 +70,16 @@ public class Commands {
 	}
 	
 	public static Runnable exitRoom(String direction, String target) {
-		Commands.thisRoom = Main.getCurrentRoom();
+		Commands.thisRoom = Application.getCurrentRoom();
 		Commands.nextRoom = thisRoom.getExits().get(direction);
-		Commands.player = Main.getPlayer();
+		Commands.player = Application.getPlayer();
 		
 		if (nextRoom == null) {
 			System.out.println(noGo);
 			return null;
 		}
 		
-		if (Main.getCombat() == false) {
+		if (Application.getCombat() == false) {
 			changeRooms();
 		} else {
 			executeEscapeRoll();
@@ -128,7 +127,7 @@ public class Commands {
 
 	private static void escape() {
 		System.out.println("You have escaped!");
-		Main.setCombat(false);
+		Application.setCombat(false);
 		changeRooms();
 	}
 
@@ -136,85 +135,85 @@ public class Commands {
 		System.out.printf("You have escaped but lost %d money.", Player.calculateMoneyLost(0.05));
 		System.out.println();
 		player.adjustMoney(-Player.calculateMoneyLost(0.05));
-		Main.setCombat(false);
+		Application.setCombat(false);
 		changeRooms(); 
 	}
 
 	private static void escapeWithDamage() {
-		if (Combat.processNonPlayerAttack(Main.getPlayer(), Main.getCurrentCombatTarget()).equals("respawned")){
+		if (Combat.processNonPlayerAttack(Application.getPlayer(), Application.getCurrentCombatTarget()).equals("respawned")){
 			return;
 		}
 		System.out.println("You have escaped! Coward.");
-		Main.setCombat(false);
+		Application.setCombat(false);
 		changeRooms();
 	}
 
 	private static void unableToEscape() {
 		System.out.println("You were unable to escape!");
-		Combat.processNonPlayerAttack(Main.getPlayer(), Main.getCurrentCombatTarget());
+		Combat.processNonPlayerAttack(Application.getPlayer(), Application.getCurrentCombatTarget());
 	}
 
 	private static void changeRooms() {
-		Main.setCurrentCombatTarget(null);
-		Main.setCurrentRoom(nextRoom);
+		Application.setCurrentCombatTarget(null);
+		Application.setCurrentRoom(nextRoom);
 		Room.print(nextRoom);
 	}
 
 	public static Runnable showInventory() {
-		Inventory.print(Main.getInventory());
+		Inventory.print(Application.getInventory());
 		return null;
 	}
 	
 	public static Runnable equipment(String target) {
 		if (target != "") {
-			Equipment.equipItem(target, Main.getPlayer());
+			Equipment.equipItem(target, Application.getPlayer());
 		} else {
-			Equipment.print(Main.getEquipment());
+			Equipment.print(Application.getEquipment());
 		}
 		return null;
 	}
 	
 	public static Runnable removeEquipment(String target) {
-		Equipment.unequipItem(target, Main.getPlayer());
+		Equipment.unequipItem(target, Application.getPlayer());
 		return null;
 	}
 	
 	public static Runnable playerStatus() {
-		Player.printPlayerInfo(Main.getPlayer());
+		Player.printPlayerInfo(Application.getPlayer());
 		return null;
 	}
 	
 	public static Runnable addToInventory(String target) {
-		Inventory.getItem(target, Main.getPlayer(), Main.getCurrentRoom());
+		Inventory.getItem(target, Application.getPlayer(), Application.getCurrentRoom());
 		return null;
 	}
 	
 	public static Runnable removeFromInventory(String target) {
-		Inventory.putItem(target, Main.getPlayer(), Main.getCurrentRoom());
+		Inventory.putItem(target, Application.getPlayer(), Application.getCurrentRoom());
 		return null;
 	}
 
 	public static Runnable attack(String target) {
-		Combat.attackNonPlayer(target, Main.getCurrentRoom(), Main.getPlayer());
+		Combat.attackNonPlayer(target, Application.getCurrentRoom(), Application.getPlayer());
 		return null;
 	}
 	
 	public static Runnable roomStatus() {
-		Room.print(Main.getCurrentRoom());
+		Room.print(Application.getCurrentRoom());
 		return null;
 	}
 	
 	public static Runnable checkThing(String target) {
 		//tries to look at the NonPlayer first, then looks at the items in the room
-		if (NonPlayer.printNonPlayerInfo(target, Main.getCurrentRoom()).equals("")) {
-			Item.printItemInfo(target, Main.getCurrentRoom());
+		if (NonPlayer.printNonPlayerInfo(target, Application.getCurrentRoom()).equals("")) {
+			Item.printItemInfo(target, Application.getCurrentRoom());
 		}
 		return null;
 	}
 	
 	public static Runnable quitGame() {
 		System.out.println("Goodbye!");
-		Main.setPlaying(false);
+		Application.setPlaying(false);
 		return null;
 	}
 }

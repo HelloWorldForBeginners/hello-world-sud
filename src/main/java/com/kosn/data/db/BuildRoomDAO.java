@@ -1,15 +1,14 @@
-package com.knightsofsomethingnotable.management;
+package com.kosn.data.db;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 
-import com.knightsofsomethingnotable.entities.Item;
-import com.knightsofsomethingnotable.entities.NonPlayer;
-import com.knightsofsomethingnotable.main.Main;
+import com.kosn.application.Application;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Room;
 
 public class BuildRoomDAO {
 
@@ -24,9 +23,9 @@ public class BuildRoomDAO {
 		path = path.substring(0, path.length()-1);
 	}
     
-	static void buildRoomsFromFile(String _fileName, int _expectedLineLength) {
+	public static void buildRoomsFromFile(String _fileName, int _expectedLineLength) {
 
-		File file = new File(path + "/src/Resources/" + _fileName + ".txt");
+		File file = new File(path + "/src/resources/" + _fileName + ".txt");
 		
 		Scanner scan = null;
 		
@@ -64,7 +63,7 @@ public class BuildRoomDAO {
 	}
 
 	private static void buildARoom(String[] lineArray) {
-		Main.rooms.put(
+		Application.rooms.put(
 	    		lineArray[0], 
 	    		new Room(
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length)
@@ -73,7 +72,7 @@ public class BuildRoomDAO {
 
     
 	private static void addAnItem(String[] lineArray) {
-		Main.rooms.get(lineArray[0]).setItems( 
+		Application.rooms.get(lineArray[0]).setItems( 
 	    		new Item(
 	    				//lineArray.arraycopy()
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length)
@@ -83,7 +82,7 @@ public class BuildRoomDAO {
 
 	
 	private static void addACreature(String[] lineArray) {
-		Main.rooms.get(lineArray[0]).setCreatures( 
+		Application.rooms.get(lineArray[0]).setCreatures( 
 	    		new NonPlayer(
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length))
 	    		);
@@ -92,7 +91,7 @@ public class BuildRoomDAO {
 
 	
 	private static void addAnExit(String[] lineArray) {
-    	Main.rooms.get(lineArray[0]).
+    	Application.rooms.get(lineArray[0]).
     	setExits(
     			Arrays.copyOfRange(lineArray, 1, lineArray.length)
     			);

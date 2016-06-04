@@ -1,10 +1,4 @@
-package com.knightsofsomethingnotable.entities;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.knightsofsomethingnotable.main.Main;
-import com.knightsofsomethingnotable.management.Room;
-import com.knightsofsomethingnotable.management.World;
+package com.kosn.entity;
 
 public class NonPlayer extends Character {
 
@@ -88,6 +82,7 @@ public class NonPlayer extends Character {
 	}
 
 	
+	@Override
 	public String toString() {
 		String toString = getName();
 		return toString;

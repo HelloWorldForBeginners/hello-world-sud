@@ -1,16 +1,16 @@
-package com.knightsofsomethingnotable.main;
+package com.kosn.application;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.knightsofsomethingnotable.entities.Item;
-import com.knightsofsomethingnotable.entities.NonPlayer;
-import com.knightsofsomethingnotable.entities.Player;
-import com.knightsofsomethingnotable.management.Room;
-import com.knightsofsomethingnotable.management.World;
-import com.knightsofsomethingnotable.util.Commands;
-import com.knightsofsomethingnotable.util.Input;
+import com.kosn.data.World;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Player;
+import com.kosn.entity.Room;
+import com.kosn.util.Commands;
+import com.kosn.util.Input;
 
-public class Main {
+public class Application {
 	
     private static boolean playing = true;
     private static boolean combat = false;
@@ -32,7 +32,7 @@ public class Main {
 
 
     public static void main(String args[]) {
-
+    	
     	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
         World.build();
@@ -54,7 +54,7 @@ public class Main {
 
 
 	public static void setCurrentRoom(Room currentRoom) {
-		Main.currentRoom = currentRoom;
+		Application.currentRoom = currentRoom;
 	}
 
 
@@ -64,7 +64,7 @@ public class Main {
 
 
 	public static void setCombat(boolean combat) {
-		Main.combat = combat;
+		Application.combat = combat;
 	}
 
 
@@ -74,7 +74,7 @@ public class Main {
 
 
 	public static void setInventory(ArrayList<Item> inventory) {
-		Main.inventory = inventory;
+		Application.inventory = inventory;
 	}
 
 
@@ -84,7 +84,7 @@ public class Main {
 
 
 	public static void setPlayer(Player player) {
-		Main.player = player;
+		Application.player = player;
 	}
 
 
@@ -94,7 +94,7 @@ public class Main {
 
 
 	public static void setEquipment(HashMap<String, Item> equipment) {
-		Main.equipment = equipment;
+		Application.equipment = equipment;
 	}
 
 
@@ -104,7 +104,7 @@ public class Main {
 
 
 	public static void setPlaying(boolean playing) {
-		Main.playing = playing;
+		Application.playing = playing;
 	}
 
 
@@ -114,7 +114,7 @@ public class Main {
 
 
 	public static void setDefaultRoom(Room defaultRoom) {
-		Main.defaultRoom = defaultRoom;
+		Application.defaultRoom = defaultRoom;
 	}
 
 	
@@ -124,24 +124,24 @@ public class Main {
 
 	
 	public static void setCurrentCombatTarget(NonPlayer nonPlayer) {
-		Main.currentCombatTarget = nonPlayer;
+		Application.currentCombatTarget = nonPlayer;
 	}
 
 
 	public static void toggleCombatOn(NonPlayer nonPlayer) {
 
-		if (!Main.getCombat()) {
+		if (!Application.getCombat()) {
     		System.out.println("Combat started...");
     		System.out.println();
-    		Main.setCombat(true);
-    		Main.setCurrentCombatTarget(nonPlayer);
+    		Application.setCombat(true);
+    		Application.setCurrentCombatTarget(nonPlayer);
         }
 	}
 	
 
 	public static void toggleCombatOff() {
         
-        Main.setCombat(false);
+        Application.setCombat(false);
         System.out.println();
         System.out.println("Combat ended");
         System.out.println();
