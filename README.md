@@ -2,7 +2,7 @@
 
 ## How to Run
 
-# Linux
+### Linux
 
 To compile the application, run the following command from the project root:
 
