@@ -7,6 +7,7 @@ import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.Room;
+import com.kosn.entity.defaults.PlayerDefaults;
 import com.kosn.util.Commands;
 import com.kosn.util.Input;
 
@@ -20,25 +21,21 @@ public class Application {
     
     private static NonPlayer currentCombatTarget = null;
     
-    static final int numRooms = 4;
-    public static HashMap<String, Room> rooms = new HashMap<String, Room>();
+    private static HashMap<String, Room> rooms = new HashMap<String, Room>();
 
     // inventory and equipment 
     private static ArrayList<Item> inventory = new ArrayList<>();
     private static HashMap<String, Item> equipment = new HashMap<String, Item>();
     
-    //TODO: this seems messy. Change to default values in constructor
-    private static Player player = new Player("Matt", "Awesome", 1, 0, 0, 10, 10, 10, 1, 1);
-
+    private static Player player = new Player(new PlayerDefaults());
 
     public static void main(String args[]) {
     	
     	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
         World.build();
-        setDefaultRoom(rooms.entrySet().iterator().next().getValue());
-        setCurrentRoom(getDefaultRoom());
-        Room.print(getCurrentRoom());
+        currentRoom = defaultRoom = rooms.entrySet().iterator().next().getValue();
+        currentRoom.printRoom();
         
         // Start game
         while (playing) {
@@ -145,6 +142,16 @@ public class Application {
         System.out.println();
         System.out.println("Combat ended");
         System.out.println();
+	}
+
+
+	public static HashMap<String, Room> getRooms() {
+		return rooms;
+	}
+
+
+	public static void setRooms(HashMap<String, Room> rooms) {
+		Application.rooms = rooms;
 	}
 
 

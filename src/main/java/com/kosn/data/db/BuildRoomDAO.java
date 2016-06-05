@@ -63,7 +63,7 @@ public class BuildRoomDAO {
 	}
 
 	private static void buildARoom(String[] lineArray) {
-		Application.rooms.put(
+		Application.getRooms().put(
 	    		lineArray[0], 
 	    		new Room(
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length)
@@ -72,7 +72,7 @@ public class BuildRoomDAO {
 
     
 	private static void addAnItem(String[] lineArray) {
-		Application.rooms.get(lineArray[0]).setItems( 
+		Application.getRooms().get(lineArray[0]).setItems( 
 	    		new Item(
 	    				//lineArray.arraycopy()
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length)
@@ -82,7 +82,7 @@ public class BuildRoomDAO {
 
 	
 	private static void addACreature(String[] lineArray) {
-		Application.rooms.get(lineArray[0]).setCreatures( 
+		Application.getRooms().get(lineArray[0]).setCreatures( 
 	    		new NonPlayer(
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length))
 	    		);
@@ -91,7 +91,7 @@ public class BuildRoomDAO {
 
 	
 	private static void addAnExit(String[] lineArray) {
-    	Application.rooms.get(lineArray[0]).
+    	Application.getRooms().get(lineArray[0]).
     	setExits(
     			Arrays.copyOfRange(lineArray, 1, lineArray.length)
     			);

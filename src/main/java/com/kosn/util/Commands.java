@@ -6,6 +6,7 @@ import java.util.Random;
 import com.kosn.application.Application;
 import com.kosn.data.Equipment;
 import com.kosn.data.Inventory;
+import com.kosn.entity.Character;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
@@ -156,7 +157,7 @@ public class Commands {
 	private static void changeRooms() {
 		Application.setCurrentCombatTarget(null);
 		Application.setCurrentRoom(nextRoom);
-		Room.print(nextRoom);
+		nextRoom.printRoom();
 	}
 
 	public static Runnable showInventory() {
@@ -179,7 +180,10 @@ public class Commands {
 	}
 	
 	public static Runnable playerStatus() {
-		Player.printPlayerInfo(Application.getPlayer());
+//		Player.printPlayerInfo(Application.getPlayer());
+		System.out.println(Application.getPlayer().toString());
+		Character.printInventory(Application.getPlayer().getInventory());
+		Character.printEquipment(Application.getPlayer().getEquipment());
 		return null;
 	}
 	
@@ -199,7 +203,7 @@ public class Commands {
 	}
 	
 	public static Runnable roomStatus() {
-		Room.print(Application.getCurrentRoom());
+		Application.getCurrentRoom().printRoom();
 		return null;
 	}
 	

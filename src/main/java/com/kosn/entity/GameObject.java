@@ -23,4 +23,11 @@ public abstract class GameObject {
         public String getDescription() {
             return this.description;
         }
+
+		@Override
+		public String toString() {
+			return description;
+			// TODO Auto-generated method stub
+			
+		}
 }

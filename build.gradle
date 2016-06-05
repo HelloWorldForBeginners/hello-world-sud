@@ -5,3 +5,11 @@ jar {
 	attributes 'Main-Class': 'com.kosn.application.Application'
     }
 }
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile group: 'com.google.guava', name: 'guava', version: '19.0'
+}

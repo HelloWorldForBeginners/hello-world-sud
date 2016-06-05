@@ -119,4 +119,11 @@ public abstract class Character extends GameObject {
     	System.out.println(this.getName() + " HP: " + this.hitPoints + "/" + this.maxHitPoints + "\n");
     	System.out.println();
 	}
+
+	@Override
+	public String toString() {
+		return "asdf";
+		// TODO Auto-generated method stub
+		
+	}
 }

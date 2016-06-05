@@ -1,29 +1,21 @@
 package com.kosn.entity;
 
 import com.kosn.application.Application;
+import com.kosn.entity.defaults.PlayerDefaults;
 
 public class Player extends Character {
 
     private int expToNextLevel;
 
+	public Player(PlayerDefaults pd) {
+		
+		this(pd.name, pd.description, pd.level, pd.money, pd.exp, pd.expToNextLevel, pd.hitPoints, pd.maxHitPoints, pd.attack, pd.defense);
+	}
+    
     public Player(String name, String description, int level, int money, int exp, int expToNextLevel, int hitPoints, int maxHitPoints,
                   int attack, int defense) {
         super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense);
         this.expToNextLevel = expToNextLevel;
-    }
-
-    
-    public static void printPlayerInfo(Player player) {
-        System.out.println("Name: " + player.getName() + "(Lv." + player.getLevel() + ")");
-        System.out.println("HP: " + player.getHitPoints() + "/" + player.getMaxHitPoints());
-        System.out.println("Attack: " + player.getAttack());
-        System.out.println("Defense: " + player.getDefense());
-        System.out.println("Exp: " + player.getExp() + "/" + player.expToNextLevel);
-        System.out.println("Money: " + player.getMoney());
-        System.out.println();
-        Character.printInventory(player.getInventory());
-        System.out.println();
-        Character.printEquipment(player.getEquipment());
     }
 
     
@@ -49,8 +41,11 @@ public class Player extends Character {
 	
 	
 	public static String killPlayer(Player _player) {
+		Room defaultRoom = Application.getDefaultRoom();
+		
 		_player.setHitPoints(_player.getMaxHitPoints());
 		_player.setMoney((int) Math.round(_player.getMoney() * 0.9));
+		
         
 		if (_player.getMoney() > 0) {
 			System.out.println("You have been knocked unconscious! " +
@@ -67,8 +62,8 @@ public class Player extends Character {
 			e.printStackTrace();
 		}
         
-        Application.setCurrentRoom(Application.getDefaultRoom());
-        Room.print(Application.getCurrentRoom());
+        Application.setCurrentRoom(defaultRoom);
+        defaultRoom.toString();
         return "respawn";
 	}
 
@@ -87,4 +82,24 @@ public class Player extends Character {
 		return (int)Math.round(Application.getPlayer().getMoney() * _moneyLost);
 	}
 
+	
+	@Override
+    public String toString() {
+        return 
+        		"Name: " + this.getName() + 
+        		"(Lv." + this.getLevel() + ")" + 
+        		"\n" +
+        		"HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() +
+        		")\n" +
+        		"Attack: " + this.getAttack() + 
+        		")\n" + 
+        		"Defense: " + this.getDefense() + 
+        		")\n" +
+        		"Exp: " + this.getExp() + "/" + this.expToNextLevel + 
+        		")\n" +
+        		"Money: " + this.getMoney() + 
+        		"\n";
+        		
+    }
+	
 }

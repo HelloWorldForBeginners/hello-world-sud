@@ -32,24 +32,12 @@ public class NonPlayer extends Character {
 
     	NonPlayer nonPlayer = getNonPlayer(target, room);
     	if (nonPlayer != null) {
-    		printInfo(nonPlayer, room);
+    		System.out.println(nonPlayer.toString());
     		return "printed";
     	} else {
     		return "";
     	}
     }
-
-    
-    private static void printInfo(NonPlayer nonPlayer, Room room) {
-
-    	System.out.println("Name: " + nonPlayer.getName() + "(Lv." + nonPlayer.getLevel() + ")");
-        System.out.println(nonPlayer.getDescription());
-        System.out.println("HP: " + nonPlayer.getHitPoints() + "/" + nonPlayer.getMaxHitPoints());
-        System.out.println("Attack: " + nonPlayer.getAttack());
-        System.out.println("Defense: " + nonPlayer.getDefense());
-        System.out.println();
-	}
-
     
     public static NonPlayer getNonPlayer(String target, Room room) {
 
@@ -81,15 +69,24 @@ public class NonPlayer extends Character {
         System.out.println("Your health has fully recovered!\n");
 	}
 
-	
-	@Override
-	public String toString() {
-		String toString = getName();
-		return toString;
-	}
-
-
 	public void lowerHitPoints(int _hitPoints) {
 		this.hitPoints -= _hitPoints;
 	}
+	
+	
+	@Override
+    public String toString() {
+        return 
+        		"Name: " + this.getName() + "(Lv." + this.getLevel() + ")" + 
+			    "\n" +
+			    this.getDescription() +
+			    "\n" +
+			    "HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() +
+			    "\n" +
+			    "Attack: " + this.getAttack() +
+			    "\n" +
+			    "Defense: " + this.getDefense() +
+			    "\n";
+	}
+	
 }

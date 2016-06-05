@@ -58,29 +58,6 @@ public class Room extends GameObject {
         this.items.add(item);
     }
     
-	@Override
-	public String toString() {
-		String toString = getName();
-		return toString;
-	}
-	
-	public static void print(Room room) {
-    	
-    	System.out.println("<<<<<======= " + room.getName() + " =======>>>>>\n");
-        System.out.println(room.getDescription());
-        System.out.println();
-        System.out.println("Exits: " + room.getExits());
-        System.out.println();
-        if (room.getItems().size() > 0) {
-            System.out.println("You see: " + room.getItems());
-        }
-        System.out.println();
-        if (room.getCreatures().size() > 0) {
-            System.out.println("There are creatures here: " + room.getCreatures());
-        }
-        System.out.println();
-    }
-
     public static String getRoomName(Room room) {
 
         return room.getName();
@@ -98,7 +75,48 @@ public class Room extends GameObject {
 
 	public void setExits(String[] params) {
 
-		this.exits.put(params[0], Application.rooms.get(params[1]));
+		this.exits.put(params[0], Application.getRooms().get(params[1]));
 	}
 
+	public void printRoom() {
+		System.out.println(this.toString());
+		printExits();
+		printItems();
+		printCreatures();
+	}
+
+	public void printExits() {
+		for (HashMap.Entry<String, Room> entry: this.exits.entrySet()) {
+			System.out.println(String.format("%s: %s",entry.getKey(), entry.getValue().getName()));
+		}
+	}
+	
+	private void printItems() {
+		if (this.items.size() > 0) {
+			System.out.println("You see: " + this.items);
+		}
+	}
+
+	private void printCreatures() {
+		String messageStart = "There are creatures here: ";
+		String creatures = "";
+		for (NonPlayer creature : this.creatures) {
+			creatures = creatures + creature.getName();
+		}
+		
+		if (creatures.length() > 0) {
+			System.out.println(String.format("%s%s", messageStart, creatures));
+		}		
+	}
+
+	@Override
+	public String toString() {
+		String toString = 
+				"<<<<<======= " + this.getName() + " =======>>>>>" +
+						"\n" +  
+						this.getDescription() +
+						"\n";
+		return toString;
+	}
+	
 }
