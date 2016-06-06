@@ -19,6 +19,7 @@ java -jar build/libs/KnightsOfSomethingNotable.jar
 
 
 ## Commands
+
 ### Navigation
 e, east
 w, west
@@ -26,6 +27,9 @@ n, north
 s, south
 
 ### Other
+
+__prev__
+* repeats previous command
 
 __look__
 * returns information about the room, including exits, items present, creatures present
