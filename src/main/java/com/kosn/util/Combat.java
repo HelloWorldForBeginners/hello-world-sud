@@ -1,5 +1,7 @@
 package com.kosn.util;
 
+import java.util.ArrayList;
+
 import com.kosn.application.Application;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
@@ -7,52 +9,73 @@ import com.kosn.entity.Room;
 
 public class Combat {
 
+	private static Room combatRoom;
+	private static Player combatPlayer;
+	private static NonPlayer combatNonPlayer;
 	
 	public static void attackNonPlayer(String target, Room room, Player player) {
 
+		combatRoom = room;
+		combatPlayer = player;
+		combatNonPlayer = NonPlayer.getNonPlayer(target, room);
+		
 		if (target.equals("")) {
 			System.out.println("Attack what?");
             return;
 		}
-		
-        NonPlayer nonPlayer = NonPlayer.getNonPlayer(target, room); 
 
-        if (nonPlayer == null) {
+        if (combatNonPlayer == null) {
             System.out.println("There is no " + target + " here.");
             return;
         }
 
-        Application.toggleCombatOn(nonPlayer);
-        if (processPlayerAttack(player, nonPlayer).equals("continue")) {
-        	processNonPlayerAttack(player, nonPlayer);
+        Application.toggleCombatOn(combatNonPlayer);
+        if (processPlayerAttack().equals("continue")) {
+        	processNonPlayerAttack(player, combatNonPlayer);
         }
     }
     
-    private static String processPlayerAttack(Player _player, NonPlayer _nonPlayer) {
+    private static String processPlayerAttack() {
     	
-		_nonPlayer.lowerHitPoints(_player.getAttack());
-        System.out.println(_player.getName() + " hits " + _nonPlayer.getName() + " for " + _player.getAttack() + " point(s) of damage!");
+    	combatNonPlayer.lowerHitPoints(combatPlayer.getAttack());
+        System.out.println(combatPlayer.getName() + " hits " + combatNonPlayer.getName() + " for " + combatPlayer.getAttack() + " point(s) of damage!");
         
-        _nonPlayer.printHealth();
+        combatNonPlayer.printHealth();
         
-        if (_nonPlayer.getHitPoints() <= 0) {
+        if (combatNonPlayer.getHitPoints() <= 0) {
     		
-        	NonPlayer.killNonPlayer(_player, _nonPlayer);
+        	NonPlayer.killNonPlayer(combatPlayer, combatNonPlayer);
             
         	Application.toggleCombatOff();
             
-            if (_player.getExp() >= _player.getExpToNextLevel()) {
-            	Player.levelUpPlayer(_player);
+            if (combatPlayer.getExp() >= combatPlayer.getExpToNextLevel()) {
+            	Player.levelUpPlayer(combatPlayer);
             }
             
-            NonPlayer.spawnAnotherNonPlayer(_nonPlayer);
+            removeCreatureFromRoom();
+            
+//            NonPlayer.spawnAnotherNonPlayer(_nonPlayer);
             
             return "end round";
     	}
         return "continue";
 	}
     
-    public static String processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
+    private static void removeCreatureFromRoom() {
+    	ArrayList<NonPlayer> roomCreatures = combatRoom.getCreatures(); 
+    	int index = 0;
+    	
+    	for (NonPlayer np : roomCreatures) {
+            if (np.equals(combatNonPlayer)) {
+            	roomCreatures.remove(index);
+            	combatRoom.setCreatures(roomCreatures);
+            	break;
+            }
+    		
+    	}
+	}
+
+	public static String processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
     	
     	_player.setHitPoints(_player.getHitPoints() - _nonPlayer.getAttack());
     	

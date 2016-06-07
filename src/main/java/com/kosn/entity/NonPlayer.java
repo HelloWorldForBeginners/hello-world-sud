@@ -1,7 +1,9 @@
 package com.kosn.entity;
 
-public class NonPlayer extends Character {
+import com.kosn.entity.defaults.NonPlayerDefaults;
 
+public class NonPlayer extends Character {
+	
     public NonPlayer(
     		String name, 
     		String description, 
@@ -14,8 +16,22 @@ public class NonPlayer extends Character {
     		int defense) {
         super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense);
     }
-
     
+    public NonPlayer(NonPlayerDefaults npd) {
+		
+		this(npd.name, 
+				npd.description, 
+				npd.level, 
+				npd.money, 
+				npd.exp, 
+				npd.hitPoints, 
+				npd.maxHitPoints, 
+				npd.attack, 
+				npd.defense 
+				);
+	}
+
+    // Constructor for importing non-players from a text file
 	public NonPlayer(String[] params) {
 		super(params[0], params[1], 
 				Integer.parseInt(params[2]), 
@@ -26,8 +42,7 @@ public class NonPlayer extends Character {
 				Integer.parseInt(params[7]), 
 				Integer.parseInt(params[8]));
 	}
-
-
+	
 	public static String printNonPlayerInfo(String target, Room room) {
 
     	NonPlayer nonPlayer = getNonPlayer(target, room);

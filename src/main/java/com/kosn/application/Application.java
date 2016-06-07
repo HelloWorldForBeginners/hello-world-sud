@@ -1,8 +1,10 @@
 package com.kosn.application;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.kosn.data.World;
+import com.kosn.data.db.LoadEntityPools;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
@@ -21,15 +23,23 @@ public class Application {
     
     private static NonPlayer currentCombatTarget = null;
     
-    private static HashMap<String, Room> rooms = new HashMap<String, Room>();
+    private static Map<String, Room> rooms = new HashMap<String, Room>();
+    private static Map<String, String> creaturePool = new HashMap<String, String>();
 
-    // inventory and equipment 
+    public static Map<String, String> getCreaturePool() {
+		return creaturePool;
+	}
+
+	// inventory and equipment 
     private static ArrayList<Item> inventory = new ArrayList<>();
     private static HashMap<String, Item> equipment = new HashMap<String, Item>();
     
     private static Player player = new Player(new PlayerDefaults());
 
     public static void main(String args[]) {
+    	
+    	// load entity pools
+    	creaturePool = LoadEntityPools.importCreatures();
     	
     	// Build rooms
     	System.out.println("Welcome to The Knights of Something Notable!\n");
@@ -145,7 +155,7 @@ public class Application {
 	}
 
 
-	public static HashMap<String, Room> getRooms() {
+	public static Map<String, Room> getRooms() {
 		return rooms;
 	}
 

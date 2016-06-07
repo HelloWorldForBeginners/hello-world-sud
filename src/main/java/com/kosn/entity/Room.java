@@ -97,7 +97,7 @@ public class Room extends GameObject {
 		}
 	}
 
-	private void printCreatures() {
+	public void printCreatures() {
 		String messageStart = "There are creatures here: ";
 		String creatures = "";
 		for (NonPlayer creature : this.creatures) {
@@ -107,6 +107,10 @@ public class Room extends GameObject {
 		if (creatures.length() > 0) {
 			System.out.println(String.format("%s%s", messageStart, creatures));
 		}		
+	}
+	
+	public void printSpawnedCreature() {
+		System.out.println(String.format("A %s: has spawned!", this.creatures));
 	}
 
 	@Override

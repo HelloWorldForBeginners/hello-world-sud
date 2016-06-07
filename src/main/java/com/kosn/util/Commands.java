@@ -11,6 +11,7 @@ import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.Room;
+import com.kosn.entity.defaults.NonPlayerDefaults;
 
 public class Commands {
 	final static String noGo = "You can't go that way.";
@@ -20,7 +21,7 @@ public class Commands {
 	private static Room thisRoom;
 	private static Player player;
 	
-	static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
+	private static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
 		put("north", () -> Commands.exitRoom("north", Input.target));
     	put("n", () -> Commands.exitRoom("north", Input.target));
     	put("south", () -> Commands.exitRoom("south", Input.target));
@@ -34,8 +35,8 @@ public class Commands {
     	put("inv", () -> Commands.showInventory());
     	put("inventory", () -> Commands.showInventory());
     	
-    	put("equip", () -> Commands.equipment(Input.target));
-    	put("equipment", () -> Commands.equipment(Input.target));
+    	put("equip", () -> Commands.showEquipment(Input.target));
+    	put("equipment", () -> Commands.showEquipment(Input.target));
     	
     	put("unequip", () -> Commands.removeEquipment(Input.target));
     	
@@ -144,7 +145,7 @@ public class Commands {
 		if (Combat.processNonPlayerAttack(Application.getPlayer(), Application.getCurrentCombatTarget()).equals("respawned")){
 			return;
 		}
-		System.out.println("You have escaped! Coward.");
+		System.out.println("Running away are you?");
 		Application.setCombat(false);
 		changeRooms();
 	}
@@ -155,9 +156,20 @@ public class Commands {
 	}
 
 	private static void changeRooms() {
+		
 		Application.setCurrentCombatTarget(null);
 		Application.setCurrentRoom(nextRoom);
+		checkRoomMonsters();
 		nextRoom.printRoom();
+	}
+
+	private static void checkRoomMonsters() {
+		if (nextRoom.getCreatures().isEmpty()) {
+			nextRoom.getCreatures().add(new NonPlayer(new NonPlayerDefaults()));
+		}
+//		else {
+//			nextRoom.printCreatures();
+//		}
 	}
 
 	public static Runnable showInventory() {
@@ -165,7 +177,7 @@ public class Commands {
 		return null;
 	}
 	
-	public static Runnable equipment(String target) {
+	public static Runnable showEquipment(String target) {
 		if (target != "") {
 			Equipment.equipItem(target, Application.getPlayer());
 		} else {
@@ -180,7 +192,6 @@ public class Commands {
 	}
 	
 	public static Runnable playerStatus() {
-//		Player.printPlayerInfo(Application.getPlayer());
 		System.out.println(Application.getPlayer().toString());
 		Character.printInventory(Application.getPlayer().getInventory());
 		Character.printEquipment(Application.getPlayer().getEquipment());

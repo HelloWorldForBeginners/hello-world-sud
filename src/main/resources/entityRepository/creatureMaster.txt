@@ -1,0 +1,5 @@
+platypus,semi-aquatic egg-laying mammal of action
+bugbear,fluffy
+warg,fast
+goblin,weak
+dove,bloodthirsty

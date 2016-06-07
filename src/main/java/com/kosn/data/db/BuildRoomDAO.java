@@ -25,7 +25,7 @@ public class BuildRoomDAO {
     
 	public static void buildRoomsFromFile(String _fileName, int _expectedLineLength) {
 
-		File file = new File(path + "/src/resources/" + _fileName + ".txt");
+		File file = new File(path + "/src/main/resources/" + _fileName + ".txt");
 		
 		Scanner scan = null;
 		
