@@ -6,8 +6,6 @@ out*
 
 /build/
 
-/gradle/
-
 *.swp
 
 *.swo
