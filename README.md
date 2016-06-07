@@ -4,6 +4,14 @@
 
 ### Linux
 
+You'll need to have the JAVA_HOME environment varible set to the JDK directory.
+
+```
+$ JAVA_HOME="/usr/lib/jvm/jdk1.8.0_91"
+```
+
+If you don't have the JDK installed, [follow these instructions.](http://www.helloworldforbeginners.com/java-hello-world/) 
+
 To compile the application, run the following command from the project root:
 
 ```
