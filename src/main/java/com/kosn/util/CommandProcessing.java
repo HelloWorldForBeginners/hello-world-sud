@@ -1,11 +1,17 @@
 package com.kosn.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import com.kosn.application.Application;
-import com.kosn.data.Equipment;
-import com.kosn.data.Inventory;
+import com.kosn.data.dto.Equipment;
+import com.kosn.data.dto.Inventory;
 import com.kosn.entity.Character;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
@@ -13,7 +19,7 @@ import com.kosn.entity.Player;
 import com.kosn.entity.Room;
 import com.kosn.entity.defaults.NonPlayerDefaults;
 
-public class Commands {
+public class CommandProcessing {
 	final static String noGo = "You can't go that way.";
 	private static String previousCommand = "";
 	private static String previousTarget = "";
@@ -21,33 +27,34 @@ public class Commands {
 	private static Room thisRoom;
 	private static Player player;
 	
-	private static HashMap<String, Runnable> commands = new HashMap<String, Runnable>() {{
-		put("north", () -> Commands.exitRoom("north", Input.target));
-    	put("n", () -> Commands.exitRoom("north", Input.target));
-    	put("south", () -> Commands.exitRoom("south", Input.target));
-    	put("s", () -> Commands.exitRoom("south", Input.target));
-    	put("east", () -> Commands.exitRoom("east", Input.target));
-    	put("e", () -> Commands.exitRoom("east", Input.target));
-    	put("west", () -> Commands.exitRoom("west", Input.target));
-    	put("w", () -> Commands.exitRoom("west", Input.target));
+	private static Map<String, Runnable> commands = new HashMap<String, Runnable>() {{
+		put("north", () -> CommandProcessing.exitRoom("north", Input.target));
+    	put("n", () -> CommandProcessing.exitRoom("north", Input.target));
+    	put("south", () -> CommandProcessing.exitRoom("south", Input.target));
+    	put("s", () -> CommandProcessing.exitRoom("south", Input.target));
+    	put("east", () -> CommandProcessing.exitRoom("east", Input.target));
+    	put("e", () -> CommandProcessing.exitRoom("east", Input.target));
+    	put("west", () -> CommandProcessing.exitRoom("west", Input.target));
+    	put("w", () -> CommandProcessing.exitRoom("west", Input.target));
     	
-    	put("i", () -> Commands.showInventory());
-    	put("inv", () -> Commands.showInventory());
-    	put("inventory", () -> Commands.showInventory());
+    	put("i", () -> CommandProcessing.showInventory());
+    	put("inv", () -> CommandProcessing.showInventory());
+    	put("inventory", () -> CommandProcessing.showInventory());
     	
-    	put("equip", () -> Commands.showEquipment(Input.target));
-    	put("equipment", () -> Commands.showEquipment(Input.target));
+    	put("equip", () -> CommandProcessing.showEquipment(Input.target));
+    	put("equipment", () -> CommandProcessing.showEquipment(Input.target));
     	
-    	put("unequip", () -> Commands.removeEquipment(Input.target));
+    	put("unequip", () -> CommandProcessing.removeEquipment(Input.target));
     	
-    	put("player", () -> Commands.playerStatus());
-    	put("p", () -> Commands.playerStatus());
-    	put("get", () -> Commands.addToInventory(Input.target));
-    	put("put", () -> Commands.removeFromInventory(Input.target));
-    	put("attack", () -> Commands.attack(Input.target));
-    	put("look", () -> Commands.roomStatus());
-    	put("check", () -> Commands.checkThing(Input.target));
-    	put("quit", () -> Commands.quitGame());
+    	put("player", () -> CommandProcessing.playerStatus());
+    	put("p", () -> CommandProcessing.playerStatus());
+    	put("get", () -> CommandProcessing.addToInventory(Input.target));
+    	put("put", () -> CommandProcessing.removeFromInventory(Input.target));
+    	put("attack", () -> CommandProcessing.attack(Input.target));
+    	put("look", () -> CommandProcessing.roomStatus());
+    	put("check", () -> CommandProcessing.checkThing(Input.target));
+    	put("quit", () -> CommandProcessing.quitGame());
+    	put("commands", () -> CommandProcessing.printCommands());
 	}};
 	
 	public static void processCommand(String command) {
@@ -71,14 +78,27 @@ public class Commands {
     	}
 	}
 	
-	public static Runnable exitRoom(String direction, String target) {
-		Commands.thisRoom = Application.getCurrentRoom();
-		Commands.nextRoom = thisRoom.getExits().get(direction);
-		Commands.player = Application.getPlayer();
+	protected static void printCommands() {
+		Set<String> commandSet = new HashSet<String>();
+		commandSet = commands.keySet();
+		List<String> availableCommands = new ArrayList<String>(commandSet);
+		Collections.sort(availableCommands); 
+		
+		System.out.println();
+		for (String command : availableCommands) {
+			System.out.println(command);
+		}
+		
+	}
+
+	public static void exitRoom(String direction, String target) {
+		CommandProcessing.thisRoom = Application.getCurrentRoom();
+		CommandProcessing.nextRoom = thisRoom.getExits().get(direction);
+		CommandProcessing.player = Application.getPlayer();
 		
 		if (nextRoom == null) {
 			System.out.println(noGo);
-			return null;
+			
 		}
 		
 		if (Application.getCombat() == false) {
@@ -87,7 +107,7 @@ public class Commands {
 			executeEscapeRoll();
 		}
 
-		return null;
+		
 	}
 	
 	private static void executeEscapeRoll() {
@@ -172,63 +192,62 @@ public class Commands {
 //		}
 	}
 
-	public static Runnable showInventory() {
+	public static void showInventory() {
 		Inventory.print(Application.getInventory());
-		return null;
 	}
 	
-	public static Runnable showEquipment(String target) {
+	public static void showEquipment(String target) {
 		if (target != "") {
 			Equipment.equipItem(target, Application.getPlayer());
 		} else {
 			Equipment.print(Application.getEquipment());
 		}
-		return null;
+		
 	}
 	
-	public static Runnable removeEquipment(String target) {
+	public static void removeEquipment(String target) {
 		Equipment.unequipItem(target, Application.getPlayer());
-		return null;
+		
 	}
 	
-	public static Runnable playerStatus() {
+	public static void playerStatus() {
 		System.out.println(Application.getPlayer().toString());
 		Character.printInventory(Application.getPlayer().getInventory());
 		Character.printEquipment(Application.getPlayer().getEquipment());
-		return null;
+		
 	}
 	
-	public static Runnable addToInventory(String target) {
+	public static void addToInventory(String target) {
 		Inventory.getItem(target, Application.getPlayer(), Application.getCurrentRoom());
-		return null;
+		
 	}
 	
-	public static Runnable removeFromInventory(String target) {
+	public static void removeFromInventory(String target) {
 		Inventory.putItem(target, Application.getPlayer(), Application.getCurrentRoom());
-		return null;
+		
 	}
 
-	public static Runnable attack(String target) {
+	public static void attack(String target) {
 		Combat.attackNonPlayer(target, Application.getCurrentRoom(), Application.getPlayer());
-		return null;
+		
 	}
 	
-	public static Runnable roomStatus() {
+	public static void roomStatus() {
 		Application.getCurrentRoom().printRoom();
-		return null;
+		
 	}
 	
-	public static Runnable checkThing(String target) {
+	public static void checkThing(String target) {
 		//tries to look at the NonPlayer first, then looks at the items in the room
 		if (NonPlayer.printNonPlayerInfo(target, Application.getCurrentRoom()).equals("")) {
 			Item.printItemInfo(target, Application.getCurrentRoom());
 		}
-		return null;
+		
 	}
 	
-	public static Runnable quitGame() {
+	public static void quitGame() {
 		System.out.println("Goodbye!");
 		Application.setPlaying(false);
-		return null;
+		
 	}
 }

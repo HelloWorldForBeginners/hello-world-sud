@@ -1,4 +1,4 @@
-package com.kosn.data;
+package com.kosn.util;
 
 import com.kosn.data.db.BuildRoomDAO;
 

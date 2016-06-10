@@ -3,15 +3,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kosn.data.World;
 import com.kosn.data.db.LoadEntityPools;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.Room;
 import com.kosn.entity.defaults.PlayerDefaults;
-import com.kosn.util.Commands;
+import com.kosn.util.CommandProcessing;
 import com.kosn.util.Input;
+import com.kosn.util.World;
 
 public class Application {
 	
@@ -49,7 +49,7 @@ public class Application {
         
         // Start game
         while (playing) {
-        	Commands.processCommand(Input.getCommand());
+        	CommandProcessing.processCommand(Input.getCommand());
         }
         System.exit(0);
     }

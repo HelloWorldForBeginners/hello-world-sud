@@ -1,4 +1,4 @@
-package com.kosn.data;
+package com.kosn.data.dto;
 import java.util.ArrayList;
 
 import com.kosn.entity.Item;
