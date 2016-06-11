@@ -3,3 +3,4 @@ bugbear,fluffy
 warg,fast
 goblin,weak
 dove,bloodthirsty
+vapid banana,time flies like an arrow; fruit flies like a banana

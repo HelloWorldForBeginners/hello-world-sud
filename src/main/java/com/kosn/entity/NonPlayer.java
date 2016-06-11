@@ -31,7 +31,7 @@ public class NonPlayer extends Character {
 				);
 	}
 
-    // Constructor for importing non-players from a text file
+    // Constructor for importing items from a text file
 	public NonPlayer(String[] params) {
 		super(params[0], params[1], 
 				Integer.parseInt(params[2]), 

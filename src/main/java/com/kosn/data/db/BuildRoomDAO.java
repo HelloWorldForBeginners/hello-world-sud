@@ -9,6 +9,8 @@ import com.kosn.application.Application;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Room;
+import com.kosn.util.Directions;
+import com.kosn.util.World;
 
 public class BuildRoomDAO {
 
@@ -24,8 +26,9 @@ public class BuildRoomDAO {
 	}
     
 	public static void buildRoomsFromFile(String _fileName, int _expectedLineLength) {
+		getPath();
 
-		File file = new File(path + "/src/main/resources/" + _fileName + ".txt");
+		File file = new File(path + "src/main/resources/profiles/" + _fileName + ".txt");
 		
 		Scanner scan = null;
 		
@@ -40,16 +43,16 @@ public class BuildRoomDAO {
 	            }
 	            
 	            switch (_fileName) {
-		            case "roomList":
+		            case "roomSave":
 		            	buildARoom(lineArray);
 		            	break;
-		            case "itemList":
+		            case "itemSave":
 		            	addAnItem(lineArray);
 		            	break;
-		            case "creatureList":
+		            case "creatureSave":
 		            	addACreature(lineArray);
 		            	break;
-		            case "exitList":
+		            case "exitSave":
 		            	addAnExit(lineArray);
 		            	break;
 	            }
@@ -72,7 +75,12 @@ public class BuildRoomDAO {
 
     
 	private static void addAnItem(String[] lineArray) {
-		Application.getRooms().get(lineArray[0]).setItems( 
+		
+//		System.out.println(World.rooms.keySet());
+//		System.out.println(lineArray[0]);
+//		System.out.println(World.rooms.get(lineArray[0]));
+
+		World.rooms.get(lineArray[0]).setItems( 
 	    		new Item(
 	    				//lineArray.arraycopy()
 	    				Arrays.copyOfRange(lineArray, 1, lineArray.length)
@@ -91,12 +99,11 @@ public class BuildRoomDAO {
 
 	
 	private static void addAnExit(String[] lineArray) {
-    	Application.getRooms().get(lineArray[0]).
+    	Application.getRooms().get(Directions.valueOf(lineArray[0])).
     	setExits(
     			Arrays.copyOfRange(lineArray, 1, lineArray.length)
     			);
 		
 	}
-
 	
 }

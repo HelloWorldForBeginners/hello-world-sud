@@ -1,0 +1,13 @@
+shirt,smelly
+jacket,cool
+shoes,smelly
+boots,smelly
+pants,wet,1
+gloves,stained
+shoes,smelly
+boots,smelly
+toilet paper
+wine,tasty,0
+mead,tasty,0
+spirits,tasty
+mutton,it's sheep; you're eating sheep

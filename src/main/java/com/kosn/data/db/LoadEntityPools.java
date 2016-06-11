@@ -18,16 +18,16 @@ public class LoadEntityPools {
 		path = currDir.getAbsolutePath();
 		path = path.substring(0, path.length()-1);
 	}
-    
-	public static Map<String, String> importCreatures() {
+	
+	public static Map<String, String> importObjects(String objectName) {
 
 		getPath();
 		
-		File file = new File(path + "/src/main/resources/entityRepository/creatureMaster.txt");
+		File file = new File(String.format("%s/src/main/resources/entityRepository/%sMaster.txt", path, objectName));
 		
 		Scanner scan = null;
 		
-		Map<String, String> masterCreatureList = new HashMap<String, String>();
+		Map<String, String> objects = new HashMap<String, String>();
 		
 	    try {
 	    	scan = new Scanner(file);
@@ -38,7 +38,7 @@ public class LoadEntityPools {
 	            if (lineArray.length != 2) { 
 	            	continue;
 	            }
-	            masterCreatureList.put(lineArray[0], lineArray[1]);
+	            objects.put(lineArray[0], lineArray[1]);
 	            
 	    	}
 	    	
@@ -48,7 +48,7 @@ public class LoadEntityPools {
 	    	scan.close();
 	    }
 	    
-	    return masterCreatureList;
+	    return objects;
 	}
 	
 }

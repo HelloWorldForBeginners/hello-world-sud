@@ -1,5 +1,0 @@
-dungeon,platypus,semi-aquatic egg-laying mammal of action,1,5,5,2,2,1,1
-cell,bugbear,fluffy,3,13,20,10,10,3,3
-messHall,warg,fast,10,35,80,20,20,10,10
-privy,goblin,weak,6,22,41,15,15,6,6
-dovecote,bloodthirsty dove,bloodthirsty,5,22,41,15,15,6,6

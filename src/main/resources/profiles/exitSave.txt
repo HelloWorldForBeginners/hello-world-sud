@@ -1,0 +1,10 @@
+Cell,east,Dungeon
+Dungeon,south,Privy
+Dungeon,east,Mess Hall
+Dungeon,west,Cell
+Dungeon,north,Dovecote
+Mess Hall,west,Dungeon
+Mess Hall,east,Larder
+Larder,west,Mess Hall
+Privy,north,Dungeon
+Dovecote,south,Dungeon

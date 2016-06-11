@@ -8,12 +8,9 @@ public class Item extends GameObject {
 
     public Item(String _name, String _description, int _amount, String _type, String _slot, int _defense) {
         super(_name, _description);
-        this.amount = _amount;
-        this.type = _type;
-        this.slot = _slot;
-        this.defense = _defense;
     }
 
+    // Constructor for importing item from a save file
     public Item(String[] params) {
         super(params[0], params[1]);
         this.amount = Integer.parseInt(params[2]);

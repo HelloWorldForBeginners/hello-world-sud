@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kosn.data.db.LoadEntityPools;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
@@ -23,13 +22,8 @@ public class Application {
     
     private static NonPlayer currentCombatTarget = null;
     
-    private static Map<String, Room> rooms = new HashMap<String, Room>();
-    private static Map<String, String> creaturePool = new HashMap<String, String>();
-
-    public static Map<String, String> getCreaturePool() {
-		return creaturePool;
-	}
-
+    public static Map<String, Room> rooms = new HashMap<String, Room>();
+    
 	// inventory and equipment 
     private static ArrayList<Item> inventory = new ArrayList<>();
     private static HashMap<String, Item> equipment = new HashMap<String, Item>();
@@ -37,16 +31,14 @@ public class Application {
     private static Player player = new Player(new PlayerDefaults());
 
     public static void main(String args[]) {
-    	
-    	// load entity pools
-    	creaturePool = LoadEntityPools.importCreatures();
+    	System.out.println("Welcome to The Knights of Something Notable!\n");
     	
     	// Build rooms
-    	System.out.println("Welcome to The Knights of Something Notable!\n");
-        World.build();
+    	
+    	rooms = World.build(); 
         currentRoom = defaultRoom = rooms.entrySet().iterator().next().getValue();
         currentRoom.printRoom();
-        
+
         // Start game
         while (playing) {
         	CommandProcessing.processCommand(Input.getCommand());

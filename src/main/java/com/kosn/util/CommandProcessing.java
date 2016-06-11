@@ -72,7 +72,7 @@ public class CommandProcessing {
 		}
 
 		if (thingToRun != null) {
-			new Thread(thingToRun).start();
+			thingToRun.run();
 		} else {
     		System.out.println("You can't do that.");
     	}
@@ -93,12 +93,12 @@ public class CommandProcessing {
 
 	public static void exitRoom(String direction, String target) {
 		CommandProcessing.thisRoom = Application.getCurrentRoom();
-		CommandProcessing.nextRoom = thisRoom.getExits().get(direction);
+		CommandProcessing.nextRoom = thisRoom.getExits().get(Directions.valueOf(direction));
 		CommandProcessing.player = Application.getPlayer();
 		
 		if (nextRoom == null) {
 			System.out.println(noGo);
-			
+			return;
 		}
 		
 		if (Application.getCombat() == false) {
@@ -106,8 +106,6 @@ public class CommandProcessing {
 		} else {
 			executeEscapeRoll();
 		}
-
-		
 	}
 	
 	private static void executeEscapeRoll() {
@@ -184,6 +182,7 @@ public class CommandProcessing {
 	}
 
 	private static void checkRoomMonsters() {
+		
 		if (nextRoom.getCreatures().isEmpty()) {
 			nextRoom.getCreatures().add(new NonPlayer(new NonPlayerDefaults()));
 		}

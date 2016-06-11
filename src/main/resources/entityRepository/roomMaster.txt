@@ -1,0 +1,17 @@
+Solar,You are in the solar.
+Library,You are in the library.
+Servants' Quarters,You are in the servants' quarters.
+Chapel,You are in the chapel.
+Gatehouse,You are in the gatehouse. It does not appear to house any gates.
+Great Hall,You are in the great hall.
+Courtyard,You are in the courtyard.
+Ice House,You are in the ice house.
+Guardroom,You are in the guardroom.
+Study,You are in the study.
+Undercroft,You are in the Undercroft.
+Dungeon,You are in a dungeon.
+Mess Hall,You are in the mess hall.
+Larder,You are in the larder. There's food here.
+Cell,You are in a cell.
+Privy,You are in the privy.
+Dovecote,You are in the dovecote. Because doves like basements.

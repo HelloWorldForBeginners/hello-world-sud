@@ -1,0 +1,13 @@
+Dungeon,shirt,smelly,1,equipment,body,3
+Dungeon,jacket,cool,1,equipment,body,3
+Dungeon,shoes,smelly,1,equipment,feet,1
+Dungeon,boots,smelly,1,equipment,feet,1
+Cell,pants,wet,1,equipment,legs,2
+Mess Hall,gloves,stained,1,equipment,hands,1
+Privy,shoes,smelly,1,equipment,feet,1
+Privy,boots,smelly,1,equipment,feet,1
+Privy,toilet paper,cool,1,item,none,0
+Larder,wine,tasty,0,consumable,FOOD,0
+Larder,mead,tasty,0,consumable,FOOD,0
+Larder,spirits,tasty,0,consumable,FOOD,0
+Larder,mutton,it's sheep; you're eating sheep,0,consumable,FOOD,0

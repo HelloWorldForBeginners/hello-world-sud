@@ -6,12 +6,13 @@ import java.util.Map;
 import java.util.Random;
 
 import com.kosn.application.Application;
+import com.kosn.util.World;
 
 public final class NonPlayerDefaults {
 	public String name, description;
 	public int level, money, exp, hitPoints, maxHitPoints, attack, defense;
 
-	private Map<String, String> creaturePool = Application.getCreaturePool();
+	private Map<String, String> creaturePool = World.getCreaturePool();
 	
 	private List<String> keysList = new ArrayList<String>(creaturePool.keySet());
 	int randomIndex = new Random().nextInt(keysList.size());
