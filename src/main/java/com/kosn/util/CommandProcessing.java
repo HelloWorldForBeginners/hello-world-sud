@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import com.kosn.application.Application;
 import com.kosn.data.dto.Equipment;
 import com.kosn.data.dto.Inventory;
@@ -36,6 +38,7 @@ public class CommandProcessing {
     	put("e", () -> CommandProcessing.exitRoom("east", Input.target));
     	put("west", () -> CommandProcessing.exitRoom("west", Input.target));
     	put("w", () -> CommandProcessing.exitRoom("west", Input.target));
+    	put("warp", () -> CommandProcessing.warp(Input.target));
     	
     	put("i", () -> CommandProcessing.showInventory());
     	put("inv", () -> CommandProcessing.showInventory());
@@ -78,6 +81,18 @@ public class CommandProcessing {
     	}
 	}
 	
+	protected static void warp(String target) {
+		target = WordUtils.capitalize(target);
+		
+		CommandProcessing.nextRoom = Application.getRooms().get(target);
+		
+		if (CommandProcessing.nextRoom == null) {
+			System.out.println(noGo);
+			return;
+		}
+		changeRooms();
+	}
+
 	protected static void printCommands() {
 		Set<String> commandSet = new HashSet<String>();
 		commandSet = commands.keySet();
@@ -96,7 +111,7 @@ public class CommandProcessing {
 		CommandProcessing.nextRoom = thisRoom.getExits().get(Directions.valueOf(direction));
 		CommandProcessing.player = Application.getPlayer();
 		
-		if (nextRoom == null) {
+		if (CommandProcessing.nextRoom == null) {
 			System.out.println(noGo);
 			return;
 		}
@@ -174,17 +189,16 @@ public class CommandProcessing {
 	}
 
 	private static void changeRooms() {
-		
 		Application.setCurrentCombatTarget(null);
-		Application.setCurrentRoom(nextRoom);
+		Application.setCurrentRoom(CommandProcessing.nextRoom);
 		checkRoomMonsters();
 		nextRoom.printRoom();
 	}
 
 	private static void checkRoomMonsters() {
 		
-		if (nextRoom.getCreatures().isEmpty()) {
-			nextRoom.getCreatures().add(new NonPlayer(new NonPlayerDefaults()));
+		if (CommandProcessing.nextRoom.getCreatures().isEmpty()) {
+			CommandProcessing.nextRoom.getCreatures().add(new NonPlayer(new NonPlayerDefaults()));
 		}
 //		else {
 //			nextRoom.printCreatures();

@@ -1,8 +1,24 @@
 apply plugin: 'java'
+apply plugin:'application'
+mainClassName = "com.kosn.application.Application"
+
+version = '1.0'
+
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Knights of Something Notable',  
+            'Implementation-Version': version,
+            'Main-Class': 'com.kosn.application.Application'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 jar {
     manifest {
-	attributes 'Main-Class': 'com.kosn.application.Application'
+        attributes 'Main-Class': 'com.kosn.application.Application'
     }
 }
 
@@ -12,4 +28,10 @@ repositories {
 
 dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '19.0'
+  compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+

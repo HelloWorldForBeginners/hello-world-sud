@@ -84,6 +84,7 @@ public class Room {
 	}
 
 	public void printRoom() {
+		System.out.println();
 		System.out.println(this.toString());
 		System.out.println("Exits:");
 		printExits();

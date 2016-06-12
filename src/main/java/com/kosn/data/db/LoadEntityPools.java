@@ -23,7 +23,7 @@ public class LoadEntityPools {
 
 		getPath();
 		
-		File file = new File(String.format("%s/src/main/resources/entityRepository/%sMaster.txt", path, objectName));
+		File file = new File(String.format("%s/src/main/resources/entityRepository/%s.txt", path, objectName));
 		
 		Scanner scan = null;
 		

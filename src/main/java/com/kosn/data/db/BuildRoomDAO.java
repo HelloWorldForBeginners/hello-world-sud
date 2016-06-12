@@ -28,7 +28,9 @@ public class BuildRoomDAO {
 	public static void buildRoomsFromFile(String _fileName, int _expectedLineLength) {
 		getPath();
 
-		File file = new File(path + "src/main/resources/profiles/" + _fileName + ".txt");
+		String _profileFileName = String.format("%s_%s", Application.getPlayer().getName(), _fileName);
+		
+		File file = new File(path + "src/main/resources/profiles/" + _profileFileName + ".txt");
 		
 		Scanner scan = null;
 		

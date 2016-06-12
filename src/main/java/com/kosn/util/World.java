@@ -36,7 +36,7 @@ public class World {
 
 	    BuildRoomDAO.buildRoomsFromFile("roomSave", 2);
     	BuildRoomDAO.buildRoomsFromFile("creatureList", 10);
-    	BuildRoomDAO.buildRoomsFromFile("otherNpcPlacement", 3);
+//    	BuildRoomDAO.buildRoomsFromFile("npcSave", 3);
     	BuildRoomDAO.buildRoomsFromFile("exitSave", 3);
     	BuildRoomDAO.buildRoomsFromFile("itemSave", 7);
 		return rooms;
@@ -136,15 +136,13 @@ public class World {
 	}
 
 	private static void loadEntityPools() {
-		creaturePool = LoadEntityPools.importObjects("creature");
-    	roomPool = LoadEntityPools.importObjects("room");
-    	itemPool = LoadEntityPools.importObjects("item");
+		creaturePool = LoadEntityPools.importObjects("creatures");
+    	roomPool = LoadEntityPools.importObjects("rooms");
+    	itemPool = LoadEntityPools.importObjects("items");
 	}
 
 	public static Map<String, String> getCreaturePool() {
 		// TODO Auto-generated method stub
 		return creaturePool;
-	}
-	
-	
+	}	
 }

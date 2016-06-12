@@ -15,7 +15,7 @@ If you don't have the JDK installed, [follow these instructions.](http://www.hel
 To compile the application, run the following command from the project root:
 
 ```
-./gradlew clean build
+./gradlew clean fatJar
 ```
 
 
