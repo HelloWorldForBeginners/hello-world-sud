@@ -43,29 +43,39 @@ public class NonPlayer extends Character {
 				Integer.parseInt(params[8]));
 	}
 	
-	public static String printNonPlayerInfo(String target, Room room) {
-
-    	NonPlayer nonPlayer = getNonPlayer(target, room);
-    	if (nonPlayer != null) {
-    		System.out.println(nonPlayer.toString());
-    		return "printed";
-    	} else {
-    		return "";
-    	}
-    }
+//	public static String printNonPlayerInfo(NonPlayer nonPlayer) {
+//		System.out.println(toString());
+//    		return "printed";
+//    	} else {
+//    		return "";
+//    	}
+//    }
     
-    public static NonPlayer getNonPlayer(String target, Room room) {
 
-		for (NonPlayer creature : room.getCreatures() ) {
-			if (creature.getName().equals(target)) {
-                return creature;
-            }
-			if (creature.getName().startsWith(target)) {
-				return creature;
-			}
-        }
-		return null;
-	}
+
+	//	public static String printNonPlayerInfo(String target, Room room) {
+//
+//    	NonPlayer nonPlayer = getNonPlayer(target, room);
+//    	if (nonPlayer != null) {
+//    		System.out.println(nonPlayer.toString());
+//    		return "printed";
+//    	} else {
+//    		return "";
+//    	}
+//    }
+//    
+//    public static NonPlayer getNonPlayer(String target, Room room) {
+//
+//		for (NonPlayer creature : room.getCreatures() ) {
+//			if (creature.getName().equals(target)) {
+//                return creature;
+//            }
+//			if (creature.getName().startsWith(target)) {
+//				return creature;
+//			}
+//        }
+//		return null;
+//	}
 
     
 	public static void spawnAnotherNonPlayer(NonPlayer _nonPlayer) {
@@ -88,20 +98,22 @@ public class NonPlayer extends Character {
 		this.hitPoints -= _hitPoints;
 	}
 	
-	
-	@Override
-    public String toString() {
-        return 
-        		"Name: " + this.getName() + "(Lv." + this.getLevel() + ")" + 
-			    "\n" +
-			    this.getDescription() +
-			    "\n" +
-			    "HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() +
-			    "\n" +
-			    "Attack: " + this.getAttack() +
-			    "\n" +
-			    "Defense: " + this.getDefense() +
-			    "\n";
+    public void printInfo() {
+		System.out.println("Name: " + this.getName() + "(Lv." + this.getLevel() + ")" + 
+				"\n" +
+				this.getDescription() +
+				"\n" +
+				"HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() +
+				"\n" +
+				"Attack: " + this.getAttack() +
+				"\n" +
+				"Defense: " + this.getDefense() +
+				"\n");
 	}
 	
+	@Override //means this method exists somewhere; it comes from the Object type
+	public String toString() {
+		String toString = getName();
+		return toString;
+	}
 }

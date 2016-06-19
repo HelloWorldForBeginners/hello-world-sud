@@ -13,22 +13,12 @@ public class Combat {
 	private static Player combatPlayer;
 	private static NonPlayer combatNonPlayer;
 	
-	public static void attackNonPlayer(String target, Room room, Player player) {
+	public static void attackNonPlayer(NonPlayer creature, Room room, Player player) {
 
 		combatRoom = room;
 		combatPlayer = player;
-		combatNonPlayer = NonPlayer.getNonPlayer(target, room);
+		combatNonPlayer = creature;
 		
-		if (target.equals("")) {
-			System.out.println("Attack what?");
-            return;
-		}
-
-        if (combatNonPlayer == null) {
-            System.out.println("There is no " + target + " here.");
-            return;
-        }
-
         Application.toggleCombatOn(combatNonPlayer);
         if (processPlayerAttack().equals("continue")) {
         	processNonPlayerAttack(player, combatNonPlayer);

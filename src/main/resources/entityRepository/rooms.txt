@@ -15,3 +15,11 @@ Larder,You are in the larder. There's food here.
 Cell,You are in a cell.
 Privy,You are in the privy.
 Dovecote,You are in the dovecote. Because doves like basements.
+Rampart,You are on the ramparts. So rampant around here.
+Asylum,You are in the asylum, hopefully as a visitor.
+Abandoned Hut,You are in an abandoned hut, in the center of a small copse of trees.
+Cave,You are in a cave.
+Alcove,You are in a small alcove. Such cozy.
+Churchyard,You are in a churchyard.
+Market Street,You are on market street.
+Medica,You are in the medica.

@@ -197,5 +197,28 @@ public class Room {
 		return true;
 	}
 
-	
+    public NonPlayer getNonPlayer(String target) {
+
+		for (NonPlayer creature : this.creatures) {
+			if (creature.getName().equals(target)) {
+                return creature;
+            }
+			if (creature.getName().startsWith(target)) {
+				return creature;
+			}
+        }
+		return null;
+	}
+
+	public Item getItem(String target) {
+		for (Item checkItem: this.items) {
+            if (checkItem.getName().equals(target)) {
+                return checkItem;
+            }
+            if (checkItem.getName().startsWith(target)) {
+                return checkItem;
+            }
+        }
+		return null;
+	}
 }

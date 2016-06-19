@@ -11,3 +11,11 @@ wine,tasty,0
 mead,tasty,0
 spirits,tasty
 mutton,it's sheep; you're eating sheep
+halberd,it's pointy
+spear,it's pointy
+sword,the sword leaned fiercely against the wall
+jar,Hold it above your head for the whole world to see! It's good for business!
+a very small rock,doesn't float
+great gravy,doesn't float
+lovely pile of filth,it's down here
+vapid banana

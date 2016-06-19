@@ -8,7 +8,7 @@ import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.Room;
 import com.kosn.entity.defaults.PlayerDefaults;
-import com.kosn.util.CommandProcessing;
+import com.kosn.util.CommandProcessor;
 import com.kosn.util.Input;
 import com.kosn.util.World;
 
@@ -29,6 +29,8 @@ public class Application {
     private static HashMap<String, Item> equipment = new HashMap<String, Item>();
     
     private static Player player = new Player(new PlayerDefaults());
+    
+    private static CommandProcessor cp = CommandProcessor.getInstance();
 
     public static void main(String args[]) {
     	System.out.println("Welcome to The Knights of Something Notable!\n");
@@ -41,7 +43,7 @@ public class Application {
 
         // Start game
         while (playing) {
-        	CommandProcessing.processCommand(Input.getCommand());
+        	cp.processCommand(Input.getCommand());
         }
         System.exit(0);
     }

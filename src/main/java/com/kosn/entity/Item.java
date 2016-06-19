@@ -51,34 +51,13 @@ public class Item extends GameObject {
         this.defense = _defense;
     }
     
-    public static void printItemInfo(String _target, Room _room) {
-
-        Item item = getitem(_target, _room);
-        if (item != null) {
-        	printInfo(item);
-        }
-    }
-
-    private static void printInfo(Item _item) {
-
-    	System.out.println("Name: " + _item.getName() + "(" + _item.getAmount() + ")");
-        System.out.println(_item.getDescription());
-        System.out.println("Type: " + _item.getType());
-        System.out.println("Slot: " + _item.getSlot());
-        System.out.println("Def: " + _item.getDefense());
+    public void printInfo() {
+    	System.out.println("Name: " + this.name + "(" + this.amount + ")");
+        System.out.println(this.description);
+        System.out.println("Type: " + this.type);
+        System.out.println("Slot: " + this.slot);
+        System.out.println("Def: " + this.defense);
         System.out.println();
-	}
-
-	private static Item getitem(String _target, Room _room) {
-    	for (Item checkItem: _room.getItems() ) {
-            if (checkItem.getName().equals(_target)) {
-                return checkItem;
-            }
-            if (checkItem.getName().startsWith(_target)) {
-                return checkItem;
-            }
-        }
-		return null;
 	}
 
 	@Override //means this method exists somewhere; it comes from the Object type
