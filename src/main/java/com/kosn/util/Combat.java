@@ -39,7 +39,8 @@ public class Combat {
         	Application.toggleCombatOff();
             
             if (combatPlayer.getExp() >= combatPlayer.getExpToNextLevel()) {
-            	Player.levelUpPlayer(combatPlayer);
+            	combatPlayer.levelUp();
+//            	Player.levelUpPlayer(combatPlayer);
             }
             
             removeCreatureFromRoom();
@@ -73,7 +74,7 @@ public class Combat {
     	_player.printHealth();
     	
     	if (_player.getHitPoints() <= 0) {
-    		Player.killPlayer(_player);
+    		_player.killPlayer();
     		return "respawned";
         }
 		return ""; 

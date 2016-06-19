@@ -1,6 +1,6 @@
 package com.kosn.entity;
 
-public class Item extends GameObject {
+public class Item extends GameObject implements Comparable<Item> {
     private int amount;
     private String type;
     private String slot;
@@ -50,7 +50,7 @@ public class Item extends GameObject {
     public void setDefense(int _defense) {
         this.defense = _defense;
     }
-    
+
     public void printInfo() {
     	System.out.println("Name: " + this.name + "(" + this.amount + ")");
         System.out.println(this.description);
@@ -60,10 +60,14 @@ public class Item extends GameObject {
         System.out.println();
 	}
 
-	@Override //means this method exists somewhere; it comes from the Object type
+	@Override
 	public String toString() {
 		String toString = getName();
 		return toString;
 	}
-    
+
+	@Override
+	public int compareTo(Item o) {
+		return name.compareTo(o.getName());
+	}
 }

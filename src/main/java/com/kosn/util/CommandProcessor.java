@@ -13,8 +13,6 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import com.kosn.application.Application;
 import com.kosn.data.dto.Equipment;
-import com.kosn.data.dto.Inventory;
-import com.kosn.entity.Character;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
@@ -22,18 +20,18 @@ import com.kosn.entity.Room;
 import com.kosn.entity.defaults.NonPlayerDefaults;
 
 public class CommandProcessor {
-	final static String noGo = "You can't go that way. Available exits:";
-	final static String noAttackTarget = "Attack what?";
-	final static String noTargetCreatureFound = "Attack what?";
-	final static String noCommand = "You can't do that. Type help to see available commands.";
-	final static String noCreatures = "Nothing to attack.";
-	private static String previousCommand = "";
-	private static String previousTarget = "";
-	private static Room nextRoom;
-	private static Room thisRoom;
-	private static Player player;
-	private static ArrayList<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
-	private static ArrayList<NonPlayer> nextRoomCreatures = new ArrayList<NonPlayer>();
+	final String noGo = "You can't go that way. Available exits:";
+	final String noAttackTarget = "Attack what?";
+	final String noTargetCreatureFound = "Attack what?";
+	final String noCommand = "You can't do that. Type help to see available commands.";
+	final String noCreatures = "Nothing to attack.";
+	private String previousCommand = "";
+	private String previousTarget = "";
+	private Room nextRoom;
+	private Room thisRoom;
+	private Player player;
+	private ArrayList<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
+	private ArrayList<NonPlayer> nextRoomCreatures = new ArrayList<NonPlayer>();
 	
 	//singleton
 	private static CommandProcessor instance = null;
@@ -168,7 +166,7 @@ public class CommandProcessor {
 			//FALLTHROUGH 
 			case 3:
 			case 4:
-				if (Player.calculateMoneyLost(0.05) > 0) {
+				if (player.calculateMoneyLost(0.05) > 0) {
 					escapeWithMoneyLoss();
 				} else {
 					escape();
@@ -187,9 +185,9 @@ public class CommandProcessor {
 	}
 
 	private void escapeWithMoneyLoss() {
-		System.out.printf("You have escaped but lost %d money.", Player.calculateMoneyLost(0.05));
+		System.out.printf("You have escaped but lost %d money.", player.calculateMoneyLost(0.05));
 		System.out.println();
-		player.adjustMoney(-Player.calculateMoneyLost(0.05));
+		player.adjustMoney(-player.calculateMoneyLost(0.05));
 		Application.setCombat(false);
 		changeRooms(); 
 	}
@@ -226,14 +224,14 @@ public class CommandProcessor {
 	}
 
 	public void showInventory() {
-		Inventory.print(Application.getInventory());
+		player.printInventory();
 	}
 	
 	public void showEquipment(String target) {
 		if (target != "") {
 			Equipment.equipItem(target, Application.getPlayer());
 		} else {
-			Equipment.print(Application.getEquipment());
+			player.printEquipment();
 		}
 	}
 	
@@ -242,17 +240,16 @@ public class CommandProcessor {
 	}
 	
 	public void playerStatus() {
-		System.out.println(Application.getPlayer().toString());
-		Character.printInventory(Application.getPlayer().getInventory());
-		Character.printEquipment(Application.getPlayer().getEquipment());
+		player.printStatus();
 	}
 	
 	public void addToInventory(String target) {
-		Inventory.getItem(target, Application.getPlayer(), Application.getCurrentRoom());
+		player.putItemInInventory(target, thisRoom);
 	}
 	
 	public void removeFromInventory(String target) {
-		Inventory.putItem(target, Application.getPlayer(), Application.getCurrentRoom());
+		player.removeItemFromInventory(target, thisRoom);
+		//Inventory.putItem(target, Application.getPlayer(), Application.getCurrentRoom());
 	}
 
 	public void attack(String target) {

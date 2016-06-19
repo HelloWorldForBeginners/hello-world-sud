@@ -4,15 +4,15 @@ import java.util.HashMap;
 
 public abstract class Character extends GameObject {
 
-    private int level;
+    protected int level;
     protected int money;
     protected int exp;
     protected int hitPoints;
-    private int maxHitPoints;
-    private int attack;
-    private int defense;
-    private ArrayList<Item> inventory = new ArrayList<>();
-    private HashMap<String, Item> equipment = new HashMap<String, Item>();
+    protected int maxHitPoints;
+    protected int attack;
+    protected int defense;
+    protected ArrayList<Item> inventory = new ArrayList<>();
+    protected HashMap<String, Item> equipment = new HashMap<String, Item>();
 
     public Character(String name, String description, int level, int money, int exp, int hitPoints, int maxHitPoints,
                      int attack, int defense) {
@@ -24,22 +24,6 @@ public abstract class Character extends GameObject {
         this.maxHitPoints = maxHitPoints;
         this.attack = attack;
         this.defense = defense;
-    }
-
-    public static void printEquipment(HashMap<String, Item> equipment) {
-
-        System.out.println("Equipment:");
-        for (HashMap.Entry<String, Item> entry : equipment.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().getName());
-        }
-    }
-
-    public static void printInventory(ArrayList<Item> inventory) {
-
-        System.out.println("Inventory:");
-        for (Item item : inventory) {
-            System.out.println(item.getName());
-        }
     }
 
     public ArrayList<Item> getInventory() {
@@ -113,16 +97,32 @@ public abstract class Character extends GameObject {
     public void setMoney(int money) {
         this.money = money;
     }
+
+    public void printEquipment(HashMap<String, Item> equipment) {
+        System.out.println("Equipment:");
+        for (HashMap.Entry<String, Item> entry : equipment.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getName());
+        }
+    }
+
+    public void printInventory(ArrayList<Item> inventory) {
+        System.out.println("Inventory:");
+        for (Item item : inventory) {
+            System.out.println(item.getName());
+        }
+    }
     
 	public void printHealth() {
-		
     	System.out.println(this.getName() + " HP: " + this.hitPoints + "/" + this.maxHitPoints + "\n");
     	System.out.println();
 	}
 
 	@Override
 	public String toString() {
-		return "asdf";
+		return this.name;
+	}
+
+	public void setInventory(String target, Room thisRoom) {
 		// TODO Auto-generated method stub
 		
 	}

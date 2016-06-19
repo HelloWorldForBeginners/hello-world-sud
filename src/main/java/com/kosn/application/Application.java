@@ -48,86 +48,53 @@ public class Application {
         System.exit(0);
     }
 
-
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
-
 
 	public static void setCurrentRoom(Room currentRoom) {
 		Application.currentRoom = currentRoom;
 	}
 
-
 	public static boolean getCombat() {
 		return combat;
 	}
-
 
 	public static void setCombat(boolean combat) {
 		Application.combat = combat;
 	}
 
-
-	public static ArrayList<Item> getInventory() {
-		return inventory;
-	}
-
-
-	public static void setInventory(ArrayList<Item> inventory) {
-		Application.inventory = inventory;
-	}
-
-
 	public static Player getPlayer() {
 		return player;
 	}
-
 
 	public static void setPlayer(Player player) {
 		Application.player = player;
 	}
 
-
-	public static HashMap<String, Item> getEquipment() {
-		return equipment;
-	}
-
-
-	public static void setEquipment(HashMap<String, Item> equipment) {
-		Application.equipment = equipment;
-	}
-
-
 	public static boolean getPlaying() {
 		return playing;
 	}
-
 
 	public static void setPlaying(boolean playing) {
 		Application.playing = playing;
 	}
 
-
 	public static Room getDefaultRoom() {
 		return defaultRoom;
 	}
-
 
 	public static void setDefaultRoom(Room defaultRoom) {
 		Application.defaultRoom = defaultRoom;
 	}
 
-	
 	public static NonPlayer getCurrentCombatTarget() {
 		return currentCombatTarget;
 	}
 
-	
 	public static void setCurrentCombatTarget(NonPlayer nonPlayer) {
 		Application.currentCombatTarget = nonPlayer;
 	}
-
 
 	public static void toggleCombatOn(NonPlayer nonPlayer) {
 
@@ -139,7 +106,6 @@ public class Application {
         }
 	}
 	
-
 	public static void toggleCombatOff() {
         
         Application.setCombat(false);
@@ -148,15 +114,11 @@ public class Application {
         System.out.println();
 	}
 
-
 	public static Map<String, Room> getRooms() {
 		return rooms;
 	}
 
-
 	public static void setRooms(HashMap<String, Room> rooms) {
 		Application.rooms = rooms;
 	}
-
-
 }

@@ -1,5 +1,6 @@
 package com.kosn.entity;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import com.kosn.application.Application;
@@ -61,25 +62,22 @@ public class Room {
 
     public void addItem(Item item) {
         this.items.add(item);
+        Collections.sort(this.items);
     }
     
     public String getName() {
-
         return this.name;
     }
 
     public static void removeItem(Room room, Item item) {
-
         room.deleteItem(item);
     }
 
     public static void addItem(Room room, Item item) {
-
         room.addItem(item);
     }
 
 	public void setExits(String[] params) {
-
 		this.exits.put(Directions.valueOf(params[0]), Application.getRooms().get(params[1]));
 	}
 
