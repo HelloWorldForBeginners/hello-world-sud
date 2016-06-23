@@ -76,6 +76,7 @@ public class CommandProcessor {
 	    	put("quit", () -> quitGame());
 	    	put("commands", () -> printCommands());
 	    	put("help", () -> printCommands());
+	    	put("use", () -> useItem(Input.target));
 		}
 	};
 	
@@ -100,6 +101,43 @@ public class CommandProcessor {
 		} else {
 			System.out.println(noCommand);
     	}
+	}
+	
+	protected Map<String, Item> getValidItems(String target) {
+		Map<String, Item> itemsFound = new HashMap<String, Item>();		
+		Item targetItem = thisRoom.getItemIfExists(target);
+		if (targetItem != null) {
+			itemsFound.put("room", targetItem);
+		}
+		targetItem = player.checkInventory(target);
+		if (targetItem != null) {
+			itemsFound.put("inventory", targetItem);
+		}
+		return itemsFound;
+	}
+	
+	protected void useItem(String target) {
+		//check inventory for item
+		
+		Map<String, Item> availableItems = getValidItems(target);
+		
+		Item itemToConsume = availableItems.get("inventory");
+		
+		if (itemToConsume == null) {
+			System.out.println(String.format("You don't have any %s", target));
+		}
+		
+		
+		
+		if (player.getHitPoints() < player.getMaxHitPoints() && itemToConsume.getType() == "recovery") {
+				
+		}
+		
+		//if type = recovery
+			//check health
+				//if health = max health, you're at full health already
+				//else use item
+
 	}
 	
 	protected void warp(String target) {
@@ -193,7 +231,7 @@ public class CommandProcessor {
 	}
 
 	private void escapeWithDamage() {
-		if (Combat.processNonPlayerAttack(Application.getPlayer(), Application.getCurrentCombatTarget()).equals("respawned")){
+		if (Combat.processNonPlayerAttack(player, Application.getCurrentCombatTarget()).equals("respawned")){
 			return;
 		}
 		System.out.println("Running away are you?");
@@ -270,12 +308,12 @@ public class CommandProcessor {
 	}
 	
 	public void roomStatus() {
-		Application.getCurrentRoom().printRoom();
+		thisRoom.printRoom();
 	}
 	
 	public void checkThing(String target) {
 		NonPlayer targetNonPlayer = thisRoom.getNonPlayer(target);
-		Item targetItem = thisRoom.getItem(target);
+		Item targetItem = thisRoom.getItemIfExists(target);
 		if (targetNonPlayer != null) {
 			targetNonPlayer.printInfo();
 		}

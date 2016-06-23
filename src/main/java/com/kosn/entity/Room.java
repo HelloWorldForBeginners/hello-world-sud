@@ -208,7 +208,7 @@ public class Room {
 		return null;
 	}
 
-	public Item getItem(String target) {
+	public Item getItemIfExists(String target) {
 		for (Item checkItem: this.items) {
             if (checkItem.getName().equals(target)) {
                 return checkItem;

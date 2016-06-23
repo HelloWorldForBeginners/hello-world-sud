@@ -143,19 +143,8 @@ public class Player extends Character {
 	}
 	
 	public void removeItemFromInventory(String targetItemName, Room thisRoom) {
-        boolean inInventory = false;
-        Item item = null;
-        
-        // Check if item is a valid inventory item
-        for (Item inventoryItem : inventory) {
-            if (inventoryItem.getName().equals(targetItemName)) {
-            	inInventory = true;
-                item = inventoryItem;
-                break;
-            }
-        }
-
-        if (!inInventory) {
+		Item item = checkInventory(targetItemName);
+        if (item == null) {
             System.out.println("You don't have that.");
             return;
         } 
@@ -183,7 +172,19 @@ public class Player extends Character {
             System.out.println(item.getName());
         }
 	}
-
+	
+	public Item checkInventory(String target) {
+		for (Item checkItem: inventory) {
+            if (checkItem.getName().equals(target)) {
+                return checkItem;
+            }
+            if (checkItem.getName().startsWith(target)) {
+                return checkItem;
+            }
+        }
+		return null;
+	}
+	
 	public void levelUp() {
 		level++;
 		expToNextLevel = (int) Math.round(expToNextLevel * 1.5);
