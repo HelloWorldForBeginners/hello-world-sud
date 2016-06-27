@@ -30,8 +30,25 @@ dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '19.0'
   compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
   compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
+  compile group: 'org.testng', name: 'testng', version: '6.9.10'
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
+
+test {
+	useTestNG {
+		suites 'src/main/resources/testng.xml'
+	}
+	scanForTestClasses = false
+}
+
+task hello {
+	doLast {
+	  println 'Hello Gradle, derp a derp'
+	}
+	doFirst {
+	  println 'Hello Gradle, hurrr'
+	}
+  }

@@ -1,10 +1,10 @@
-package com.kosn.entity.defaults;
+package com.kosn.dto.defaults;
 
 import java.util.List;
 import java.util.Random;
 
 import com.kosn.application.Application;
-import com.kosn.entity.NonPlayer;
+import com.kosn.data.dto.NonPlayer;
 import com.kosn.util.World;
 
 public final class NonPlayerDefaults {

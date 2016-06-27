@@ -2,10 +2,10 @@ package com.kosn.application;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kosn.entity.NonPlayer;
-import com.kosn.entity.Player;
-import com.kosn.entity.Room;
-import com.kosn.entity.defaults.PlayerDefaults;
+import com.kosn.data.dto.NonPlayer;
+import com.kosn.data.dto.Player;
+import com.kosn.data.dto.Room;
+import com.kosn.dto.defaults.PlayerDefaults;
 import com.kosn.util.CommandProcessor;
 import com.kosn.util.Input;
 import com.kosn.util.World;

@@ -1,4 +1,4 @@
-package com.kosn.entity;
+package com.kosn.data.dto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.kosn.application.Application;
-import com.kosn.entity.defaults.PlayerDefaults;
+import com.kosn.dto.defaults.PlayerDefaults;
 
 public class Player extends Character {
 

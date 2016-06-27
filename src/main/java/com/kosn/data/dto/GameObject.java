@@ -1,4 +1,4 @@
-package com.kosn.entity;
+package com.kosn.data.dto;
 
 public abstract class GameObject {
 

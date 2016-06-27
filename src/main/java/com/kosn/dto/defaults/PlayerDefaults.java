@@ -1,4 +1,4 @@
-package com.kosn.entity.defaults;
+package com.kosn.dto.defaults;
 
 public final class PlayerDefaults {
 	public String name, description;

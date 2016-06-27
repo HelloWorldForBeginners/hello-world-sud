@@ -2,9 +2,6 @@ package com.kosn.data.dto;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kosn.entity.Item;
-import com.kosn.entity.Player;
-
 public class Equipment {
 
 	ArrayList<Item> playerEquipment = new ArrayList<>();

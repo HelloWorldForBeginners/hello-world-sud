@@ -9,9 +9,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.kosn.entity.Item;
-import com.kosn.entity.NonPlayer;
-import com.kosn.entity.Room;
+import com.kosn.data.dto.Item;
+import com.kosn.data.dto.NonPlayer;
+import com.kosn.data.dto.Room;
 
 public class EntityFactory {
 
