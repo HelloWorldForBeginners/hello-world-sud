@@ -4,8 +4,17 @@ mainClassName = "com.kosn.application.Application"
 
 version = '1.0'
 
+task hello {
+	doFirst {
+	  println 'Hello Gradle'
+	}
+}
 
-task fatJar(type: Jar) {
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.3'
+}
+
+task fatJar(type: Jar, dependsOn: 'test') {
     manifest {
         attributes 'Implementation-Title': 'Knights of Something Notable',  
             'Implementation-Version': version,
@@ -33,22 +42,9 @@ dependencies {
   compile group: 'org.testng', name: 'testng', version: '6.9.10'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}
-
 test {
 	useTestNG {
 		suites 'src/main/resources/testng.xml'
 	}
 	scanForTestClasses = false
 }
-
-task hello {
-	doLast {
-	  println 'Hello Gradle, derp a derp'
-	}
-	doFirst {
-	  println 'Hello Gradle, hurrr'
-	}
-  }
