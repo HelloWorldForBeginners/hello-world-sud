@@ -1,65 +1,75 @@
 package com.kosn.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 
-import com.kosn.data.db.BuildRoomDAO;
-import com.kosn.data.db.LoadEntityPools;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.kosn.data.db.EntityFactory;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Room;
 
 public class World {
 	
-	private static Map<String, String> creaturePool = new HashMap<String, String>();
-    private static Map<String, String> roomPool = new HashMap<String, String>();
-    private static Map<String, String> itemPool = new HashMap<String, String>();
-    private static final Random random = new Random();
-    public static Map<String, Room> rooms = new HashMap<String, Room>();
-    private static final Directions[] directions = Directions.values();
-    private static final int directionSize = directions.length;
-    private static final boolean loadFromSave = false;
+    private List<NonPlayer> creaturePool = new ArrayList<NonPlayer>();
+    private List<Room> roomPool = new ArrayList<Room>();
+    private List<Item> itemPool = new ArrayList<Item>();
+
+    private final Random random = new Random();
+    private Map<String, Room> rooms = new HashMap<String, Room>();
+    private final Directions[] directions = Directions.values();
+    private final int directionSize = directions.length;
+    private final boolean loadFromSave = false;
 	
-	public static Map<String, Room> build() {
+    private EntityFactory entityFactory = EntityFactory.getInstance();
+    
+	//singleton
+	private static World instance = null;
+	protected World() {
+	}
+	public static World getInstance() {
+		if(instance == null) {
+			instance = new World();
+		}
+		return instance;
+	}
+    
+	public Map<String, Room> buildNewWorld() {
 		
-		loadEntityPools();
-		
-		if (!loadFromSave) {
+		try {
+			loadEntityPools();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// newgame loading
 			generateRooms();
 			connectTheRooms();
 	    	loadTheRoomsWithJunk();
 	    	populateTheRooms();
 	    	return rooms;
-    	}
-
-	    BuildRoomDAO.buildRoomsFromFile("roomSave", 2);
-    	BuildRoomDAO.buildRoomsFromFile("creatureList", 10);
-//    	BuildRoomDAO.buildRoomsFromFile("npcSave", 3);
-    	BuildRoomDAO.buildRoomsFromFile("exitSave", 3);
-    	BuildRoomDAO.buildRoomsFromFile("itemSave", 7);
-		return rooms;
+	    	
+	    // TODO add saved game loading
     }
 
-	private static void populateTheRooms() {
+	private void populateTheRooms() {
 		// TODO Separate thread to handle creature spawning/roaming
-		
 	}
 
-	private static void loadTheRoomsWithJunk() {
-		// load items from save for now, or forever!
-    	BuildRoomDAO.buildRoomsFromFile("itemSave", 7);
+	private void loadTheRoomsWithJunk() {
+		// TODO go through itemPool and randomly add items
 	}
 
-	private static void connectTheRooms() {
+	private void connectTheRooms() {
 
 		Map<Directions, Room> currentExits = new HashMap<Directions, Room>();
 		Room roomToAdd = null;
 		Directions directionToAdd = null;
-		List<Room> roomList;
-		
-		roomList = getArrayOfRooms();
 		
 		for (Room r : rooms.values()) {
 			currentExits = r.getExits();
@@ -75,8 +85,8 @@ public class World {
 				}
 				
 				//get a random room from rooms Map
-				int randomIndex = random.nextInt(roomList.size());
-				roomToAdd = roomList.get(randomIndex);
+				int randomIndex = random.nextInt(roomPool.size());
+				roomToAdd = roomPool.get(randomIndex);
 				
 				//don't add the exit if exit is to the current room
 				if (r.equals(roomToAdd)) {
@@ -89,23 +99,8 @@ public class World {
 			}
 		}
 	}
-	
 
-	private static List<Room> getArrayOfRooms() {
-		List<Room> roomArray = new ArrayList<Room>();
-		
-		for (Room r : rooms.values()) {
-			roomArray.add(r);
-		}
-		
-		if (roomArray.isEmpty()) {
-			throw new RuntimeException("No rooms found");
-		}
-		
-		return roomArray;
-	}
-
-	private static Directions getOppositeDirection(Directions directionToAdd) {
+	private Directions getOppositeDirection(Directions directionToAdd) {
 		Directions opposite = null;
 		
 		switch (directionToAdd) {
@@ -124,25 +119,22 @@ public class World {
 			default:
 				throw new RuntimeException("Invalid direction passed");
 		}
-	
 		return opposite;
 	}
 
-	private static void generateRooms() {
-		//algorithm to go through room pool and generate room objects
-		for(Entry<String, String> entry: roomPool.entrySet()) {
-            rooms.put(entry.getKey(), new Room(entry.getKey(), entry.getValue()));
+	private void generateRooms() {
+		for(Room r : roomPool) {
+            rooms.put(r.getName(), r);
         }
 	}
 
-	private static void loadEntityPools() {
-		creaturePool = LoadEntityPools.importObjects("creatures");
-    	roomPool = LoadEntityPools.importObjects("rooms");
-    	itemPool = LoadEntityPools.importObjects("items");
+	private void loadEntityPools() throws JsonParseException, JsonMappingException, IOException {
+		creaturePool = entityFactory.createNonPlayers();
+		roomPool = entityFactory.createRooms();
+		itemPool = entityFactory.createItems();
 	}
 
-	public static Map<String, String> getCreaturePool() {
-		// TODO Auto-generated method stub
+	public List<NonPlayer> getCreaturePool() {
 		return creaturePool;
-	}	
+	}
 }

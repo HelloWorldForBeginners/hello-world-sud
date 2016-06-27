@@ -1,14 +1,9 @@
-Dungeon,shirt,smelly,1,equipment,body,3
-Dungeon,jacket,cool,1,equipment,body,3
-Dungeon,shoes,smelly,1,equipment,feet,1
-Dungeon,boots,smelly,1,equipment,feet,1
-Cell,pants,wet,1,equipment,legs,2
-Mess Hall,gloves,stained,1,equipment,hands,1
-Privy,shoes,smelly,1,equipment,feet,1
-Privy,boots,smelly,1,equipment,feet,1
-Privy,toilet paper,cool,1,item,none,0
-Larder,wine,tasty. heals 3 damage,1,recovery
-Larder,mead,tasty. heals 3 damage,1,recovery
-Larder,spirits,tasty. heals 3 damage,1,recovery
-Larder,mutton,it's sheep; you're eating sheep. heals 2 damage,1,recovery
-Medica,healing potion,heals 3 damage,1,recovery
+{"room":"Dungeon","name":"shirt","description":"smelly","type":"equipment","slot":"body","defense":3}
+{"room":"Dungeon","name":"jacket","description":"smelly","type":"equipment","slot":"body","defense":3}
+{"room":"Dungeon","name":"shoes","description":"smelly","type":"equipment","slot":"feet","defense":1}
+{"room":"Dungeon","name":"boots","description":"smelly","type":"equipment","slot":"feet","defense":1}
+{"room":"Cell","name":"pants","description":"wet","type":"equipment","slot":"legs","defense":2}
+{"room":"Mess Hall","name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1}
+{"room":"Mess Hall","name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1}
+{"room":"Larder","name":"wine","description":"tasty. heals 3 damage","type":"recovery","effectType":"health","effectValue":3}
+{"room":"Medica","name":"healing potion","description":"heals 3 damage","type":"recovery","effectType":"health","effectValue":3}

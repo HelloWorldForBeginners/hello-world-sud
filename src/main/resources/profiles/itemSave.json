@@ -1,0 +1,11 @@
+[
+{"name":"shirt","description":"smelly","type":"equipment","slot":"body","defense":3},
+{"name":"jacket","description":"smelly","type":"equipment","slot":"body","defense":3},
+{"name":"shoes","description":"smelly","type":"equipment","slot":"feet","defense":1},
+{"name":"boots","description":"smelly","type":"equipment","slot":"feet","defense":1},
+{"name":"pants","description":"wet","type":"equipment","slot":"legs","defense":2},
+{"name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1},
+{"name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1},
+{"name":"wine","description":"tasty. heals 3 damage","type":"recovery","effectType":"health","effectValue":3},
+{"name":"healing potion","description":"heals 3 damage","type":"recovery","effectType":"health","effectValue":3}
+]

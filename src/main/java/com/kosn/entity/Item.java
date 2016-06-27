@@ -1,23 +1,34 @@
 package com.kosn.entity;
 
-public class Item extends GameObject implements Comparable<Item> {
-    private int amount;
+public class Item implements Comparable<Item> {
+
+//	public Item() {}
+	
+	private String classType;
+	private String name;
+	private String description;
+    private int amount = 1;
     private String type;
-    private String slot;
-    private int defense;
+    private String slot = "none";
+    private int defense = 0;
+    private ItemEffectType effectType = ItemEffectType.other;
+    private int effectValue;
+    
+	public String getName() {
+		return name;
+	}
 
-    public Item(String _name, String _description, int _amount, String _type, String _slot, int _defense) {
-        super(_name, _description);
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    // Constructor for importing item from a save file
-    public Item(String[] params) {
-        super(params[0], params[1]);
-        this.amount = Integer.parseInt(params[2]);
-        this.type = params[3];
-        this.slot = params[4];
-        this.defense = Integer.parseInt(params[5]);
-    }
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
     
     public void setAmount(int _amount) {
         this.amount = _amount;
@@ -57,17 +68,55 @@ public class Item extends GameObject implements Comparable<Item> {
         System.out.println("Type: " + this.type);
         System.out.println("Slot: " + this.slot);
         System.out.println("Def: " + this.defense);
+        if (this.effectType != null) {
+	        System.out.println("Effect: " + this.effectType.toString());
+	        System.out.println("Value: " + this.effectValue);
+        }
         System.out.println();
-	}
-
-	@Override
-	public String toString() {
-		String toString = getName();
-		return toString;
 	}
 
 	@Override
 	public int compareTo(Item o) {
 		return name.compareTo(o.getName());
 	}
+
+	public int getEffectValue() {
+		return effectValue;
+	}
+
+	public void setEffectValue(int effectValue) {
+		this.effectValue = effectValue;
+	}
+
+	public ItemEffectType getEffectType() {
+		return effectType;
+	}
+
+	public void setEffectType(ItemEffectType effectType) {
+		this.effectType = effectType;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Item [classType=" + classType + ", name=" + name + ", description=" + description + ", amount=" + amount
+				+ ", type=" + type + ", slot=" + slot + ", defense=" + defense + ", effectType=" + effectType
+				+ ", effectValue=" + effectValue + "]";
+	}
+
+	public String getClassType() {
+		return classType;
+	}
+
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
+
+//	@Override
+//	public String toString() {
+//		String toString = getName();
+//		return toString;
+//	}
+	
 }

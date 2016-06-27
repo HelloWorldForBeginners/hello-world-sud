@@ -62,7 +62,6 @@ public class Combat {
             	combatRoom.setCreatures(roomCreatures);
             	break;
             }
-    		
     	}
 	}
 
@@ -79,5 +78,4 @@ public class Combat {
         }
 		return ""; 
 	}
-
 }

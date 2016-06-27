@@ -13,11 +13,11 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import com.kosn.application.Application;
 import com.kosn.data.dto.Equipment;
+import com.kosn.entity.ConsumableType;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.Room;
-import com.kosn.entity.defaults.NonPlayerDefaults;
 
 public class CommandProcessor {
 	final String noGo = "You can't go that way. Available exits:";
@@ -127,17 +127,31 @@ public class CommandProcessor {
 			System.out.println(String.format("You don't have any %s", target));
 		}
 		
-		
-		
-		if (player.getHitPoints() < player.getMaxHitPoints() && itemToConsume.getType() == "recovery") {
-				
+		if (ConsumableType.valueOf(itemToConsume.getType()) == null) {
+			System.out.println("You can't use that item.");
 		}
 		
-		//if type = recovery
-			//check health
-				//if health = max health, you're at full health already
-				//else use item
-
+		switch (itemToConsume.getEffectType()) {
+		case health:
+			int currentHitPoints = player.getHitPoints();
+			int maxHitPoints = player.getMaxHitPoints();
+			if (currentHitPoints < maxHitPoints) {
+				int healthAfterRecover = currentHitPoints + itemToConsume.getEffectValue();
+				int finalHealth = healthAfterRecover <= maxHitPoints ? healthAfterRecover : maxHitPoints;
+				player.setHitPoints(finalHealth);
+				//remove item from inventory
+				System.out.format("You have recovered %d health!", finalHealth - currentHitPoints);
+				break;
+			}
+			System.out.println("You're already at full health.");
+			break;
+		case attack:
+			player.setAttack(player.getAttack() + itemToConsume.getEffectValue());
+			break;
+		case defense:
+			player.setDefense(player.getDefense() + itemToConsume.getEffectValue());
+			break;
+		}
 	}
 	
 	protected void warp(String target) {
@@ -253,9 +267,9 @@ public class CommandProcessor {
 
 	private void checkRoomMonsters() {
 		nextRoomCreatures = nextRoom.getCreatures();
-		if (nextRoomCreatures.isEmpty()) {
-			nextRoomCreatures.add(new NonPlayer(new NonPlayerDefaults()));
-		}
+//		if (nextRoomCreatures.isEmpty()) {
+//			nextRoomCreatures.add(new NonPlayer(new NonPlayerDefaults()));
+//		}
 //		else {
 //			nextRoom.printCreatures();
 //		}

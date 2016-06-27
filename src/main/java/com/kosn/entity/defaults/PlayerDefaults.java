@@ -13,7 +13,7 @@ public final class PlayerDefaults {
 		this.expToNextLevel = 10;
 		this.hitPoints = 10;
 		this.maxHitPoints = 10;
-		this.attack = 9001;
+		this.attack = 1;
 		this.defense = 1;
 	}
 	

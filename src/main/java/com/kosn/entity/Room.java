@@ -3,26 +3,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import com.kosn.application.Application;
 import com.kosn.util.Directions;
 
 public class Room {
 
-	String name;
-	String description;
+	private String classType;
+	private String name;
+	private String description;
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<NonPlayer> creatures = new ArrayList<>();
     private HashMap<Directions, Room> exits = new HashMap<Directions, Room>();
     
-    public Room(String _name, String _description) {
-    	this.name = _name;
-    	this.description = _description;
-    }
-    
-    public Room(String[] params) {
-    	this.name = params[0];
-    	this.description = params[1];
-    }
+    public Room() {}
+	
+	public Room(String name, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures,
+			HashMap<Directions, Room> exits) {
+		this.name = name;
+		this.description = description;
+		this.items = items;
+		this.creatures = creatures;
+		this.exits = exits;
+	}
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
@@ -32,24 +33,12 @@ public class Room {
         this.creatures = creatures;
     }
 
-    public void setExits(Directions direction, Room room) {
-        this.exits.put(direction, room);
-    }
-
     public HashMap<Directions, Room> getExits() {
         return this.exits;
     }
 
-    public void setItems(Item item) {
-        this.items.add(item);
-    }
-
     public ArrayList<Item> getItems() {
         return this.items;
-    }
-
-    public void setCreatures(NonPlayer creature) {
-        this.creatures.add(creature);
     }
 
     public ArrayList<NonPlayer> getCreatures() {
@@ -65,7 +54,7 @@ public class Room {
         Collections.sort(this.items);
     }
     
-    public String getName() {
+	public String getName() {
         return this.name;
     }
 
@@ -76,10 +65,6 @@ public class Room {
     public static void addItem(Room room, Item item) {
         room.addItem(item);
     }
-
-	public void setExits(String[] params) {
-		this.exits.put(Directions.valueOf(params[0]), Application.getRooms().get(params[1]));
-	}
 
 	public void printRoom() {
 		System.out.println();
@@ -218,5 +203,13 @@ public class Room {
             }
         }
 		return null;
+	}
+
+	public String getClassType() {
+		return classType;
+	}
+
+	public void setClassType(String classType) {
+		this.classType = classType;
 	}
 }

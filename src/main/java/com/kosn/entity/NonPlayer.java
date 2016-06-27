@@ -2,23 +2,35 @@ package com.kosn.entity;
 
 import com.kosn.entity.defaults.NonPlayerDefaults;
 
-public class NonPlayer extends Character {
+public class NonPlayer {
+
+	private String classType;
+	private String name;
+	private String description;
+	private int level;
+	private int money;
+	private int exp;
+	private int hitPoints;
+	private int maxHitPoints;
+	private int attack;
+	private int defense;
 	
-    public NonPlayer(
-    		String name, 
-    		String description, 
-    		int level,
-    		int money,
-    		int exp,
-    		int hitPoints, 
-    		int maxHitPoints,
-    		int attack,
-    		int defense) {
-        super(name, description, level, money, exp, hitPoints, maxHitPoints, attack, defense);
-    }
-    
-    public NonPlayer(NonPlayerDefaults npd) {
-		
+	public NonPlayer() {}
+	
+	public NonPlayer(String name, String description, int level, int money, int exp, int hitPoints,
+			int maxHitPoints, int attack, int defense) {
+		this.name = name;
+		this.description = description;
+		this.level = level;
+		this.money = money;
+		this.exp = exp;
+		this.hitPoints = hitPoints;
+		this.maxHitPoints = maxHitPoints;
+		this.attack = attack;
+		this.defense = defense;
+	}
+
+	public NonPlayer(NonPlayerDefaults npd) {
 		this(npd.name, 
 				npd.description, 
 				npd.level, 
@@ -31,51 +43,78 @@ public class NonPlayer extends Character {
 				);
 	}
 
-    // Constructor for importing items from a text file
-	public NonPlayer(String[] params) {
-		super(params[0], params[1], 
-				Integer.parseInt(params[2]), 
-				Integer.parseInt(params[3]), 
-				Integer.parseInt(params[4]), 
-				Integer.parseInt(params[5]), 
-				Integer.parseInt(params[6]), 
-				Integer.parseInt(params[7]), 
-				Integer.parseInt(params[8]));
+	public String getClassType() {
+		return classType;
 	}
-	
-//	public static String printNonPlayerInfo(NonPlayer nonPlayer) {
-//		System.out.println(toString());
-//    		return "printed";
-//    	} else {
-//    		return "";
-//    	}
-//    }
-    
 
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
 
-	//	public static String printNonPlayerInfo(String target, Room room) {
-//
-//    	NonPlayer nonPlayer = getNonPlayer(target, room);
-//    	if (nonPlayer != null) {
-//    		System.out.println(nonPlayer.toString());
-//    		return "printed";
-//    	} else {
-//    		return "";
-//    	}
-//    }
-//    
-//    public static NonPlayer getNonPlayer(String target, Room room) {
-//
-//		for (NonPlayer creature : room.getCreatures() ) {
-//			if (creature.getName().equals(target)) {
-//                return creature;
-//            }
-//			if (creature.getName().startsWith(target)) {
-//				return creature;
-//			}
-//        }
-//		return null;
-//	}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	public int getHitPoints() {
+		return hitPoints;
+	}
+
+	public void setHitPoints(int hitPoints) {
+		this.hitPoints = hitPoints;
+	}
+
+	public int getMaxHitPoints() {
+		return maxHitPoints;
+	}
+
+	public void setMaxHitPoints(int maxHitPoints) {
+		this.maxHitPoints = maxHitPoints;
+	}
+
+	public int getAttack() {
+		return attack;
+	}
+
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
 
     
 	public static void spawnAnotherNonPlayer(NonPlayer _nonPlayer) {
@@ -92,6 +131,14 @@ public class NonPlayer extends Character {
 		_player.setHitPoints(_player.getMaxHitPoints());
         System.out.println("You have defeated the " + _nonPlayer.getName() + "!");
         System.out.println("Your health has fully recovered!\n");
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void lowerHitPoints(int _hitPoints) {
@@ -115,5 +162,10 @@ public class NonPlayer extends Character {
 	public String toString() {
 		String toString = getName();
 		return toString;
+	}
+
+	public void printHealth() {
+    	System.out.println(this.getName() + " HP: " + this.hitPoints + "/" + this.maxHitPoints + "\n");
+    	System.out.println();
 	}
 }
