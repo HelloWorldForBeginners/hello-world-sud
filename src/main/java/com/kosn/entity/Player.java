@@ -2,8 +2,8 @@ package com.kosn.entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.kosn.application.Application;
 
@@ -104,13 +104,13 @@ public class Player extends Character {
         		"(Lv." + this.getLevel() + ")" + 
         		"\n" +
         		"HP: " + this.getHitPoints() + "/" + this.getMaxHitPoints() +
-        		")\n" +
+        		"\n" +
         		"Attack: " + this.getAttack() + 
-        		")\n" + 
+        		"\n" + 
         		"Defense: " + this.getDefense() + 
-        		")\n" +
+        		"\n" +
         		"Exp: " + this.getExp() + "/" + this.expToNextLevel + 
-        		")\n" +
+        		"\n" +
         		"Money: " + this.getMoney() + 
         		"\n";
     }
@@ -160,7 +160,7 @@ public class Player extends Character {
 
 	public void printEquipment() {
 		System.out.println("\nEquipment:");
-        for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
+        for (Entry<EquipSlot, Item> entry: equipment.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().getName());
         }
 	}
@@ -178,6 +178,16 @@ public class Player extends Character {
                 return checkItem;
             }
             if (checkItem.getName().startsWith(target)) {
+                return checkItem;
+            }
+        }
+		return null;
+	}
+	
+	public Item checkEquipment(String target) {
+		List<Item> equippedItems = new ArrayList<Item>(equipment.values());
+		for (Item checkItem: equippedItems) {
+            if (checkItem.getName().equals(target)) {
                 return checkItem;
             }
         }

@@ -12,7 +12,7 @@ public abstract class Character extends GameObject {
     protected int attack;
     protected int defense;
     protected ArrayList<Item> inventory = new ArrayList<>();
-    protected HashMap<String, Item> equipment = new HashMap<String, Item>();
+    protected HashMap<EquipSlot, Item> equipment = new HashMap<EquipSlot, Item>();
 
     public Character(String name, String description, int level, int money, int exp, int hitPoints, int maxHitPoints,
                      int attack, int defense) {
@@ -34,11 +34,11 @@ public abstract class Character extends GameObject {
         this.inventory = inventory;
     }
 
-    public HashMap<String, Item> getEquipment() {
+    public HashMap<EquipSlot, Item> getEquipment() {
         return this.equipment;
     }
 
-    public void setEquipment(HashMap<String, Item> equipment) {
+    public void setEquipment(HashMap<EquipSlot, Item> equipment) {
         this.equipment = equipment;
     }
 

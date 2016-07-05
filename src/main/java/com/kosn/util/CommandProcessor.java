@@ -12,9 +12,9 @@ import java.util.Set;
 import org.apache.commons.lang3.text.WordUtils;
 
 import com.kosn.application.Application;
-import com.kosn.entity.ConsumableType;
 import com.kosn.entity.Equipment;
 import com.kosn.entity.Item;
+import com.kosn.entity.ItemType;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.Room;
@@ -30,8 +30,8 @@ public class CommandProcessor {
 	private Room nextRoom;
 	private Room thisRoom;
 	private Player player;
-	private ArrayList<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
-	private ArrayList<NonPlayer> nextRoomCreatures = new ArrayList<NonPlayer>();
+	private List<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
+	private List<NonPlayer> nextRoomCreatures = new ArrayList<NonPlayer>();
 	
 	//singleton
 	private static CommandProcessor instance = null;
@@ -125,10 +125,12 @@ public class CommandProcessor {
 		
 		if (itemToConsume == null) {
 			System.out.println(String.format("You don't have any %s", target));
+			return;
 		}
 		
-		if (ConsumableType.valueOf(itemToConsume.getType()) == null) {
+		if (!itemToConsume.getType().equals(ItemType.consumable)) {
 			System.out.println("You can't use that item.");
+			return;
 		}
 		
 		switch (itemToConsume.getEffectType()) {
@@ -150,6 +152,10 @@ public class CommandProcessor {
 			break;
 		case defense:
 			player.setDefense(player.getDefense() + itemToConsume.getEffectValue());
+			break;
+		case other:
+		default:
+			System.out.println("No effect");
 			break;
 		}
 	}
@@ -281,14 +287,14 @@ public class CommandProcessor {
 	
 	public void showEquipment(String target) {
 		if (target != "") {
-			Equipment.equipItem(target, Application.getPlayer());
+			Equipment.equipItem(target);
 		} else {
 			player.printEquipment();
 		}
 	}
 	
 	public void removeEquipment(String target) {
-		Equipment.unequipItem(target, Application.getPlayer());
+		Equipment.unequipItem(target);
 	}
 	
 	public void playerStatus() {
@@ -327,12 +333,19 @@ public class CommandProcessor {
 	
 	public void checkThing(String target) {
 		NonPlayer targetNonPlayer = thisRoom.getNonPlayer(target);
-		Item targetItem = thisRoom.getItemIfExists(target);
+		Item targetRoomItem = thisRoom.getItemIfExists(target);
+		Item targetItemInventory = player.checkInventory(target);
 		if (targetNonPlayer != null) {
+			System.out.println("You examine the " + targetNonPlayer.getName() + " in the room.");
 			targetNonPlayer.printInfo();
 		}
-		if (targetItem != null) {
-			targetItem.printInfo();
+		if (targetRoomItem != null) {
+			System.out.println("You examine the " + targetRoomItem.getName() + " in the room.");
+			targetRoomItem.printInfo();
+		}
+		if (targetItemInventory != null) {
+			System.out.println("You examine the " + targetItemInventory.getName() + " in your inventory.");
+			targetItemInventory.printInfo();
 		}
 	}
 	

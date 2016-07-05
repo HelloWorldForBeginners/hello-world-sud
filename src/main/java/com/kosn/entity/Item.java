@@ -1,15 +1,14 @@
 package com.kosn.entity;
 
 public class Item implements Comparable<Item> {
-
-//	public Item() {}
 	
 	private String classType;
 	private String name;
 	private String description;
     private int amount = 1;
-    private String type;
-    private String slot = "none";
+    private ItemType type = ItemType.nonconsumable;
+    private EquipSlot slot;
+    private int attack = 0;
     private int defense = 0;
     private EffectType effectType = EffectType.other;
     private int effectValue;
@@ -38,37 +37,48 @@ public class Item implements Comparable<Item> {
         return this.amount;
     }
 
-    public String getType() {
+    public ItemType getType() {
         return this.type;
     }
 
-    public String getSlot() {
+    public EquipSlot getSlot() {
         return this.slot;
     }
 
-    public void setType(String _type) {
+    public void setType(ItemType _type) {
         this.type = _type;
     }
 
-    public void setSlot(String _slot) {
+    public void setSlot(EquipSlot _slot) {
         this.slot = _slot;
     }
 
-    public int getDefense() {
+    public int getAttack() {
+		return attack;
+	}
+
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+
+	public int getDefense() {
         return defense;
     }
 
     public void setDefense(int _defense) {
         this.defense = _defense;
     }
-
+    
     public void printInfo() {
-    	System.out.println("Name: " + this.name + "(" + this.amount + ")");
+    	System.out.println("Name: " + this.name);
         System.out.println(this.description);
         System.out.println("Type: " + this.type);
-        System.out.println("Slot: " + this.slot);
-        System.out.println("Def: " + this.defense);
-        if (this.effectType != null) {
+        if (this.slot != null) {
+	        System.out.println("Slot: " + this.slot);
+	        System.out.println("Attack: " + this.attack);
+	        System.out.println("Defense: " + this.defense);
+        }
+        if (this.effectType != EffectType.other) {
 	        System.out.println("Effect: " + this.effectType.toString());
 	        System.out.println("Value: " + this.effectValue);
         }
@@ -96,15 +106,6 @@ public class Item implements Comparable<Item> {
 		this.effectType = effectType;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Item [classType=" + classType + ", name=" + name + ", description=" + description + ", amount=" + amount
-				+ ", type=" + type + ", slot=" + slot + ", defense=" + defense + ", effectType=" + effectType
-				+ ", effectValue=" + effectValue + "]";
-	}
-
 	public String getClassType() {
 		return classType;
 	}
@@ -113,10 +114,9 @@ public class Item implements Comparable<Item> {
 		this.classType = classType;
 	}
 
-//	@Override
-//	public String toString() {
-//		String toString = getName();
-//		return toString;
-//	}
-	
+	@Override
+	public String toString() {
+		String toString = getName();
+		return toString;
+	}
 }

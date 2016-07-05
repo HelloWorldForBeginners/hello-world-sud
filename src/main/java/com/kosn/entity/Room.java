@@ -2,6 +2,7 @@ package com.kosn.entity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kosn.util.Directions;
 
@@ -10,8 +11,8 @@ public class Room {
 	private String classType;
 	private String name;
 	private String description;
-    private ArrayList<Item> items = new ArrayList<>();
-    private ArrayList<NonPlayer> creatures = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
+    private List<NonPlayer> creatures = new ArrayList<>();
     private HashMap<Directions, Room> exits = new HashMap<Directions, Room>();
     
     public Room() {}
@@ -25,23 +26,23 @@ public class Room {
 		this.exits = exits;
 	}
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
+    public void setItems(List<Item> roomItems) {
+        this.items = roomItems;
     }
 
-    public void setCreatures(ArrayList<NonPlayer> creatures) {
-        this.creatures = creatures;
+    public void setCreatures(List<NonPlayer> roomCreatures) {
+        this.creatures = roomCreatures;
     }
 
     public HashMap<Directions, Room> getExits() {
         return this.exits;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return this.items;
     }
 
-    public ArrayList<NonPlayer> getCreatures() {
+    public List<NonPlayer> getCreatures() {
         return this.creatures;
     }
 

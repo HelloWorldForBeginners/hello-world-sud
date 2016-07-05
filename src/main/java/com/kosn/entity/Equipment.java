@@ -2,98 +2,56 @@ package com.kosn.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kosn.application.Application;
+
 public class Equipment {
 
 	ArrayList<Item> playerEquipment = new ArrayList<>();
+	static Player player = Application.getPlayer();
 
-    public static void equipItem(String itemName, Player player) {
+    public static void equipItem(String itemName) {
+        Item item = player.checkInventory(itemName);
 
-        boolean inInventory = false;
-        boolean isEquipment = false;
-        Item item = null;
-        String unequipThisItem;
-
-        // Check if item is a valid inventory item
-        for (Item i : player.getInventory() ) {
-            if (i.getType().equals("equipment")) {
-                isEquipment = true;
-            }
-            if (i.getName().equals(itemName)) {
-                inInventory = true;
-                item = i;
-                break;
-            }
+        if (item == null) {
+        	System.out.println("You don't have that in your inventory.");
+        	return;
         }
-
-        // Check if item is already equipped
-        boolean equipped = false;
-        for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
-            if (entry.getValue().getName().equals(itemName)) {
-                equipped = true;
-                item = entry.getValue();
-                break;
-            }
+        
+        if (item.getSlot() == null) {
+        	System.out.println("You can't equip that.");
+        	return;
         }
-
-        // Check if target slot of item to be equipped is already filled; unequip if so
-        if (item != null) {
-            for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
-                if (entry.getKey().equals(item.getSlot()) && !item.equals(entry.getValue())) {
-                    unequipThisItem = entry.getValue().getName();
-                    Equipment.unequipItem(unequipThisItem, player);
-                }
-            }
+        
+        Item addBackIntoInventory = player.getEquipment().put(item.getSlot(),item);
+        if (addBackIntoInventory != null) {
+        	player.getInventory().add(addBackIntoInventory);
+        	System.out.println("You unequip the " + addBackIntoInventory + ".");
         }
-
-        // Text output
-        if (equipped) {
-            System.out.println("You already have a " + itemName + " equipped.");
-        }
-        else if (!inInventory) {
-            System.out.println("You don't have that in your inventory.");
-        }
-        else if (!isEquipment) {
-            System.out.println("You can't equip that, even though it would probably be hilarious.");
-        }
-        else if (!equipped && inInventory && isEquipment) {
-            System.out.println("You equip the " + itemName + ".");
-            //check if slot exists in map
-            player.getEquipment().put(item.getSlot(),item);
-            player.getInventory().remove(item);
-            player.setDefense(player.getDefense() + item.getDefense());
-        }
-        else {
-            System.out.println("I don't understand.");
-        }
+        
+        System.out.println("You equip the " + itemName + ".");
+        player.getInventory().remove(item);
+        player.setDefense(player.getDefense() + item.getDefense());
+        player.setAttack(player.getAttack() + item.getAttack());
     }
 
-    public static void unequipItem(String itemName, Player player) {
-
-
-        // Check if item is valid equipment
-        boolean equipped = false;
-        Item item = null;
-
-        for(HashMap.Entry<String, Item> entry: player.getEquipment().entrySet()) {
-            if (entry.getValue().getName().equals(itemName)) {
-                equipped = true;
-                item = entry.getValue();
-                break;
-            }
-        }
-        // Text output
-        if (equipped) {
-            System.out.println("You unequip the " + itemName + ".");
-            player.getEquipment().remove(item);
+    public static void unequipItem(String itemName) {
+    	Item equippedItem = player.checkEquipment(itemName);
+    	if (equippedItem != null) {
+    		unequipItem(equippedItem.getSlot());
+    		return;
+    	}
+    	System.out.println("You don't have a " + itemName + " equipped.");
+    }
+    
+    public static void unequipItem(EquipSlot slot) {
+        Item item = player.getEquipment().get(slot);
+        if (item != null) {
+            System.out.println("You unequip the " + item.getName() + ".");
+            player.getEquipment().remove(item.getSlot());
             player.getInventory().add(item);
             player.setDefense(player.getDefense() - item.getDefense());
-        }
-        else if (!equipped) {
-            System.out.println("You don't have one of those equipped.");
-        }
-
-        else {
-            System.out.println("I don't understand.");
+            player.setAttack(player.getAttack() - item.getAttack());
+            return;
         }
     }
 

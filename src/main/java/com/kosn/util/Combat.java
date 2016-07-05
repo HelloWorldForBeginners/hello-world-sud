@@ -1,6 +1,6 @@
 package com.kosn.util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.kosn.application.Application;
 import com.kosn.entity.NonPlayer;
@@ -53,7 +53,7 @@ public class Combat {
 	}
     
     private static void removeCreatureFromRoom() {
-    	ArrayList<NonPlayer> roomCreatures = combatRoom.getCreatures(); 
+    	List<NonPlayer> roomCreatures = combatRoom.getCreatures(); 
     	int index = 0;
     	
     	for (NonPlayer np : roomCreatures) {

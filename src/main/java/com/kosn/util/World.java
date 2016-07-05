@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.kosn.db.EntityFactory;
 import com.kosn.entity.Ability;
 import com.kosn.entity.Item;
+import com.kosn.entity.ItemType;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Room;
 
@@ -21,6 +22,7 @@ public class World {
     private List<Room> roomPool = new ArrayList<Room>();
     private List<Item> itemPool = new ArrayList<Item>();
     private List<Ability> abilityPool = new ArrayList<Ability>();
+    private List<Item> itemsAddedAtLoad = new ArrayList<Item>();
 
     private final Random random = new Random();
     private Map<String, Room> rooms = new HashMap<String, Room>();
@@ -52,7 +54,6 @@ public class World {
 		// newgame loading
 			generateRooms();
 			connectTheRooms();
-	    	loadTheRoomsWithJunk();
 	    	populateTheRooms();
 	    	return rooms;
 	    	
@@ -63,8 +64,42 @@ public class World {
 		// TODO Separate thread to handle creature spawning/roaming
 	}
 
-	private void loadTheRoomsWithJunk() {
-		// TODO go through itemPool and randomly add items
+	
+	/**
+	 * add 0-2 items
+	 * if a nonconsumable has been added to a room already, don't add it again
+	 * use itemsAdded map to check this
+	 * consumable items - doesn't matter how many get added
+	 */
+	private Room loadRoomWithJunk(Room r) {
+		Room roomToJunkify = r;
+		int randomIndex = 0;
+		Item itemToAdd = null;
+		List<Item> roomItems = new ArrayList<Item>();
+		int numItemsToAdd = random.nextInt(3);
+		
+//		System.out.println(numItemsToAdd);
+		
+//		while (roomToJunkify.getItems().size() < numItemsToAdd) {
+		
+		for (int i = 0; i < numItemsToAdd; i++) {
+			randomIndex = random.nextInt(itemPool.size());
+			itemToAdd = itemPool.get(randomIndex);
+			
+//			System.out.println(itemToAdd);
+			
+			if (itemToAdd.getType().equals(ItemType.nonconsumable)) {
+				if (itemsAddedAtLoad.contains(itemToAdd)) {
+					continue;
+				}
+			}
+			itemsAddedAtLoad.add(itemToAdd);
+			roomItems.add(itemToAdd);		
+		}
+//		System.out.println(itemsAddedAtLoad);
+//		System.out.println(roomToJunkify);
+		roomToJunkify.setItems(roomItems);
+		return roomToJunkify;
 	}
 
 	private void connectTheRooms() {
@@ -86,7 +121,7 @@ public class World {
 					continue;
 				}
 				
-				//get a random room from rooms Map
+				//get a random room from rooms List
 				int randomIndex = random.nextInt(roomPool.size());
 				roomToAdd = roomPool.get(randomIndex);
 				
@@ -126,6 +161,7 @@ public class World {
 
 	private void generateRooms() {
 		for(Room r : roomPool) {
+    		loadRoomWithJunk(r);
             rooms.put(r.getName(), r);
         }
 	}
