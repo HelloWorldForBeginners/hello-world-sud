@@ -3,9 +3,9 @@ package com.kosn.util;
 import java.util.ArrayList;
 
 import com.kosn.application.Application;
-import com.kosn.data.dto.NonPlayer;
-import com.kosn.data.dto.Player;
-import com.kosn.data.dto.Room;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Player;
+import com.kosn.entity.Room;
 
 public class Combat {
 

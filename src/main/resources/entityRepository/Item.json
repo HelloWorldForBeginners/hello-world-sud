@@ -18,4 +18,5 @@
 {"classType":"Item","name":"a very small rock","description":"doesn't float"},
 {"classType":"Item","name":"great gravy","description":"doesn't float"},
 {"classType":"Item","name":"lovely pile of filth","description":"it's down here"},
-{"classType":"Item","name":"vapid banana","description":""}]
+{"classType":"Item","name":"vapid banana","description":""},
+{"classType":"Item","name":"chair leg of truth","description":""}]

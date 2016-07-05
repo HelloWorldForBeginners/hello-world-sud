@@ -12,12 +12,12 @@ import java.util.Set;
 import org.apache.commons.lang3.text.WordUtils;
 
 import com.kosn.application.Application;
-import com.kosn.data.dto.ConsumableType;
-import com.kosn.data.dto.Equipment;
-import com.kosn.data.dto.Item;
-import com.kosn.data.dto.NonPlayer;
-import com.kosn.data.dto.Player;
-import com.kosn.data.dto.Room;
+import com.kosn.entity.ConsumableType;
+import com.kosn.entity.Equipment;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Player;
+import com.kosn.entity.Room;
 
 public class CommandProcessor {
 	final String noGo = "You can't go that way. Available exits:";

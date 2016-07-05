@@ -1,6 +1,4 @@
-package com.kosn.data.dto;
-
-import com.kosn.dto.defaults.NonPlayerDefaults;
+package com.kosn.entity;
 
 public class NonPlayer {
 

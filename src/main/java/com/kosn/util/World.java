@@ -9,16 +9,18 @@ import java.util.Random;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.kosn.data.db.EntityFactory;
-import com.kosn.data.dto.Item;
-import com.kosn.data.dto.NonPlayer;
-import com.kosn.data.dto.Room;
+import com.kosn.db.EntityFactory;
+import com.kosn.entity.Ability;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Room;
 
 public class World {
 	
     private List<NonPlayer> creaturePool = new ArrayList<NonPlayer>();
     private List<Room> roomPool = new ArrayList<Room>();
     private List<Item> itemPool = new ArrayList<Item>();
+    private List<Ability> abilityPool = new ArrayList<Ability>();
 
     private final Random random = new Random();
     private Map<String, Room> rooms = new HashMap<String, Room>();
@@ -132,6 +134,7 @@ public class World {
 		creaturePool = entityFactory.createNonPlayers();
 		roomPool = entityFactory.createRooms();
 		itemPool = entityFactory.createItems();
+		abilityPool = entityFactory.createAbilities();
 	}
 
 	public List<NonPlayer> getCreaturePool() {

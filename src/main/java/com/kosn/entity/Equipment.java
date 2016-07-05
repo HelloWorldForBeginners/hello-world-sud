@@ -1,4 +1,4 @@
-package com.kosn.data.dto;
+package com.kosn.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 

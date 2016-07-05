@@ -1,4 +1,4 @@
-package com.kosn.data.db;
+package com.kosn.db;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,9 +9,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.kosn.data.dto.Item;
-import com.kosn.data.dto.NonPlayer;
-import com.kosn.data.dto.Room;
+import com.kosn.entity.Ability;
+import com.kosn.entity.Item;
+import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Room;
 
 public class EntityFactory {
 
@@ -60,6 +61,18 @@ public class EntityFactory {
 		return items;
 	}
 	
+	public List<Ability> createAbilities() {
+		loadFile("Ability");
+		List<Ability> abilities = new ArrayList<Ability>();
+		try {
+			abilities = parseAbilityJson();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return abilities;
+	}
+	
 	public List<NonPlayer> createNonPlayers() {
 		loadFile("NonPlayer");
 		List<NonPlayer> creatures = new ArrayList<NonPlayer>();
@@ -95,6 +108,14 @@ public class EntityFactory {
     					NonPlayer.class));
     	return creatures;
     }
+	
+	private List<Ability> parseAbilityJson() throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+    	List<Ability> abilities = mapper.readValue(this.file,
+    			TypeFactory.defaultInstance().constructCollectionType(List.class,
+    					Ability.class));
+    	return abilities;
+	}
 	
 	//polymorphism or generics? Idk wtf to do here
 //	public <E> List<E> parseJson(String fileType, Class<E> objectType) throws JsonParseException, JsonMappingException, IOException {

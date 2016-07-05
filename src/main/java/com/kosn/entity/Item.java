@@ -1,4 +1,4 @@
-package com.kosn.data.dto;
+package com.kosn.entity;
 
 public class Item implements Comparable<Item> {
 
@@ -11,7 +11,7 @@ public class Item implements Comparable<Item> {
     private String type;
     private String slot = "none";
     private int defense = 0;
-    private ItemEffectType effectType = ItemEffectType.other;
+    private EffectType effectType = EffectType.other;
     private int effectValue;
     
 	public String getName() {
@@ -88,11 +88,11 @@ public class Item implements Comparable<Item> {
 		this.effectValue = effectValue;
 	}
 
-	public ItemEffectType getEffectType() {
+	public EffectType getEffectType() {
 		return effectType;
 	}
 
-	public void setEffectType(ItemEffectType effectType) {
+	public void setEffectType(EffectType effectType) {
 		this.effectType = effectType;
 	}
 

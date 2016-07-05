@@ -1,4 +1,4 @@
-package com.kosn.data.db;
+package com.kosn.db;
 
 import java.io.File;
 import java.io.FileNotFoundException;
