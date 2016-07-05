@@ -44,7 +44,6 @@ public class World {
 	}
     
 	public Map<String, Room> buildNewWorld() {
-		
 		try {
 			loadEntityPools();
 		} catch (IOException e) {
@@ -52,10 +51,10 @@ public class World {
 		}
 
 		// newgame loading
-			generateRooms();
-			connectTheRooms();
-	    	populateTheRooms();
-	    	return rooms;
+		generateRooms();
+		connectTheRooms();
+    	populateTheRooms();
+    	return rooms;
 	    	
 	    // TODO add saved game loading
     }
@@ -63,7 +62,6 @@ public class World {
 	private void populateTheRooms() {
 		// TODO Separate thread to handle creature spawning/roaming
 	}
-
 	
 	/**
 	 * add 0-2 items
@@ -78,15 +76,9 @@ public class World {
 		List<Item> roomItems = new ArrayList<Item>();
 		int numItemsToAdd = random.nextInt(3);
 		
-//		System.out.println(numItemsToAdd);
-		
-//		while (roomToJunkify.getItems().size() < numItemsToAdd) {
-		
 		for (int i = 0; i < numItemsToAdd; i++) {
 			randomIndex = random.nextInt(itemPool.size());
 			itemToAdd = itemPool.get(randomIndex);
-			
-//			System.out.println(itemToAdd);
 			
 			if (itemToAdd.getType().equals(ItemType.nonconsumable)) {
 				if (itemsAddedAtLoad.contains(itemToAdd)) {
@@ -96,14 +88,11 @@ public class World {
 			itemsAddedAtLoad.add(itemToAdd);
 			roomItems.add(itemToAdd);		
 		}
-//		System.out.println(itemsAddedAtLoad);
-//		System.out.println(roomToJunkify);
 		roomToJunkify.setItems(roomItems);
 		return roomToJunkify;
 	}
 
 	private void connectTheRooms() {
-
 		Map<Directions, Room> currentExits = new HashMap<Directions, Room>();
 		Room roomToAdd = null;
 		Directions directionToAdd = null;
@@ -115,23 +104,19 @@ public class World {
 			while (currentExits.size() < numExitsToAdd) {
 				
 				directionToAdd = directions[random.nextInt(directionSize)];
-				
 				//don't add the same direction to the same room twice
 				if (currentExits.containsKey(directionToAdd)) {
 					continue;
 				}
-				
 				//get a random room from rooms List
 				int randomIndex = random.nextInt(roomPool.size());
 				roomToAdd = roomPool.get(randomIndex);
-				
 				//don't add the exit if exit is to the current room
 				if (r.equals(roomToAdd)) {
 					continue;
 				}
 
 				r.getExits().put(directionToAdd, roomToAdd);
-
 				rooms.get(roomToAdd.getName()).getExits().put(getOppositeDirection(directionToAdd), r);
 			}
 		}
