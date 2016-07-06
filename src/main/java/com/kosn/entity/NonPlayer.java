@@ -123,7 +123,6 @@ public class NonPlayer {
 
 	
 	public static void killNonPlayer(Player _player, NonPlayer _nonPlayer) {
-
 		_player.addToExp(_nonPlayer.getExp());
 		_player.adjustMoney(_nonPlayer.getMoney());
 		_player.setHitPoints(_player.getMaxHitPoints());

@@ -1,5 +1,5 @@
 package com.kosn.util;
 
-public enum Directions {
+public enum Direction {
 	north, south, east, west
 }

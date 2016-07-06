@@ -24,6 +24,8 @@ public class Application {
     private static Room currentRoom = null;
     private static Room defaultRoom = null;
     
+    private static Thread creatureManagerThread;
+    
     public static void main(String args[]) {
 		System.out.println("Welcome to The Knights of Something Notable!\n");
 		
@@ -32,6 +34,17 @@ public class Application {
 	    currentRoom = defaultRoom = rooms.entrySet().iterator().next().getValue();
 	    currentRoom.printRoom();
 	
+	    // start creature manager
+	    creatureManagerThread = new Thread(new CreatureManager());
+	    creatureManagerThread.start();
+	    
+	    try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		    System.exit(0);
+		}
+	    
 	    // Start game
 	    while (playing) {
 	    	cp.processCommand(Input.getCommand());
@@ -110,4 +123,13 @@ public class Application {
 	public static void setDefaultRoom(Room defaultRoom) {
 		Application.defaultRoom = defaultRoom;
 	}
+
+	public static void addCreatureToRoom(Room room, NonPlayer creature) {
+		rooms.get(room).getCreatures().add(creature);
+	}
+
+	public static void removeCreatureFromRoom(Room room, NonPlayer creature) {
+		rooms.get(room).getCreatures().remove(creature);
+	}
+
 }

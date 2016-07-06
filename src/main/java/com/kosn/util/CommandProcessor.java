@@ -186,7 +186,7 @@ public class CommandProcessor {
 	}
 
 	public void exitRoom(String direction, String target) {
-		nextRoom = thisRoom.getExits().get(Directions.valueOf(direction));
+		nextRoom = thisRoom.getExits().get(Direction.valueOf(direction));
 		
 		if (nextRoom == null) {
 			System.out.println(noGo);

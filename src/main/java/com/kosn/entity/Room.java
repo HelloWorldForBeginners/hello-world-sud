@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.kosn.util.Directions;
+import com.kosn.util.Direction;
 
 public class Room {
 
@@ -13,12 +13,12 @@ public class Room {
 	private String description;
     private List<Item> items = new ArrayList<>();
     private List<NonPlayer> creatures = new ArrayList<>();
-    private HashMap<Directions, Room> exits = new HashMap<Directions, Room>();
+    private HashMap<Direction, Room> exits = new HashMap<Direction, Room>();
     
     public Room() {}
 	
 	public Room(String name, String description, ArrayList<Item> items, ArrayList<NonPlayer> creatures,
-			HashMap<Directions, Room> exits) {
+			HashMap<Direction, Room> exits) {
 		this.name = name;
 		this.description = description;
 		this.items = items;
@@ -34,7 +34,7 @@ public class Room {
         this.creatures = roomCreatures;
     }
 
-    public HashMap<Directions, Room> getExits() {
+    public HashMap<Direction, Room> getExits() {
         return this.exits;
     }
 
@@ -53,6 +53,10 @@ public class Room {
     public void addItem(Item item) {
         this.items.add(item);
         Collections.sort(this.items);
+    }
+    
+    public void addCreature(NonPlayer creature) {
+        this.creatures.add(creature);
     }
     
 	public String getName() {
@@ -77,7 +81,7 @@ public class Room {
 	}
 
 	public void printExits() {
-		for (HashMap.Entry<Directions, Room> entry: this.exits.entrySet()) {
+		for (HashMap.Entry<Direction, Room> entry: this.exits.entrySet()) {
 			System.out.println(String.format("%s: %s",entry.getKey(), entry.getValue().getName()));
 		}
 	}
@@ -85,21 +89,15 @@ public class Room {
 	private void printItems() {
 		if (this.items.size() > 0) {
 			System.out.println();
-			System.out.println("You see: " + this.items);
+			System.out.println("Random junk litters the floor: " + this.items + "\n");
 		}
 	}
 
 	public void printCreatures() {
-		String messageStart = "There are creatures here: ";
-		String creatures = "";
-		for (NonPlayer creature : this.creatures) {
-			creatures = creatures + creature.getName();
+		if (this.creatures.size() > 0) {
+			System.out.println("\nThere are creatures here:");
+			System.out.println(this.creatures);
 		}
-		
-		if (creatures.length() > 0) {
-			System.out.println();
-			System.out.println(String.format("%s%s", messageStart, creatures));
-		}		
 	}
 	
 	public void printSpawnedCreature() {
@@ -118,7 +116,7 @@ public class Room {
 		this.name = name;
 	}
 
-	public void setExits(HashMap<Directions, Room> exits) {
+	public void setExits(HashMap<Direction, Room> exits) {
 		this.exits = exits;
 	}
 	
@@ -130,55 +128,6 @@ public class Room {
 						this.description +
 						"\n";
 		return toString;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((creatures == null) ? 0 : creatures.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((exits == null) ? 0 : exits.hashCode());
-		result = prime * result + ((items == null) ? 0 : items.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Room other = (Room) obj;
-		if (creatures == null) {
-			if (other.creatures != null)
-				return false;
-		} else if (!creatures.equals(other.creatures))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (exits == null) {
-			if (other.exits != null)
-				return false;
-		} else if (!exits.equals(other.exits))
-			return false;
-		if (items == null) {
-			if (other.items != null)
-				return false;
-		} else if (!items.equals(other.items))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
 	}
 
     public NonPlayer getNonPlayer(String target) {
@@ -213,4 +162,32 @@ public class Room {
 	public void setClassType(String classType) {
 		this.classType = classType;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Room other = (Room) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	
+	
 }

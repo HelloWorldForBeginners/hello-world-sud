@@ -9,7 +9,6 @@ public class Input {
 	public static String getCommand() {
         Scanner in = new Scanner(System.in);
         System.out.println();
-        System.out.print(">");
         String input = in.nextLine().toLowerCase();
         String command = "";
         

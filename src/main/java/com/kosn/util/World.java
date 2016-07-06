@@ -20,19 +20,20 @@ public class World {
 	
     private List<NonPlayer> creaturePool = new ArrayList<NonPlayer>();
     private List<Room> roomPool = new ArrayList<Room>();
-    private List<Item> itemPool = new ArrayList<Item>();
+	private List<Item> itemPool = new ArrayList<Item>();
     private List<Ability> abilityPool = new ArrayList<Ability>();
+    
     private List<Item> itemsAddedAtLoad = new ArrayList<Item>();
 
     private final Random random = new Random();
     private Map<String, Room> rooms = new HashMap<String, Room>();
-    private final Directions[] directions = Directions.values();
+    private final Direction[] directions = Direction.values();
     private final int directionSize = directions.length;
     private final boolean loadFromSave = false;
 	
     private EntityFactory entityFactory = EntityFactory.getInstance();
     
-	//singleton
+    //singleton
 	private static World instance = null;
 	protected World() {
 	}
@@ -93,9 +94,9 @@ public class World {
 	}
 
 	private void connectTheRooms() {
-		Map<Directions, Room> currentExits = new HashMap<Directions, Room>();
+		Map<Direction, Room> currentExits = new HashMap<Direction, Room>();
 		Room roomToAdd = null;
-		Directions directionToAdd = null;
+		Direction directionToAdd = null;
 		
 		for (Room r : rooms.values()) {
 			currentExits = r.getExits();
@@ -122,21 +123,21 @@ public class World {
 		}
 	}
 
-	private Directions getOppositeDirection(Directions directionToAdd) {
-		Directions opposite = null;
+	private Direction getOppositeDirection(Direction directionToAdd) {
+		Direction opposite = null;
 		
 		switch (directionToAdd) {
 		case west:
-			opposite = Directions.east;
+			opposite = Direction.east;
 			break;
 		case east:
-			opposite = Directions.west;
+			opposite = Direction.west;
 			break;
 		case north:
-			opposite = Directions.south;
+			opposite = Direction.south;
 			break;
 		case south:
-			opposite = Directions.north;
+			opposite = Direction.north;
 			break;
 			default:
 				throw new RuntimeException("Invalid direction passed");
@@ -160,5 +161,17 @@ public class World {
 
 	public List<NonPlayer> getCreaturePool() {
 		return creaturePool;
+	}
+	
+    public List<Item> getItemPool() {
+		return itemPool;
+	}
+    
+	public void addCreatureToRoom(Room roomToAddCreatureTo, NonPlayer creatureToAdd) {
+		rooms.get(roomToAddCreatureTo.getName()).addCreature(creatureToAdd);
+	}
+	
+	public void removeCreatureFromRoom(Room room, NonPlayer creature) {
+		rooms.get(room.getName()).getCreatures().remove(creature);
 	}
 }

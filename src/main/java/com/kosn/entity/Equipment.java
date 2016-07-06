@@ -56,9 +56,7 @@ public class Equipment {
     }
 
     public static void print(HashMap<String, Item> equipment) {
-
         System.out.println("Equipment:");
-
         for(HashMap.Entry<String, Item> entry: equipment.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().getName());
         }
