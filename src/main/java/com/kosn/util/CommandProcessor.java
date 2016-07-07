@@ -31,7 +31,6 @@ public class CommandProcessor {
 	private Room thisRoom;
 	private Player player;
 	private List<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
-	private List<NonPlayer> nextRoomCreatures = new ArrayList<NonPlayer>();
 	
 	//singleton
 	private static CommandProcessor instance = null;
@@ -267,18 +266,7 @@ public class CommandProcessor {
 	private void changeRooms() {
 		Application.setCurrentCombatTarget(null);
 		Application.setCurrentRoom(nextRoom);
-		checkRoomMonsters();
 		nextRoom.printRoom();
-	}
-
-	private void checkRoomMonsters() {
-		nextRoomCreatures = nextRoom.getCreatures();
-//		if (nextRoomCreatures.isEmpty()) {
-//			nextRoomCreatures.add(new NonPlayer(new NonPlayerDefaults()));
-//		}
-//		else {
-//			nextRoom.printCreatures();
-//		}
 	}
 
 	public void showInventory() {

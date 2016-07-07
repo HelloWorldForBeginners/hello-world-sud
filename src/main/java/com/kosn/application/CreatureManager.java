@@ -17,10 +17,9 @@ public class CreatureManager implements Runnable {
 	private int creatureCount = 0;
 	private final int maxCreatureCount = 100;
 	private static World world = World.getInstance();
-	private final List<NonPlayer> creaturePool = world.getCreaturePool();
 	private List<Room> roomsWithCreatures = new ArrayList<Room>();
     private final Random random = new Random();
-    private final int timeToWait = 10000;
+    private final int timeToWait = 5000;
     private Map<String, Room> rooms = Application.getRooms();
 
 	@Override
@@ -41,9 +40,7 @@ public class CreatureManager implements Runnable {
 		if (roomsWithCreatures.isEmpty() || creatureCount < maxCreatureCount) {
 			spawnCreature();
 		}
-		if (creatureCount == 1) {
-			return;
-		}
+		if (creatureCount <= 1) { return; }
 		Iterator<Room> roomIterator = roomsWithCreatures.iterator();
 		while (roomIterator.hasNext()) {
 			Room room = roomIterator.next();
@@ -53,19 +50,27 @@ public class CreatureManager implements Runnable {
 					creatureIterator.remove();
 					continue;
 				}
-				Room roomToAddCreatureTo = getRoomToAddCreatureTo(room);
-				moveCreatures(roomToAddCreatureTo, room, creatureIterator);
+				if (shouldCreatureMove()) {
+					Map<Direction, Room> roomToAddCreatureTo = getRoomToMoveCreatureTo(room);
+					moveCreatures(roomToAddCreatureTo, room, creatureIterator);
+				}
 			}
 		}
 	}
 
+	private boolean shouldCreatureMove() {
+		int rollForMove = random.nextInt(100);
+		if (rollForMove > 30) { return false; }
+		return true;
+	}
+
 	private List<Room> getRoomsWithCreatures() {
-		creatureCount = 0;
+		this.creatureCount = 0;
 		List<Room> roomsWithCreatures = new ArrayList<Room>();
 		for (Room room : rooms.values()) {
 			if (!room.getCreatures().isEmpty()) {
 				roomsWithCreatures.add(room);
-				creatureCount += room.getCreatures().size();
+				this.creatureCount += room.getCreatures().size();
 			}
 		}
 		return roomsWithCreatures;
@@ -80,9 +85,9 @@ public class CreatureManager implements Runnable {
 	private void addCreatureToRoom(Room roomToAddCreatureTo, NonPlayer creatureToAdd) {
 		world.addCreatureToRoom(roomToAddCreatureTo, creatureToAdd);
 		if (Application.getCurrentRoom().equals(roomToAddCreatureTo)) {
-			System.out.println(creatureToAdd.getName() + " spawned in the " + roomToAddCreatureTo.getName());
+			System.out.println(creatureToAdd.getName() + " spawned");
 		}
-		creatureCount++;
+		this.creatureCount++;
 	}
 
 	private NonPlayer getCreatureToAdd() {
@@ -91,48 +96,44 @@ public class CreatureManager implements Runnable {
 
 	private Room getRoomToAddCreatureTo() {
 		Room currentRoom = Application.getCurrentRoom();
-		
-		List<Room> availableRooms = new ArrayList<Room>(); 
+		List<Room> availableRooms = new ArrayList<Room>(currentRoom.getExits().values());
 		availableRooms.add(currentRoom);
-		
-		for (Map.Entry<Direction, Room> entry : currentRoom.getExits().entrySet()) {
-			availableRooms.add(entry.getValue());
-		}
-	
 		int randomIndex = random.nextInt(availableRooms.size());
 		return availableRooms.get(randomIndex);
 	}
 
-	private Room getRoomToAddCreatureTo(Room room) {
-		Map<Direction, Room> exits = room.getExits();
-		List<Room> availableRooms = new ArrayList<Room>();
-		
-		for (Room nextRoom : exits.values()) {
-			availableRooms.add(nextRoom);
-		}
-		
-		int randomIndex = random.nextInt(availableRooms.size());
-		return availableRooms.get(randomIndex);
+	private Map<Direction, Room> getRoomToMoveCreatureTo(Room room) {
+		Map<Direction, Room> availableRooms = room.getExits();
+		List<Direction> availableDirections = new ArrayList<Direction>(availableRooms.keySet());
+		int randomIndex = random.nextInt(availableDirections.size());
+		Direction direction = availableDirections.get(randomIndex);
+		availableRooms.entrySet().removeIf(e -> !e.getKey().equals(direction));
+		return availableRooms; 
 	}
 
-	private void moveCreatures(Room roomMovingTo, Room roomMovingFrom, Iterator<NonPlayer> creatureIterator) {
-		if (!creatureIterator.hasNext()) {
-			return;
-		}
+	private void moveCreatures(Map<Direction, Room> singleRoomMap, Room roomMovingFrom, Iterator<NonPlayer> creatureIterator) {
+		if (!creatureIterator.hasNext()) { return; }
 		NonPlayer creature = creatureIterator.next();
-		NonPlayer currentCombatTarget = Application.getCurrentCombatTarget();
-		if (currentCombatTarget != null) {
-			if (Application.getCurrentCombatTarget().equals(creature) && Application.getCombat()) {
-				return;
-			}
-		}
+		if (checkIfCombatTarget(creature)) { return; }
+		Direction direction = new ArrayList<Direction>(singleRoomMap.keySet()).get(0);
+		Room roomMovingTo = singleRoomMap.get(direction);
 		world.addCreatureToRoom(roomMovingTo, creature);
 		if (Application.getCurrentRoom().equals(roomMovingTo)) {
-			System.out.println(creature.getName() + " has entered the " + roomMovingTo.getName());
+			System.out.println(creature.getName() + " has entered from the " + Direction.getOppositeDirection(direction));
 		}
 		creatureIterator.remove();
 		if (Application.getCurrentRoom().equals(roomMovingFrom)) {
-			System.out.println(creature.getName() + " has exited the " + roomMovingFrom.getName());
+			System.out.println(creature.getName() + " has exited " + direction);
 		}
+	}
+
+	private boolean checkIfCombatTarget(NonPlayer creature) {
+		NonPlayer currentCombatTarget = Application.getCurrentCombatTarget();
+		if (currentCombatTarget != null) {
+			if (Application.getCurrentCombatTarget().equals(creature) && Application.getCombat()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

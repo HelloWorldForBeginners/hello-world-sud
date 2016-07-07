@@ -17,4 +17,6 @@
 {"classType":"NonPlayer","name":"horse","description":""},
 {"classType":"NonPlayer","name":"pig","description":""},
 {"classType":"NonPlayer","name":"spoat","description":""},
-{"classType":"NonPlayer","name":"mouse","description":""}]
+{"classType":"NonPlayer","name":"mouse","description":""},
+{"classType":"NonPlayer","name":"elephant","description":""}
+]

@@ -1,1 +1,4 @@
-[{"classType":"Ability","name":"Throw Item","description":"throws an item"}]
+[{"classType":"Ability","name":"Throw Item","description":"throws an item"},
+{"classType":"Ability","name":"Shameless Intrigue","description":"sometimes you just can't help it"},
+{"classType":"Ability","name":"Unnecessary Drama","description":"because things aren't hard enough already"}
+]

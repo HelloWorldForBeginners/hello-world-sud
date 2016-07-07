@@ -113,15 +113,6 @@ public class NonPlayer {
 		this.defense = defense;
 	}
 
-
-    
-	public static void spawnAnotherNonPlayer(NonPlayer _nonPlayer) {
-
-		System.out.println("Another " + _nonPlayer.getName() + " has appeared!");
-		_nonPlayer.setHitPoints(_nonPlayer.getMaxHitPoints());
-	}
-
-	
 	public static void killNonPlayer(Player _player, NonPlayer _nonPlayer) {
 		_player.addToExp(_nonPlayer.getExp());
 		_player.adjustMoney(_nonPlayer.getMoney());
@@ -155,7 +146,7 @@ public class NonPlayer {
 				"\n");
 	}
 	
-	@Override //means this method exists somewhere; it comes from the Object type
+	@Override
 	public String toString() {
 		String toString = getName();
 		return toString;

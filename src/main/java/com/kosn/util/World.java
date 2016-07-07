@@ -118,31 +118,9 @@ public class World {
 				}
 
 				r.getExits().put(directionToAdd, roomToAdd);
-				rooms.get(roomToAdd.getName()).getExits().put(getOppositeDirection(directionToAdd), r);
+				rooms.get(roomToAdd.getName()).getExits().put(Direction.getOppositeDirection(directionToAdd), r);
 			}
 		}
-	}
-
-	private Direction getOppositeDirection(Direction directionToAdd) {
-		Direction opposite = null;
-		
-		switch (directionToAdd) {
-		case west:
-			opposite = Direction.east;
-			break;
-		case east:
-			opposite = Direction.west;
-			break;
-		case north:
-			opposite = Direction.south;
-			break;
-		case south:
-			opposite = Direction.north;
-			break;
-			default:
-				throw new RuntimeException("Invalid direction passed");
-		}
-		return opposite;
 	}
 
 	private void generateRooms() {

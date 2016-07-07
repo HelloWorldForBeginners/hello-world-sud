@@ -13,6 +13,8 @@ public abstract class Character extends GameObject {
     protected int defense;
     protected ArrayList<Item> inventory = new ArrayList<>();
     protected HashMap<EquipSlot, Item> equipment = new HashMap<EquipSlot, Item>();
+    protected ArrayList<Ability> deck = new ArrayList<>();
+    protected ArrayList<Ability> hand = new ArrayList<>();
 
     public Character(String name, String description, int level, int money, int exp, int hitPoints, int maxHitPoints,
                      int attack, int defense) {
