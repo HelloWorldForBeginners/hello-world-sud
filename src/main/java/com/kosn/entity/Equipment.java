@@ -11,24 +11,21 @@ public class Equipment {
 
     public static void equipItem(String itemName) {
         Item item = player.checkInventory(itemName);
-
         if (item == null) {
         	System.out.println("You don't have that in your inventory.");
         	return;
         }
-        
         if (item.getSlot() == null) {
         	System.out.println("You can't equip that.");
         	return;
         }
-        
         Item addBackIntoInventory = player.getEquipment().put(item.getSlot(),item);
         if (addBackIntoInventory != null) {
         	player.getInventory().add(addBackIntoInventory);
         	System.out.println("You unequip the " + addBackIntoInventory + ".");
         }
         
-        System.out.println("You equip the " + itemName + ".");
+        System.out.println("You equip the " + item.getName() + ".");
         player.getInventory().remove(item);
         player.setDefense(player.getDefense() + item.getDefense());
         player.setAttack(player.getAttack() + item.getAttack());

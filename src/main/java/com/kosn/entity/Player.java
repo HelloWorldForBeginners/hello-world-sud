@@ -191,6 +191,12 @@ public class Player extends Character {
                 return checkItem;
             }
         }
+		for (Item checkItem: equippedItems) {
+            if (checkItem.getName().startsWith(target)) {
+                return checkItem;
+            }
+        }
+
 		return null;
 	}
 	

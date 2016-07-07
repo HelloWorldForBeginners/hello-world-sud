@@ -140,7 +140,8 @@ public class CommandProcessor {
 				int healthAfterRecover = currentHitPoints + itemToConsume.getEffectValue();
 				int finalHealth = healthAfterRecover <= maxHitPoints ? healthAfterRecover : maxHitPoints;
 				player.setHitPoints(finalHealth);
-				//remove item from inventory
+				player.getInventory().remove(itemToConsume);
+				System.out.format("You use the %s!", itemToConsume.getName());
 				System.out.format("You have recovered %d health!", finalHealth - currentHitPoints);
 				break;
 			}
@@ -323,6 +324,7 @@ public class CommandProcessor {
 		NonPlayer targetNonPlayer = thisRoom.getNonPlayer(target);
 		Item targetRoomItem = thisRoom.getItemIfExists(target);
 		Item targetItemInventory = player.checkInventory(target);
+		Item targetItemEquipment = player.checkEquipment(target);
 		if (targetNonPlayer != null) {
 			System.out.println("You examine the " + targetNonPlayer.getName() + " in the room.");
 			targetNonPlayer.printInfo();
@@ -334,6 +336,10 @@ public class CommandProcessor {
 		if (targetItemInventory != null) {
 			System.out.println("You examine the " + targetItemInventory.getName() + " in your inventory.");
 			targetItemInventory.printInfo();
+		}
+		if (targetItemEquipment != null) {
+			System.out.println("You examine the " + targetItemEquipment.getName() + " that you have equipped.");
+			targetItemEquipment.printInfo();
 		}
 	}
 	

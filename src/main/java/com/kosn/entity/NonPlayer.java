@@ -1,5 +1,7 @@
 package com.kosn.entity;
 
+import com.kosn.application.Application;
+
 public class NonPlayer {
 
 	private String classType;
@@ -119,6 +121,7 @@ public class NonPlayer {
 		_player.setHitPoints(_player.getMaxHitPoints());
         System.out.println("You have defeated the " + _nonPlayer.getName() + "!");
         System.out.println("Your health has fully recovered!\n");
+        Application.getCurrentRoom().getCreatures().remove(_nonPlayer);
 	}
 
 	public String getDescription() {

@@ -15,11 +15,11 @@ import com.kosn.util.World;
 public class CreatureManager implements Runnable {
 	
 	private int creatureCount = 0;
-	private final int maxCreatureCount = 100;
+	private final int maxCreatureCount = 20;
 	private static World world = World.getInstance();
 	private List<Room> roomsWithCreatures = new ArrayList<Room>();
     private final Random random = new Random();
-    private final int timeToWait = 5000;
+    private final int timeToWait = 10000;
     private Map<String, Room> rooms = Application.getRooms();
 
 	@Override
