@@ -39,8 +39,8 @@ public class Combat {
         	Application.toggleCombatOff();
             
             if (combatPlayer.getExp() >= combatPlayer.getExpToNextLevel()) {
-            	combatPlayer.levelUp();
-//            	Player.levelUpPlayer(combatPlayer);
+//            	combatPlayer.levelUp();
+            	combatPlayer.levelUpPlayer(combatPlayer);
             }
             
             removeCreatureFromRoom();

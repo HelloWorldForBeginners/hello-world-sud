@@ -1,11 +1,7 @@
 package com.kosn.application;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.PlayerDefaults;
-import com.kosn.entity.Room;
 import com.kosn.util.CommandProcessor;
 import com.kosn.util.Input;
 import com.kosn.util.World;
@@ -20,19 +16,13 @@ public class Application {
     private static World world = World.getInstance();
     private static CommandProcessor cp = CommandProcessor.getInstance();
     
-    private static Map<String, Room> rooms = new HashMap<String, Room>();
-    private static Room currentRoom = null;
-    private static Room defaultRoom = null;
-    
     private static Thread creatureManagerThread;
     
     public static void main(String args[]) {
 		System.out.println("Welcome to The Knights of Something Notable!\n");
 		
 		// Build rooms and set default
-		rooms = world.buildNewWorld(); 
-	    currentRoom = defaultRoom = rooms.entrySet().iterator().next().getValue();
-	    currentRoom.printRoom();
+		world.buildNewWorld();
 	
 	    // start creature manager
 	    creatureManagerThread = new Thread(new CreatureManager());
@@ -100,36 +90,5 @@ public class Application {
 		Application.currentCombatTarget = nonPlayer;
 	}
 
-	public static Map<String, Room> getRooms() {
-		return rooms;
-	}
-
-	public static void setRooms(HashMap<String, Room> rooms) {
-		Application.rooms = rooms;
-	}
-
-	public static Room getCurrentRoom() {
-		return currentRoom;
-	}
-
-	public static void setCurrentRoom(Room currentRoom) {
-		Application.currentRoom = currentRoom;
-	}
-
-	public static Room getDefaultRoom() {
-		return defaultRoom;
-	}
-
-	public static void setDefaultRoom(Room defaultRoom) {
-		Application.defaultRoom = defaultRoom;
-	}
-
-	public static void addCreatureToRoom(Room room, NonPlayer creature) {
-		rooms.get(room).getCreatures().add(creature);
-	}
-
-	public static void removeCreatureFromRoom(Room room, NonPlayer creature) {
-		rooms.get(room).getCreatures().remove(creature);
-	}
-
+	
 }

@@ -1,6 +1,6 @@
 package com.kosn.entity;
 
-public class Item implements Comparable<Item> {
+public class Item implements Examinable, Comparable<Item> {
 	
 	private String classType;
 	private String name;
@@ -69,7 +69,8 @@ public class Item implements Comparable<Item> {
         this.defense = _defense;
     }
     
-    public void printInfo() {
+    @Override
+	public void printInfo() {
     	System.out.println("Name: " + this.name);
         System.out.println(this.description);
         System.out.println("Type: " + this.type);

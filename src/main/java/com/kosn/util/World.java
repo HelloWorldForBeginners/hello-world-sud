@@ -30,6 +30,9 @@ public class World {
     private final Direction[] directions = Direction.values();
     private final int directionSize = directions.length;
     private final boolean loadFromSave = false;
+    
+    private Room currentRoom = null;
+    private Room defaultRoom = null;
 	
     private EntityFactory entityFactory = EntityFactory.getInstance();
     
@@ -44,7 +47,7 @@ public class World {
 		return instance;
 	}
     
-	public Map<String, Room> buildNewWorld() {
+	public void buildNewWorld() {
 		try {
 			loadEntityPools();
 		} catch (IOException e) {
@@ -55,9 +58,10 @@ public class World {
 		generateRooms();
 		connectTheRooms();
     	populateTheRooms();
-    	return rooms;
-	    	
 	    // TODO add saved game loading
+    	
+		currentRoom = defaultRoom = getRandomRoom();
+	    currentRoom.printRoom();
     }
 
 	private void populateTheRooms() {
@@ -151,5 +155,36 @@ public class World {
 	
 	public void removeCreatureFromRoom(Room room, NonPlayer creature) {
 		rooms.get(room.getName()).getCreatures().remove(creature);
+	}
+	
+	public Room getRandomRoom() {
+		final Random random = new Random();
+		List<Room> roomsArray = new ArrayList<Room>(rooms.values());
+		int randomIndex = random.nextInt(rooms.size());
+		return roomsArray.get(randomIndex);
+	}
+	
+	public Map<String, Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(HashMap<String, Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+	public Room getDefaultRoom() {
+		return defaultRoom;
+	}
+
+	public void setDefaultRoom(Room defaultRoom) {
+		this.defaultRoom = defaultRoom;
 	}
 }

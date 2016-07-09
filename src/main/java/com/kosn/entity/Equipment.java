@@ -10,7 +10,7 @@ public class Equipment {
 	static Player player = Application.getPlayer();
 
     public static void equipItem(String itemName) {
-        Item item = player.checkInventory(itemName);
+        Item item = player.checkInventoryForItem(itemName);
         if (item == null) {
         	System.out.println("You don't have that in your inventory.");
         	return;
@@ -32,7 +32,7 @@ public class Equipment {
     }
 
     public static void unequipItem(String itemName) {
-    	Item equippedItem = player.checkEquipment(itemName);
+    	Item equippedItem = player.checkEquipmentForItem(itemName);
     	if (equippedItem != null) {
     		unequipItem(equippedItem.getSlot());
     		return;

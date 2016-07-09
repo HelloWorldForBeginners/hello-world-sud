@@ -28,8 +28,9 @@ public class Application {
 		System.out.println("Welcome to The Knights of Something Notable!\n");
 		
 		// Build rooms and set default
-		rooms = world.buildNewWorld(); 
-	    currentRoom = defaultRoom = rooms.entrySet().iterator().next().getValue();
+		rooms = world.buildNewWorld();
+//	    currentRoom = defaultRoom = rooms.entrySet().iterator().next().getValue();
+		getRandomRoom();
 	    currentRoom.printRoom();
 	
 	    // Start game

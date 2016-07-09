@@ -1,8 +1,8 @@
 package com.kosn.entity;
 
-import com.kosn.application.Application;
+import com.kosn.util.World;
 
-public class NonPlayer {
+public class NonPlayer implements Examinable {
 
 	private String classType;
 	private String name;
@@ -51,6 +51,7 @@ public class NonPlayer {
 		this.classType = classType;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -116,12 +117,13 @@ public class NonPlayer {
 	}
 
 	public static void killNonPlayer(Player _player, NonPlayer _nonPlayer) {
+		World world = World.getInstance();
 		_player.addToExp(_nonPlayer.getExp());
 		_player.adjustMoney(_nonPlayer.getMoney());
 		_player.setHitPoints(_player.getMaxHitPoints());
         System.out.println("You have defeated the " + _nonPlayer.getName() + "!");
         System.out.println("Your health has fully recovered!\n");
-        Application.getCurrentRoom().getCreatures().remove(_nonPlayer);
+        world.getCurrentRoom().getCreatures().remove(_nonPlayer);
 	}
 
 	public String getDescription() {
@@ -136,7 +138,8 @@ public class NonPlayer {
 		this.hitPoints -= _hitPoints;
 	}
 	
-    public void printInfo() {
+    @Override
+	public void printInfo() {
 		System.out.println("Name: " + this.getName() + "(Lv." + this.getLevel() + ")" + 
 				"\n" +
 				this.getDescription() +

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.kosn.util.Direction;
 
-public class Room {
+public class Room implements Examinable {
 
 	private String classType;
 	private String name;
@@ -59,6 +59,7 @@ public class Room {
         this.creatures.add(creature);
     }
     
+	@Override
 	public String getName() {
         return this.name;
     }
@@ -130,8 +131,7 @@ public class Room {
 		return toString;
 	}
 
-    public NonPlayer getNonPlayer(String target) {
-
+    public NonPlayer checkRoomForNonPlayer(String target) {
 		for (NonPlayer creature : this.creatures) {
 			if (creature.getName().equals(target)) {
                 return creature;
@@ -143,7 +143,7 @@ public class Room {
 		return null;
 	}
 
-	public Item getItemIfExists(String target) {
+	public Item checkRoomForItem(String target) {
 		for (Item checkItem: this.items) {
             if (checkItem.getName().equals(target)) {
                 return checkItem;
@@ -186,6 +186,12 @@ public class Room {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	@Override
+	public void printInfo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

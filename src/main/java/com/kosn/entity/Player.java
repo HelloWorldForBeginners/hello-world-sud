@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.kosn.application.Application;
+import com.kosn.util.World;
 
 public class Player extends Character {
 
@@ -48,26 +49,26 @@ public class Player extends Character {
         this.expToNextLevel = expToNextLevel;
     }
     
-	public void levelUpPlayer(Player _player) {
+	public static void levelUpPlayer(Player _player) {
 		_player.setLevel(_player.getLevel() + 1);
 		_player.setExpToNextLevel((int) Math.round(_player.getExpToNextLevel() * 1.5));
 		_player.setMaxHitPoints((int) Math.round(_player.getMaxHitPoints() + 1.05));
 		_player.setHitPoints(Math.round(_player.getMaxHitPoints()));
 		_player.setAttack(_player.getAttack() + 1);
 		_player.setDefense(_player.getDefense() + 1);
-        System.out.println(_player.getName() + " has attained level " + _player.getLevel() + "!");
+        System.out.format("%s has attained level %d!\n", _player.getName(), _player.getLevel());
 	}
 	
 	public String killPlayer() {
-		Room defaultRoom = Application.getDefaultRoom();
+		World world = World.getInstance();
+		Room defaultRoom = world.getDefaultRoom();
 		
 		hitPoints = maxHitPoints;
 		int moneyLost = ((int) Math.round(money * 0.9));
 		money = money - moneyLost;
 		
 		if (money > 0) {
-			System.out.println("You have been knocked unconscious! " +
-                moneyLost + " money has been lost!");
+			System.out.format("You have been knocked unconscious! %d money has been lost!\n", moneyLost);
 		} else {
 			System.out.println("You have been knocked unconscious!");
 		}
@@ -80,7 +81,7 @@ public class Player extends Character {
 			e.printStackTrace();
 		}
         
-        Application.setCurrentRoom(defaultRoom);
+        world.setCurrentRoom(defaultRoom);
         defaultRoom.toString();
         return "respawn";
 	}
@@ -116,7 +117,6 @@ public class Player extends Character {
     }
 
 	public void putItemInInventory(String targetItemName, Room thisRoom) {
-    	
 		List<Item> roomItems = new ArrayList<Item>();
 		roomItems = thisRoom.getItems();
         boolean inRoom = false;
@@ -124,7 +124,7 @@ public class Player extends Character {
         
         // Check if item is a valid room item
         for (Item roomItem : roomItems) {
-            if (roomItem.getName().equals(targetItemName)) {
+            if (roomItem.getName().equals(targetItemName) | roomItem.getName().startsWith(targetItemName)) {
                 inRoom = true;
                 item = roomItem;
                 break;
@@ -135,19 +135,19 @@ public class Player extends Character {
             System.out.println("You don't see that here.");
             return;
         }
-        System.out.println("You pick up the " + targetItemName + ".");
+        System.out.format("You pick up the %s.\n", item.getName());
         inventory.add(item);
         Collections.sort(inventory);
         Room.removeItem(thisRoom, item);
 	}
 	
 	public void removeItemFromInventory(String targetItemName, Room thisRoom) {
-		Item item = checkInventory(targetItemName);
+		Item item = checkInventoryForItem(targetItemName);
         if (item == null) {
             System.out.println("You don't have that.");
             return;
         } 
-        System.out.println("You put down the " + targetItemName + ".");
+        System.out.format("You put down the %s.", item.getName());
         inventory.remove(item);
         Room.addItem(thisRoom, item);
 	}
@@ -161,7 +161,7 @@ public class Player extends Character {
 	public void printEquipment() {
 		System.out.println("\nEquipment:");
         for (Entry<EquipSlot, Item> entry: equipment.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().getName());
+            System.out.format("%s: %s\n", entry.getKey(), entry.getValue().getName());
         }
 	}
 
@@ -172,7 +172,7 @@ public class Player extends Character {
         }
 	}
 	
-	public Item checkInventory(String target) {
+	public Item checkInventoryForItem(String target) {
 		for (Item checkItem: inventory) {
             if (checkItem.getName().equals(target)) {
                 return checkItem;
@@ -184,7 +184,7 @@ public class Player extends Character {
 		return null;
 	}
 	
-	public Item checkEquipment(String target) {
+	public Item checkEquipmentForItem(String target) {
 		List<Item> equippedItems = new ArrayList<Item>(equipment.values());
 		for (Item checkItem: equippedItems) {
             if (checkItem.getName().equals(target)) {
@@ -198,15 +198,5 @@ public class Player extends Character {
         }
 
 		return null;
-	}
-	
-	public void levelUp() {
-		level++;
-		expToNextLevel = (int) Math.round(expToNextLevel * 1.5);
-		maxHitPoints = ((int) Math.round(maxHitPoints + 1.05));
-		hitPoints = maxHitPoints;
-		attack++;
-		defense++;
-        System.out.println(name + " has attained level " + level + "!");
 	}
 }
