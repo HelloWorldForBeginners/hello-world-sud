@@ -33,9 +33,9 @@ public class CommandProcessor {
 	private World world = World.getInstance();
 	private CommandProcessorHelper cph = CommandProcessorHelper.getInstance();
 	private String target;
-	private static final String INVENTORY_PHRASE = "in your inventory.";
-	private static final String EQUIPMENT_PHRASE = "that you have equipped.";
-	private static final String ROOM_PHRASE = "in the room.";
+	private static final String INVENTORY_PHRASE = "You rummage around in your inventory for %s.\n";
+	private static final String EQUIPMENT_PHRASE = "You examine your equipped %s.\n";
+	private static final String ROOM_PHRASE = "You glance around the room for %s.\n";
 	
 	//singleton
 	private static CommandProcessor instance = null;
@@ -253,10 +253,10 @@ public class CommandProcessor {
 	}
 	
 	public void checkThing() {
-		cph.examine(player.checkEquipmentForItem(target), EQUIPMENT_PHRASE);
-		cph.examine(player.checkInventoryForItem(target), INVENTORY_PHRASE);
-		cph.examine(thisRoom.checkRoomForNonPlayer(target), ROOM_PHRASE);
-		cph.examine(thisRoom.checkRoomForItem(target), ROOM_PHRASE);
+		cph.examine(EQUIPMENT_PHRASE, player.checkEquipmentForItem(target));
+		cph.examine(INVENTORY_PHRASE, player.checkInventoryForItem(target));
+		cph.examine(ROOM_PHRASE, thisRoom.checkRoomForNonPlayer(target));
+		cph.examine(ROOM_PHRASE, thisRoom.checkRoomForItem(target));
 	}
 	
 	public void quitGame() {

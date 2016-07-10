@@ -14,11 +14,9 @@ public class Combat {
 	private static NonPlayer combatNonPlayer;
 	
 	public static void attackNonPlayer(NonPlayer creature, Room room, Player player) {
-
 		combatRoom = room;
 		combatPlayer = player;
 		combatNonPlayer = creature;
-		
         Application.toggleCombatOn(combatNonPlayer);
         if (processPlayerAttack().equals("continue")) {
         	processNonPlayerAttack(player, combatNonPlayer);
@@ -26,29 +24,18 @@ public class Combat {
     }
     
     private static String processPlayerAttack() {
-    	
     	combatNonPlayer.lowerHitPoints(combatPlayer.getAttack());
         System.out.println(combatPlayer.getName() + " hits " + combatNonPlayer.getName() + " for " + combatPlayer.getAttack() + " point(s) of damage!");
-        
-        combatNonPlayer.printHealth();
-        
         if (combatNonPlayer.getHitPoints() <= 0) {
-    		
         	NonPlayer.killNonPlayer(combatPlayer, combatNonPlayer);
-            
         	Application.toggleCombatOff();
-            
             if (combatPlayer.getExp() >= combatPlayer.getExpToNextLevel()) {
-//            	combatPlayer.levelUp();
             	combatPlayer.levelUpPlayer(combatPlayer);
             }
-            
             removeCreatureFromRoom();
-            
-//            NonPlayer.spawnAnotherNonPlayer(_nonPlayer);
-            
             return "end round";
     	}
+        combatNonPlayer.printHealth();
         return "continue";
 	}
     
@@ -66,12 +53,9 @@ public class Combat {
 	}
 
 	public static String processNonPlayerAttack(Player _player, NonPlayer _nonPlayer) {
-    	
     	_player.setHitPoints(_player.getHitPoints() - _nonPlayer.getAttack());
-    	
     	System.out.println("The " + _nonPlayer.getName() + " hits you for " + _nonPlayer.getAttack() + " point(s) of damage!");
     	_player.printHealth();
-    	
     	if (_player.getHitPoints() <= 0) {
     		_player.killPlayer();
     		return "respawned";

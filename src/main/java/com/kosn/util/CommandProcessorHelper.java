@@ -43,8 +43,8 @@ public class CommandProcessorHelper {
 		System.out.println("You're in combat!");
 		System.out.println("Trying to escape...!");
 		
-		waitOneSecond();
-		
+		FlowManagement.wait(1);
+
 		switch (r.nextInt(6)) {
 			case 0:
 				unableToEscape();
@@ -66,14 +66,6 @@ public class CommandProcessorHelper {
 			case 5:
 				escape(nextRoom);
 				break;
-		}
-	}
-
-	private void waitOneSecond() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -111,10 +103,14 @@ public class CommandProcessorHelper {
 		nextRoom.printRoom();
 	}
 
-	void examine(Examinable target, String location) {
+	void examine(String phrase, Examinable target) {
 		if (target == null) { return; }
-		System.out.format("You examine the %s %s\n", target.getName(), location);
+		System.out.format(phrase, target.getName());
+		for (int i = 0; i < 5; i++) {
+			FlowManagement.wait(.25);
+			System.out.print(".");
+		}
+		System.out.println();
 		target.printInfo();
 	}
-	
 }

@@ -1,4 +1,4 @@
-package com.kosn.application;
+package com.kosn.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.kosn.application.Application;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.NonPlayerDefaults;
 import com.kosn.entity.Room;
-import com.kosn.util.Direction;
-import com.kosn.util.World;
 
 public class CreatureManager implements Runnable {
 	
@@ -19,7 +18,7 @@ public class CreatureManager implements Runnable {
 	private static World world = World.getInstance();
 	private List<Room> roomsWithCreatures = new ArrayList<Room>();
     private final Random random = new Random();
-    private final int timeToWait = 10000;
+    private final double timeToWait = 10;
     private Map<String, Room> rooms = world.getRooms();
     
 
@@ -27,12 +26,7 @@ public class CreatureManager implements Runnable {
 	public void run() {
 		while (Application.getPlaying()) {
 			processCreatures();
-			try {
-				Thread.sleep(timeToWait);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.exit(0);
-			}
+			FlowManagement.wait(timeToWait);
 		}
 	}
 

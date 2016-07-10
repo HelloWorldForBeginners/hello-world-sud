@@ -121,7 +121,7 @@ public class NonPlayer implements Examinable {
 		_player.addToExp(_nonPlayer.getExp());
 		_player.adjustMoney(_nonPlayer.getMoney());
 		_player.setHitPoints(_player.getMaxHitPoints());
-        System.out.println("You have defeated the " + _nonPlayer.getName() + "!");
+        System.out.println("\nYou have defeated the " + _nonPlayer.getName() + "!");
         System.out.println("Your health has fully recovered!\n");
         world.getCurrentRoom().getCreatures().remove(_nonPlayer);
 	}

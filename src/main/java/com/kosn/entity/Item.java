@@ -1,5 +1,7 @@
 package com.kosn.entity;
 
+import com.kosn.util.TextHandler;
+
 public class Item implements Examinable, Comparable<Item> {
 	
 	private String classType;
@@ -13,6 +15,7 @@ public class Item implements Examinable, Comparable<Item> {
     private EffectType effectType = EffectType.other;
     private int effectValue;
     
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -71,21 +74,21 @@ public class Item implements Examinable, Comparable<Item> {
     
     @Override
 	public void printInfo() {
-    	System.out.println("Name: " + this.name);
-        System.out.println(this.description);
-        System.out.println("Type: " + this.type);
+    	System.out.format("You behold the %s. It looks %s\n\n", this.name, this.description);
         if (this.slot != null) {
-	        System.out.println("Slot: " + this.slot);
-	        System.out.println("Attack: " + this.attack);
-	        System.out.println("Defense: " + this.defense);
+            System.out.format("With your amazing observational powers, you notice a few things about the %s:\n", this.name);
+            TextHandler.printAsTwoColumnsLeftAligned("Slot", this.slot.toString());
+            TextHandler.printAsTwoColumnsLeftAligned("Attack", Integer.toString(this.attack));
+            TextHandler.printAsTwoColumnsLeftAligned("Defense", Integer.toString(this.defense));
+            System.out.println();
         }
         if (this.effectType != EffectType.other) {
-	        System.out.println("Effect: " + this.effectType.toString());
-	        System.out.println("Value: " + this.effectValue);
+        	System.out.format("This item is consumable!\n");
+        	System.out.format("%s Effect: %s %s\n", this.type, this.effectValue, this.effectType.toString());
         }
         System.out.println();
 	}
-
+    
 	@Override
 	public int compareTo(Item o) {
 		return name.compareTo(o.getName());

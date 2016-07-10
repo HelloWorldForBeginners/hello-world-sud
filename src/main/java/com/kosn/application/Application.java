@@ -3,6 +3,7 @@ import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Player;
 import com.kosn.entity.PlayerDefaults;
 import com.kosn.util.CommandProcessor;
+import com.kosn.util.CreatureManager;
 import com.kosn.util.Input;
 import com.kosn.util.World;
 

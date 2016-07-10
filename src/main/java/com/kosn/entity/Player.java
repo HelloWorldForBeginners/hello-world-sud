@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.kosn.application.Application;
+import com.kosn.util.TextHandler;
 import com.kosn.util.World;
 
 public class Player extends Character {
@@ -49,7 +50,7 @@ public class Player extends Character {
         this.expToNextLevel = expToNextLevel;
     }
     
-	public static void levelUpPlayer(Player _player) {
+	public void levelUpPlayer(Player _player) {
 		_player.setLevel(_player.getLevel() + 1);
 		_player.setExpToNextLevel((int) Math.round(_player.getExpToNextLevel() * 1.5));
 		_player.setMaxHitPoints((int) Math.round(_player.getMaxHitPoints() + 1.05));
@@ -153,16 +154,18 @@ public class Player extends Character {
 	}
 
 	public void printStatus() {
-		System.out.println(Application.getPlayer().toString());
+		printInfo();
 		printInventory();
 		printEquipment();
 	}
-
-	public void printEquipment() {
-		System.out.println("\nEquipment:");
-        for (Entry<EquipSlot, Item> entry: equipment.entrySet()) {
-            System.out.format("%s: %s\n", entry.getKey(), entry.getValue().getName());
-        }
+	
+	public void printInfo() {
+		TextHandler.printAsTwoColumnsLeftAligned("Name", this.getName());
+		TextHandler.printAsTwoColumnsLeftAligned("HP", String.format("%d/%d", this.getHitPoints(), this.getMaxHitPoints()));
+		TextHandler.printAsTwoColumnsLeftAligned("Attack", Integer.toString(this.getAttack()));
+		TextHandler.printAsTwoColumnsLeftAligned("Defense", Integer.toString(this.getDefense()));
+		TextHandler.printAsTwoColumnsLeftAligned("Exp", String.format("%d/%d", this.getExp(), this.getExpToNextLevel()));
+		TextHandler.printAsTwoColumnsLeftAligned("Money", Integer.toString(this.getMoney()));
 	}
 
 	public void printInventory() {
@@ -172,6 +175,13 @@ public class Player extends Character {
         }
 	}
 	
+	public void printEquipment() {
+		System.out.println("\nEquipment:");
+        for (Entry<EquipSlot, Item> entry: equipment.entrySet()) {
+            System.out.format("%s: %s\n", entry.getKey(), entry.getValue().getName());
+        }
+	}
+
 	public Item checkInventoryForItem(String target) {
 		for (Item checkItem: inventory) {
             if (checkItem.getName().equals(target)) {
