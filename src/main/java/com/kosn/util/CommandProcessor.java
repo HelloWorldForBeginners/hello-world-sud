@@ -31,7 +31,7 @@ public class CommandProcessor {
 	private Room thisRoom;
 	private List<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
 	private World world = World.getInstance();
-	private Player player = world.getPlayer();
+	private Player player;
 	private GameState gameState = GameState.getInstance();
 	private CommandProcessorHelper cph = CommandProcessorHelper.getInstance();
 	private String target;
@@ -91,7 +91,8 @@ public class CommandProcessor {
 		thisRoom = world.getCurrentRoom();
 		thisRoomCreatures = thisRoom.getCreatures();
 		target = Input.target;
-
+		this.player = world.getPlayer();
+		
 		Runnable thingToRun = null;
 
 		if (command.equals("prev") && !previousCommand.equals("")) {
@@ -213,6 +214,7 @@ public class CommandProcessor {
 	}
 	
 	public void addToInventory() {
+		System.out.println("Priting player: " + player);
 		player.putItemInInventory(target, thisRoom);
 	}
 	
