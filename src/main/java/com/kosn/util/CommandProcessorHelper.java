@@ -11,7 +11,8 @@ import com.kosn.entity.Player;
 import com.kosn.entity.Room;
 
 public class CommandProcessorHelper {
-	private Player player = Application.getPlayer();
+	private static World world = World.getInstance(); 
+	private static Player player = world.getPlayer();
 	
 	//singleton
 	private static CommandProcessorHelper instance = null;
@@ -94,7 +95,7 @@ public class CommandProcessorHelper {
 
 	private static void unableToEscape() {
 		System.out.println("You were unable to escape!");
-		Combat.processNonPlayerAttack(Application.getPlayer(), Application.getCurrentCombatTarget());
+		Combat.processNonPlayerAttack(player, Application.getCurrentCombatTarget());
 	}
 
 	void changeRooms(Room nextRoom) {

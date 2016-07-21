@@ -96,7 +96,7 @@ public class Player extends Character {
 	}
 
 	public int calculateMoneyLost(double _moneyLost) {
-		return (int)Math.round(Application.getPlayer().getMoney() * _moneyLost);
+		return (int)Math.round(this.money * _moneyLost);
 	}
 	
 	@Override

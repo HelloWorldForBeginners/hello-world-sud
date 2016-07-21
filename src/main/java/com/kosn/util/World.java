@@ -10,10 +10,14 @@ import java.util.Random;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.kosn.db.EntityFactory;
+import com.kosn.db.EntityLoader;
 import com.kosn.entity.Ability;
+import com.kosn.entity.GameObject;
 import com.kosn.entity.Item;
 import com.kosn.entity.ItemType;
 import com.kosn.entity.NonPlayer;
+import com.kosn.entity.Player;
+import com.kosn.entity.PlayerDefaults;
 import com.kosn.entity.Room;
 
 public class World {
@@ -22,6 +26,7 @@ public class World {
     private List<Room> roomPool = new ArrayList<Room>();
 	private List<Item> itemPool = new ArrayList<Item>();
     private List<Ability> abilityPool = new ArrayList<Ability>();
+    private Player player;
     
     private List<Item> itemsAddedAtLoad = new ArrayList<Item>();
 
@@ -31,10 +36,13 @@ public class World {
     private final int directionSize = directions.length;
     private final boolean loadFromSave = false;
     
+    private String characterName;
+    
     private Room currentRoom = null;
     private Room defaultRoom = null;
 	
     private EntityFactory entityFactory = EntityFactory.getInstance();
+    private EntityLoader entityLoader = EntityLoader.getInstance();
     
     //singleton
 	private static World instance = null;
@@ -47,26 +55,35 @@ public class World {
 		return instance;
 	}
     
-	public void buildNewWorld() {
+	public void processInput(String selection, List<GameObject> chars) {
+		this.characterName = selection;
+		for (GameObject g : chars) {
+			if (g.getName().equals(selection)) {
+				System.out.format("Sorry, character loading is not complete, TFB");
+				System.exit(0);
+				System.out.format("Loading character %s", selection);
+				loadCharacterSave(selection);
+				return;
+			}
+		}
+		System.out.format("Creating new character %s", selection);
+		buildNewWorld(selection);
+		return;
+	}
+	
+	public void buildNewWorld(String selection) {
+		this.player = new Player(new PlayerDefaults());
 		try {
 			loadEntityPools();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// newgame loading
-		generateRooms();
-		connectTheRooms();
-    	populateTheRooms();
-	    // TODO add saved game loading
+		generateNewRooms();
+		connectTheNewRooms();
     	
 		currentRoom = defaultRoom = getRandomRoom();
 	    currentRoom.printRoom();
     }
-
-	private void populateTheRooms() {
-		// TODO Separate thread to handle creature spawning/roaming
-	}
 	
 	/**
 	 * add 0-2 items
@@ -97,7 +114,7 @@ public class World {
 		return roomToJunkify;
 	}
 
-	private void connectTheRooms() {
+	private void connectTheNewRooms() {
 		Map<Direction, Room> currentExits = new HashMap<Direction, Room>();
 		Room roomToAdd = null;
 		Direction directionToAdd = null;
@@ -127,7 +144,7 @@ public class World {
 		}
 	}
 
-	private void generateRooms() {
+	private void generateNewRooms() {
 		for(Room r : roomPool) {
     		loadRoomWithJunk(r);
             rooms.put(r.getName(), r);
@@ -187,4 +204,43 @@ public class World {
 	public void setDefaultRoom(Room defaultRoom) {
 		this.defaultRoom = defaultRoom;
 	}
+
+	private void loadCharacterSave(String selection) {
+		loadCharacter();
+		loadRooms();
+		
+	}
+
+	private void loadRooms() {
+		rooms = entityLoader.loadRooms(this.characterName);
+	}
+	
+	private void loadCharacter() {
+		createPlayerFromSave();
+				
+	}
+
+	private void createPlayerFromSave() {
+		Player player = entityLoader.loadPlayer(this.characterName);
+	}
+
+	private void addRooms() {
+		
+	}
+
+	private void addRoomExits() {
+		
+	}
+
+	private void addRoomItems() {
+		
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 }

@@ -1,0 +1,8 @@
+[
+{"classType":"Room","name":"Dungeon","description":"You are in a dungeon."},
+{"classType":"Room","name":"Mess Hall","description":"You are in the mess hall."},
+{"classType":"Room","name":"Larder","description":"You are in the larder. There's food here."},
+{"classType":"Room","name":"Cell","description":"You are in a cell."},
+{"classType":"Room","name":"Privy","description":"You are in the privy."},
+{"classType":"Room","name":"Dovecote","description":"You are in the dovecote. Because doves like basements."}
+]

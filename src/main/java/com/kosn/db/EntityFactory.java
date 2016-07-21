@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.kosn.entity.Ability;
+import com.kosn.entity.GameObject;
 import com.kosn.entity.Item;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.Room;
@@ -17,6 +18,19 @@ import com.kosn.entity.Room;
 public class EntityFactory {
 
 	private File file;
+	private static final String path = getPath();
+	private static final String resourcesPath = String.format("%ssrc/main/resources/", path);
+	private static final String entityRepositoryPath = "entityRepository/";
+	private static final String roomFileName = "Room.json";
+	private static final String itemFileName = "Item.json";
+	private static final String abilityFileName = "Ability.json";
+	private static final String nonPlayerFileName = "NonPlayer.json";
+	private static final String gameSavesFileName = "gamesaves.json";
+	private static final String roomFilePath = String.format("%s%s%s", resourcesPath, entityRepositoryPath, roomFileName);
+	private static final String itemFilePath = String.format("%s%s%s", resourcesPath, entityRepositoryPath, itemFileName);
+	private static final String abilityFilePath = String.format("%s%s%s", resourcesPath, entityRepositoryPath, abilityFileName);
+	private static final String nonPlayerFilePath = String.format("%s%s%s", resourcesPath, entityRepositoryPath, nonPlayerFileName);
+	private static final String gameSavesFilePath = String.format("%s%s", resourcesPath, gameSavesFileName);
 	
 	//singleton
 	private static EntityFactory instance = null;
@@ -28,17 +42,16 @@ public class EntityFactory {
 		}
 		return instance;
 	}
-	
-	public void loadFile(String fileName) {
+
+	public static String getPath() {
 		File currDir = new File(".");
 		String path = "";
 		path = currDir.getAbsolutePath();
-		path = path.substring(0, path.length()-1);
-		this.file = new File(path + "src/main/resources/entityRepository/" + fileName + ".json");
+		return path.substring(0, path.length()-1);
 	}
-		
+
 	public List<Room> createRooms() {
-		loadFile("Room");
+		this.file = new File(roomFilePath);
 		List<Room> rooms = new ArrayList<Room>();
 		try {
 			rooms = parseRoomJson();
@@ -48,9 +61,9 @@ public class EntityFactory {
 		}
 		return rooms;
 	}
-	
+
 	public List<Item> createItems() {
-		loadFile("Item");
+		this.file = new File(itemFilePath);
 		List<Item> items = new ArrayList<Item>();
 		try {
 			items = parseItemJson();
@@ -62,7 +75,7 @@ public class EntityFactory {
 	}
 	
 	public List<Ability> createAbilities() {
-		loadFile("Ability");
+		this.file = new File(abilityFilePath);
 		List<Ability> abilities = new ArrayList<Ability>();
 		try {
 			abilities = parseAbilityJson();
@@ -74,7 +87,7 @@ public class EntityFactory {
 	}
 	
 	public List<NonPlayer> createNonPlayers() {
-		loadFile("NonPlayer");
+		this.file = new File(nonPlayerFilePath);
 		List<NonPlayer> creatures = new ArrayList<NonPlayer>();
 		try {
 			creatures = parseNonPlayerJson();
@@ -83,6 +96,18 @@ public class EntityFactory {
 			e.printStackTrace();
 		}
 		return creatures;
+	}
+	
+	public List<GameObject> loadGameSaves() {
+		this.file = new File(gameSavesFilePath);
+		List<GameObject> gameSaves = new ArrayList<GameObject>();
+		try {
+			gameSaves = parseGameSaveJson();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gameSaves;
 	}
 
 	public List<Room> parseRoomJson() throws JsonParseException, JsonMappingException, IOException {
@@ -115,6 +140,14 @@ public class EntityFactory {
     			TypeFactory.defaultInstance().constructCollectionType(List.class,
     					Ability.class));
     	return abilities;
+	}
+	
+	private List<GameObject> parseGameSaveJson() throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+    	List<GameObject> playerNames = mapper.readValue(this.file,
+    			TypeFactory.defaultInstance().constructCollectionType(List.class,
+    					GameObject.class));
+    	return playerNames;
 	}
 	
 	//polymorphism or generics? Idk wtf to do here

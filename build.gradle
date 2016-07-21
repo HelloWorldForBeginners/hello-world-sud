@@ -39,7 +39,7 @@ dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '19.0'
   compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
   compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
-  compile group: 'org.testng', name: 'testng', version: '6.9.10'
+  testCompile group: 'org.testng', name: 'testng', version: '6.9.10'
 }
 
 test {

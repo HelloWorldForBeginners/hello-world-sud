@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import com.kosn.application.Application;
+import com.kosn.application.GameState;
 import com.kosn.entity.NonPlayer;
 import com.kosn.entity.NonPlayerDefaults;
 import com.kosn.entity.Room;
@@ -16,6 +17,7 @@ public class CreatureManager implements Runnable {
 	private int creatureCount = 0;
 	private final int maxCreatureCount = 20;
 	private static World world = World.getInstance();
+	private GameState gameState = GameState.getInstance();
 	private List<Room> roomsWithCreatures = new ArrayList<Room>();
     private final Random random = new Random();
     private final double timeToWait = 10;
@@ -24,7 +26,7 @@ public class CreatureManager implements Runnable {
 
 	@Override
 	public void run() {
-		while (Application.getPlaying()) {
+		while (gameState.getPlaying()) {
 			processCreatures();
 			FlowManagement.wait(timeToWait);
 		}
@@ -41,7 +43,7 @@ public class CreatureManager implements Runnable {
 			Room room = roomIterator.next();
 			Iterator<NonPlayer> creatureIterator = room.getCreatures().iterator();
 			while (creatureIterator.hasNext()) {
-				if (creatureIterator.next().getLevel() < Application.getPlayer().getLevel() - 3) {
+				if (creatureIterator.next().getLevel() < world.getPlayer().getLevel() - 3) {
 					creatureIterator.remove();
 					continue;
 				}

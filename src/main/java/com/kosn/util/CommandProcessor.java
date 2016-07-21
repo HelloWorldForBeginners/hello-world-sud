@@ -11,6 +11,7 @@ import java.util.Set;
 import org.apache.commons.lang3.text.WordUtils;
 
 import com.kosn.application.Application;
+import com.kosn.application.GameState;
 import com.kosn.entity.Equipment;
 import com.kosn.entity.Item;
 import com.kosn.entity.ItemType;
@@ -28,9 +29,10 @@ public class CommandProcessor {
 	private String previousTarget = "";
 	private Room nextRoom;
 	private Room thisRoom;
-	private Player player = Application.getPlayer();
 	private List<NonPlayer> thisRoomCreatures = new ArrayList<NonPlayer>();
 	private World world = World.getInstance();
+	private Player player = world.getPlayer();
+	private GameState gameState = GameState.getInstance();
 	private CommandProcessorHelper cph = CommandProcessorHelper.getInstance();
 	private String target;
 	private static final String INVENTORY_PHRASE = "You rummage around in your inventory for %s.\n";
@@ -207,7 +209,7 @@ public class CommandProcessor {
 	}
 	
 	public void playerStatus() {
-		player.printStatus();
+		world.getPlayer().printStatus();
 	}
 	
 	public void addToInventory() {
@@ -261,6 +263,6 @@ public class CommandProcessor {
 	
 	public void quitGame() {
 		System.out.println("Goodbye!");
-		Application.setPlaying(false);
+		gameState.setPlaying(false);
 	}
 }

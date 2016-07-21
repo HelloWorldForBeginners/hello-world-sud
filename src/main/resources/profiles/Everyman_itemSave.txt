@@ -1,9 +1,0 @@
-{"room":"Dungeon","name":"shirt","description":"smelly","type":"equipment","slot":"body","defense":3}
-{"room":"Dungeon","name":"jacket","description":"smelly","type":"equipment","slot":"body","defense":3}
-{"room":"Dungeon","name":"shoes","description":"smelly","type":"equipment","slot":"feet","defense":1}
-{"room":"Dungeon","name":"boots","description":"smelly","type":"equipment","slot":"feet","defense":1}
-{"room":"Cell","name":"pants","description":"wet","type":"equipment","slot":"legs","defense":2}
-{"room":"Mess Hall","name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1}
-{"room":"Mess Hall","name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1}
-{"room":"Larder","name":"wine","description":"tasty. heals 3 damage","type":"recovery","effectType":"health","effectValue":3}
-{"room":"Medica","name":"healing potion","description":"heals 3 damage","type":"recovery","effectType":"health","effectValue":3}

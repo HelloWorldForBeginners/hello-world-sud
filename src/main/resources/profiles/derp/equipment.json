@@ -1,0 +1,4 @@
+[
+{"classType":"Item","name":"boots","description":"smelly","type":"equipment","slot":"feet","defense":1},
+{"classType":"Item",name":"pants","description":"wet","type":"equipment","slot":"legs","defense":2}
+]

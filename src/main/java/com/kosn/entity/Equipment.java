@@ -2,12 +2,13 @@ package com.kosn.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kosn.application.Application;
+import com.kosn.util.World;
 
 public class Equipment {
 
 	ArrayList<Item> playerEquipment = new ArrayList<>();
-	static Player player = Application.getPlayer();
+	private static World world = World.getInstance();
+	private static Player player = world.getPlayer();
 
     public static void equipItem(String itemName) {
         Item item = player.checkInventoryForItem(itemName);

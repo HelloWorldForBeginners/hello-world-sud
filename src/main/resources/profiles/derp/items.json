@@ -1,0 +1,11 @@
+[
+{"classType":"Item","room":"Dungeon","name":"shirt","description":"smelly","type":"equipment","slot":"body","defense":3},
+{"classType":"Item","room":"Dungeon","name":"jacket","description":"smelly","type":"equipment","slot":"body","defense":3},
+{"classType":"Item","room":"Dungeon","name":"shoes","description":"smelly","type":"equipment","slot":"feet","defense":1},
+{"classType":"Item","room":"Dungeon","name":"boots","description":"smelly","type":"equipment","slot":"feet","defense":1},
+{"classType":"Item","room":"Cell","name":"pants","description":"wet","type":"equipment","slot":"legs","defense":2},
+{"classType":"Item","room":"Mess Hall","name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1},
+{"classType":"Item","room":"Mess Hall","name":"pants","description":"stained","type":"equipment","slot":"hands","defense":1},
+{"classType":"Item","room":"Larder","name":"wine","description":"tasty. heals 3 damage","type":"recovery","effectType":"health","effectValue":3},
+{"classType":"Item","room":"Medica","name":"healing potion","description":"heals 3 damage","type":"recovery","effectType":"health","effectValue":3}
+]

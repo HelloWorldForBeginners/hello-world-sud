@@ -1,21 +1,20 @@
 package com.kosn.application;
 import com.kosn.entity.NonPlayer;
-import com.kosn.entity.Player;
-import com.kosn.entity.PlayerDefaults;
 import com.kosn.util.CommandProcessor;
 import com.kosn.util.CreatureManager;
 import com.kosn.util.Input;
 import com.kosn.util.World;
 
 public class Application {
-    private static boolean playing = true;
     private static boolean combat = false;
     
-    private static Player player = new Player(new PlayerDefaults());
+    
     private static NonPlayer currentCombatTarget = null;
     
     private static World world = World.getInstance();
     private static CommandProcessor cp = CommandProcessor.getInstance();
+    private static GameState gameState = GameState.getInstance();
+	static final String newChar = "new";
     
     private static Thread creatureManagerThread;
     
@@ -23,7 +22,7 @@ public class Application {
 		System.out.println("Welcome to The Knights of Something Notable!\n");
 		
 		// Build rooms and set default
-		world.buildNewWorld();
+		Input.characterSelectionPrompt();
 	
 	    // start creature manager
 	    creatureManagerThread = new Thread(new CreatureManager());
@@ -37,22 +36,10 @@ public class Application {
 		}
 	    
 	    // Start game
-	    while (playing) {
+	    while (gameState.getPlaying()) {
 	    	cp.processCommand(Input.getCommand());
 	    }
 	    System.exit(0);
-	}
-
-	public static boolean getPlaying() {
-		return playing;
-	}
-
-	public static void setPlaying(boolean playing) {
-		Application.playing = playing;
-	}
-
-	public static Player getPlayer() {
-		return player;
 	}
 
 	public static boolean getCombat() {
@@ -77,10 +64,6 @@ public class Application {
 			Application.setCombat(true);
 			Application.setCurrentCombatTarget(nonPlayer);
 	    }
-	}
-
-	public static void setPlayer(Player player) {
-		Application.player = player;
 	}
 
 	public static NonPlayer getCurrentCombatTarget() {

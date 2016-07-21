@@ -1,0 +1,12 @@
+[
+{"room":"Cell","direction":"east","nextRoom":"Dungeon"},
+{"room":"Dungeon","direction":"south","nextRoom":"Privy"},
+{"room":"Dungeon","direction":"east","nextRoom":"Mess Hall"},
+{"room":"Dungeon","direction":"west","nextRoom":"Cell"},
+{"room":"Dungeon","direction":"north","nextRoom":"Dungeon"},
+{"room":"Mess Hall","direction":"west","nextRoom":"Dungeon"},
+{"room":"Mess Hall","direction":"east","nextRoom":"Larder"},
+{"room":"Larder","direction":"west","nextRoom":"Mess Hall"},
+{"room":"Privy","direction":"north","nextRoom":"Dungeon"},
+{"room":"Dovecote","direction":"south","nextRoom":"Dungeon"}
+]

@@ -115,8 +115,8 @@ public abstract class Character extends GameObject {
     }
     
 	public void printHealth() {
-    	System.out.println(this.getName() + " HP: " + this.hitPoints + "/" + this.maxHitPoints + "\n");
-    	System.out.println();
+    	System.out.format("%s HP: %d/%d\n", this.getName(), this.hitPoints, this.maxHitPoints);
+    	System.out.println("\n");
 	}
 
 	@Override
